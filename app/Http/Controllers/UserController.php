@@ -9,6 +9,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
+        //Comit 1
         $this->middleware('auth');
     }
     public function index(){
