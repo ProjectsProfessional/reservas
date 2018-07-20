@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title', "Detalles de la habitacion")
-@section('content-title',"Detalles de la habitacion". $tipo->DESCRIPCION)
+@section('content-title',"Detalles de la habitacion")
 @section('css-template')
     @parent
     <link href="{{asset("css/form-validation.css")}}" rel="stylesheet">
@@ -16,21 +16,27 @@
     </div>
 @endsection
 @section('content')
-    <form class="needs-validation" method="POST" action="{{url("/tiposHabitaciones/{$tipo->ID_TIPO_HABITACION}")}}">
+@foreach ($habitaciones as $habitacion)
+    <form class="needs-validation" method="POST" action="{{url("/tiposHabitaciones/{$habitacion->ID_TIPO_HABITACION}")}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
+
         <div class="row">
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
                 <label for="code">Descripcion</label>
-                <input type="text" class="form-control" id="firstName" name="description" value="{{$tipo->DESCRIPCION}}">
+                <input type="text" class="form-control" id="firstName" name="description" value="{{$habitacion->DESCRIPCION}}">
             </div>
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
                 <label for="description">Personas</label>
-                <input type="text" class="form-control" id="lastName"  name="personas" value="{{$tipo->PERSONAS}}">
+                <input type="text" class="form-control" id="lastName"  name="personas" value="{{$habitacion->PERSONAS}}">
             </div>
-		  <div class="col-4 mb-3">
+		  <div class="col-3 mb-3">
 			 <label for="description">Precio</label>
-			 <input type="text" class="form-control" id="lastName"  name="precio" value="{{$tipo->ID_PRECIO}}">
+			 <input type="text" class="form-control" id="firstName" name="precio" value="{{$habitacion->PRECIO}}" maxlength="3">
+		  </div>
+		  <div class="col-3 mb-3">
+			 <label for="code">Moneda</label>
+			 <input type="text" class="form-control" id="firstName" value="{{$habitacion->MONEDA}}" name="code" maxlength="3">
 		  </div>
         </div>
 	   <div class="row">
@@ -43,4 +49,5 @@
             </div>
         </div>
     </form>
+    @endforeach
 @endsection

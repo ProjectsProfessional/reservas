@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Currency;
 use App\Models\price;
 use Illuminate\Http\Request;
@@ -10,8 +11,14 @@ class priceController extends Controller
 {
 	public function index(){
 	    $precios = price::all();
+	    $currencies = DB::table('precio')
+            ->join('moneda', 'precio.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+            ->select('MONEDA.CODIGO AS CODIGO', 'PRECIO.PRECIO', 'PRECIO.ID_PRECIO')
+		  ->orderBy('PRECIO.ID_PRECIO')
+            ->get();
+	//	$currencies = Currency::all();
 	    $title = 'Listado de Precios';
-	    return view('precio.index', compact('precios','title'));
+	    return view('precio.index', compact('precios','title', 'currencies'));
 	}
 	public function create(){
 	    $currencies=Currency::all();
@@ -19,7 +26,13 @@ class priceController extends Controller
 	    return view('precio.create',compact('currencies','title'));
 	}
 	public function details(price $precio){
-         return view('precio.details',compact('precio'));
+		$id=$precio->ID_PRECIO;
+		$currencies = DB::table('precio')
+		   ->join('moneda', 'precio.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+		   ->where('PRECIO.ID_PRECIO', '=', $id)
+		   ->select('MONEDA.CODIGO AS CODIGO', 'PRECIO.PRECIO', 'PRECIO.ID_PRECIO')
+		   ->get();
+         return view('precio.details',compact('id', 'currencies'));
      }
 
      public function store(){

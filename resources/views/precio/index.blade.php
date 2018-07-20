@@ -25,13 +25,13 @@
             </tr>
             </thead>
             <tbody>
-			  @forelse($precios as $precio)
+			  @forelse($currencies as $currency)
 	                <tr>
-	                    <td> {{$precio->ID_PRECIO}}</td>
-	                    <td> {{$precio->ID_MONEDA}}</td>
-	                    <td> {{$precio->PRECIO}}</td>
+	                    <td> {{$currency->ID_PRECIO}}</td>
+					<td>{{$currency->CODIGO}}</td>
+	                    <td> {{$currency->PRECIO}}</td>
 	                    <td>
-	                        <a href="{{route('precio.details',[$precio->ID_PRECIO])}}">
+	                        <a href="{{route('precio.details',[$currency->ID_PRECIO])}}">
 	                            <span data-feather="edit"></span>
 	                            Ver Detalles
 	                        </a>

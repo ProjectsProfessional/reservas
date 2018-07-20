@@ -26,7 +26,7 @@
             {{csrf_field()}}
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
-                    <button class="btn btn-danger btn-block">Desconectar</button>
+                    <button class="btn btn-primary btn-block bg-primary">Desconectar</button>
                     <!--<a class="nav-link " href="{{route('login')}}" style="color: #fff;">Desconectar</a>-->
                 </li>
             </ul>

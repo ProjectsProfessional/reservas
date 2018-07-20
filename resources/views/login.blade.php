@@ -16,13 +16,13 @@
     <link href="{{asset("css/signin.css")}}" rel="stylesheet">
 </head>
 
-<body class="text-center">
-<form class="form-signin" method="POST" action="{{url('/login')}}">
+<body class="text-center bg-info">
+<form class="form-signin bg-dark text-white" method="POST" action="{{url('/login')}}" >
     {{csrf_field()}}
     @if(session()->has('flash'))
         <div class="alert-info">{{session('flash')}}</div>
     @endif
-    <h1 class="h3 mb-3 font-weight-normal">Accede al Sistema</h1>
+    <h1 class="h3 mb-3 font-weight-normal" style="color: #fff;">Accede al Sistema</h1>
 
     <div class="form-group {{$errors->has('email')?'has-error':''}}" >
         <input type="mail" name="email" class="form-control" value="{{old('email')}}" placeholder="correo Electrónico" required autofocus>
@@ -34,9 +34,9 @@
         {!! $errors->first('password','<span class="help-block">:message </span>') !!}
     </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Inicio</button>
+    <button class="btn btn-lg btn-primary btn-block " type="submit">Inicio</button>
 
-    <p class="mt-5 mb-3 text-muted"> EuroHosstal 2018-2019</p>
+    <p class="mt-5 mb-3 text-muted" style="color: #fff;"> EuroHostal 2018-2019</p>
 </form>
 </body>
 </html>

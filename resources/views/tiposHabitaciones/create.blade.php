@@ -32,7 +32,7 @@
 			  <select class="form-control" name="precio" id="precio" required>
 				  <option value="">--- Escoja el precio ---</option>
 				  @foreach($precios as $precio)
-				  	<option value="{{ $precio['ID_PRECIO'] }}">{{ $precio['PRECIO'] }}</option>
+				  	<option value="{{ $precio['ID_PRECIO'] }}">{{ $precio['PRECIO']}}</option>
 				  @endforeach
 			  </select>
             </div>

@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        //Comit 1
-        $this->middleware('auth');
-    }
     public function index(){
         $users = User::all();
         $title = 'Listado de Usuarios';

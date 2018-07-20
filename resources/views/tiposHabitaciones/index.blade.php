@@ -21,6 +21,7 @@
                 <th>#</th>
                 <th>Descripcion</th>
                 <th>Numero de personas</th>
+			 <th>Moneda</th>
                 <th>Precio</th>
             </tr>
             </thead>
@@ -31,7 +32,8 @@
                     <td> {{$tipo->ID_TIPO_HABITACION}}</td>
                     <td> {{$tipo->DESCRIPCION}}</td>
                     <td> {{$tipo->PERSONAS}}</td>
-                    <td> {{$tipo->ID_PRECIO}}</td>
+				<td> {{$tipo->CODIGO}}</td>
+                    <td> {{$tipo->PRECIO}}</td>
                     <td>
                         <a href="{{route('tiposHabitaciones.details',[$tipo->ID_TIPO_HABITACION])}}">
                             <span data-feather="edit"></span>

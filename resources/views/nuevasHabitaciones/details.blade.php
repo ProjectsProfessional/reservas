@@ -16,21 +16,22 @@
     </div>
 @endsection
 @section('content')
-    <form class="needs-validation" method="POST" action="{{url("/nuevasHabitaciones/{$habitaciones->ID_ESTADO_HABITACION}")}}">
+@foreach($habitaciones as $habitacion)
+    <form class="needs-validation" method="POST" action="{{url("/nuevasHabitaciones/{$habitacion->ID_ESTADO_HABITACION}")}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="code">Tipo de habitacion</label>
-                <input type="text" class="form-control" id="firstName" name="tipo" value="{{$habitaciones->ID_TIPO_HABITACION}}">
+                <input type="text" class="form-control"  name="tipo" value="{{$habitacion->DESCRIPCION}}">
             </div>
             <div class="col-6 mb-3">
                 <label for="description">Estado</label>
-                <input type="text" class="form-control" id="lastName"  name="estado" value="{{$habitaciones->ID_ESTADO_HABITACION}}">
+                <input type="text" class="form-control"  name="estado" value="{{$habitacion->ESTADO}}">
             </div>
 		  <div class="col-6 mb-3">
                 <label for="description">Detalles</label>
-                <input type="text" class="form-control" id="lastName"  name="description" value="{{$habitaciones->DETALLES}}">
+                <input type="text" class="form-control"  name="description" value="{{$habitacion->DETALLES}}">
             </div>
         </div>
 	   <div class="row">
@@ -43,4 +44,5 @@
             </div>
         </div>
     </form>
+@endforeach
 @endsection

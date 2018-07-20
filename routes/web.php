@@ -10,7 +10,8 @@ Route::post('login','Auth\LoginController@login')
 
 Route::post('logout','Auth\LoginController@logout')
     ->name('logout');
-
+    Route::get('/', 'Auth\LoginController@showLoginForm')
+        ->name('login');
 Route::get('/welcome','WelcomeController@index')
     ->name('welcome');
 #Usuarios
@@ -29,17 +30,14 @@ Route::get('/users/{user}','UserController@details')
 
 
 Route::get('/nuevasHabitaciones','nuevaHabitacionController@index')
-    ->name('nuevasHabitaciones');
-
-Route::get('/nuevasHabitaciones/create','nuevaHabitacionController@create')
-    ->name('nuevasHabitaciones.create');
-
+ ->name('nuevasHabitaciones');
+ Route::get('/nuevasHabitaciones/create','nuevaHabitacionController@create')
+ ->name('nuevasHabitaciones.create');
 Route::post('/nuevasHabitaciones','nuevaHabitacionController@store');
 Route::put('/nuevasHabitaciones/{habitaciones}','nuevaHabitacionController@update');
-
-Route::get('/nuevasHabitaciones/{habitaciones}','nuevaHabitacionController@details')
-    ->where('habitaciones','\d+')
-    ->name('nuevasHabitaciones.details');
+Route::get('/nuevasHabitaciones/{habitacion}','nuevaHabitacionController@details')
+->where('habitacion','\d+')
+->name('nuevasHabitaciones.details');
 
 
  #Estado de habitaciones routes
@@ -77,18 +75,18 @@ Route::get('/currencies/{currency}','CurrencyController@details')
     ->where('currency','\d+')
     ->name('currencies.details');
 #tTIPOSHABITACIONES ROUTES
-    Route::get('/tiposHabitaciones','tipoHabitacionController@index')
-      ->name('tiposHabitaciones');
+Route::get('/tiposHabitaciones','tipoHabitacionController@index')
+  ->name('tiposHabitaciones');
 
-    Route::get('/tiposHabitaciones/create','tipoHabitacionController@create')
-      ->name('tiposHabitaciones.create');
+Route::get('/tiposHabitaciones/create','tipoHabitacionController@create')
+  ->name('tiposHabitaciones.create');
 
-  Route::post('/tiposHabitaciones','tipoHabitacionController@store');
-  Route::put('/tiposHabitaciones/{tipo}','tipoHabitacionController@update');
+Route::post('/tiposHabitaciones','tipoHabitacionController@store');
+Route::put('/tiposHabitaciones/{tipo}','tipoHabitacionController@update');
 
-    Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
-      ->where('tipo','\d+')
-      ->name('tiposHabitaciones.details');
+Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
+  ->where('tipo','\d+')
+  ->name('tiposHabitaciones.details');
 #IMPUESTOS ROUTES
     Route::get('/impuestos','ImpuestoController@index')
 	 ->name('impuestos');

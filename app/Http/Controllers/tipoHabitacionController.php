@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\tipoHabitacion;
 use App\Models\Price;
 use Illuminate\Http\Request;
@@ -11,9 +12,15 @@ class tipoHabitacionController extends Controller
 
 	public function index(){
 	//Variable tipos va hacia el index
- 	   $tipos = tipoHabitacion::all();
+ 	   $tipos = DB::table('TIPO_HABITACION')
+		 ->join('PRECIO', 'TIPO_HABITACION.ID_PRECIO', '=', 'PRECIO.ID_PRECIO')
+		 ->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+		 ->select('TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS', 'PRECIO.PRECIO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
+		 'MONEDA.CODIGO')
+		 ->orderBy('TIPO_HABITACION.ID_TIPO_HABITACION')
+		 ->get();
+		// dd($tipos);
  	   $title = 'Listado';
-
  	   return view('tiposHabitaciones.index', compact('tipos','title'));
      }
      public function create(){
@@ -24,10 +31,17 @@ class tipoHabitacionController extends Controller
  	   return view('tiposHabitaciones.create',compact('precios','title'));
      }
      public function details(tipoHabitacion $tipo){
-	//	dd($tipo);
- 	   return view('tiposHabitaciones.details',compact('tipo'));
-     }
+		$id=$tipo->ID_TIPO_HABITACION;
+		   $habitaciones = DB::table('TIPO_HABITACION')
+			 ->join('PRECIO', 'TIPO_HABITACION.ID_PRECIO', '=', 'PRECIO.ID_PRECIO')
+			 ->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+			 ->where('TIPO_HABITACION.ID_TIPO_HABITACION', '=', $id)
+			 ->select('TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS', 'PRECIO.PRECIO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
+			 'MONEDA.CODIGO as MONEDA')->get();
+		 // dd($c, $id);
+ 	   return view('tiposHabitaciones.details', compact('habitaciones', 'id'));
 
+     }
      public function store(){
  	   $data = request()->all();
  	   tipoHabitacion::create([

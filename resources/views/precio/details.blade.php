@@ -16,17 +16,18 @@
     </div>
 @endsection
 @section('content')
-    <form class="needs-validation" method="POST" action="{{url("/precio/{$precio->ID_PRECIO}")}}">
+@foreach($currencies as $currency)
+    <form class="needs-validation" method="POST" action="{{url("/precio/{$currency->ID_PRECIO}")}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="firstName" name="code"  value="{{$precio->ID_MONEDA}}" readonly>
+                <input type="text" class="form-control" id="firstName" name="code"  value="{{$currency->CODIGO}}" readonly>
             </div>
             <div class="col-6 mb-3">
                 <label for="description">Descripción</label>
-                <input type="text" class="form-control" id="lastName"  name="precio" value="{{$precio->PRECIO}}">
+                <input type="text" class="form-control" id="lastName"  name="precio" value="{{$currency->PRECIO}}">
             </div>
 	  </div>
 	  <button class="btn btn-sm btn-outline-secondary">
@@ -34,4 +35,5 @@
 		 Actualizar
 	  </button>
     </form>
+ @endforeach
 @endsection
