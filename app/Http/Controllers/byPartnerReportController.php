@@ -8,6 +8,10 @@ use PDF;
 
 class byPartnerReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $title = 'Informe General de Ofrendas por Socio';

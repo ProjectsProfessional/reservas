@@ -19,7 +19,7 @@
 
 <body>
 <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow" >
-    <a class="navbar-brand col-sm-3 col-md-3 mr-0" href="{{url('/welcome')}}">Sistema de Ofrendas</a>
+    <a class="navbar-brand col-sm-3 col-md-3 mr-0" href="{{url('/welcome')}}">Euro Hostal</a>
     <input class="form-control form-control-dark w-100 " type="text" placeholder="Buscar..." aria-label="Search">
     <div class="panel-body">
         <form method="POST" action="{{route('logout')}}">

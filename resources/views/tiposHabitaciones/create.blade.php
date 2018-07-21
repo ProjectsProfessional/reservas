@@ -27,14 +27,17 @@
                 <label for="description">Cantidad de personas</label>
                 <input type="text" class="form-control" id="personas" name="personas" required>
             </div>
-		  <div class="col-4 mb-3">
-			  <label for="description">Precio</label>
-			  <select class="form-control" name="precio" id="precio" required>
-				  <option value="">--- Escoja el precio ---</option>
-				  @foreach($precios as $precio)
-				  	<option value="{{ $precio['ID_PRECIO'] }}">{{ $precio['PRECIO']}}</option>
-				  @endforeach
-			  </select>
+            <div class="col-4 mb-3">
+                <label for="pay">Precios ...</label>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModalLong">
+                            <span data-feather="dollar-sign"></span>
+                            Precios ...
+                        </a>
+                        @include('modals.prices')
+                    </div>
+                </div>
             </div>
         <div class="row">
 	   </div>

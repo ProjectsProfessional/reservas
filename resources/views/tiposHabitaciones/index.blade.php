@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', "Tipos de habitaciones")
+@section('title', $title)
 @section('content-title',"Tipos de habitaciones")
 
 @section('content-header-buttons')
@@ -21,8 +21,7 @@
                 <th>#</th>
                 <th>Descripcion</th>
                 <th>Numero de personas</th>
-			 <th>Moneda</th>
-                <th>Precio</th>
+			    <th>Detalles</th>
             </tr>
             </thead>
             <tbody>
@@ -32,8 +31,6 @@
                     <td> {{$tipo->ID_TIPO_HABITACION}}</td>
                     <td> {{$tipo->DESCRIPCION}}</td>
                     <td> {{$tipo->PERSONAS}}</td>
-				<td> {{$tipo->CODIGO}}</td>
-                    <td> {{$tipo->PRECIO}}</td>
                     <td>
                         <a href="{{route('tiposHabitaciones.details',[$tipo->ID_TIPO_HABITACION])}}">
                             <span data-feather="edit"></span>

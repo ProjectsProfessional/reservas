@@ -13,7 +13,7 @@
     </div>
 @endsection
 @section('content')
-    <h2>ResUmen</h2>
+    <h2>Resumen</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -29,7 +29,7 @@
             @forelse($currencies as $currency)
                 <tr>
                     <td> {{$currency->ID_MONEDA}}</td>
-                    <td> {{$currency->CODIGO_MONEDA}}</td>
+                    <td> {{$currency->CODIGO}}</td>
                     <td> {{$currency->DESCRIPCION}}</td>
                     <td>
                         <a href="{{route('currencies.details',[$currency->ID_MONEDA])}}">

@@ -20,15 +20,11 @@
             <tr>
                 <th>#</th>
                 <th>Código</th>
-                <th>Primer Nombre</th>
-                <th>Segundo Nombre</th>
-			 <th>Primer Apellido</th>
-                <th>Segundo Apellido</th>
-			 <th>Telefono</th>
+                <th>Nombre</th>
+			    <th>Apellido</th>
+			    <th>Telefono</th>
                 <th>Email</th>
-			 <th>Tipo Cliente</th>
-			 <th>Descripcion</th>
-                <th>Path Scan</th>
+                <th>Detalles</th>
             </tr>
             </thead>
             <tbody>
@@ -36,16 +32,11 @@
             @forelse($client as $client1)
                 <tr>
                     <td> {{$client1->ID_CLIENTE}}</td>
-				<td> {{$client1->CODIGO}}</td>
+				    <td> {{$client1->CODIGO}}</td>
                     <td> {{$client1->NOMBRE1}}</td>
-				<td> {{$client1->NOMBRE2}}</td>
-				<td> {{$client1->APELLIDO1}}</td>
-				<td> {{$client1->APELLIDO2}}</td>
-				<td> {{$client1->TELEFONO}}</td>
-				<td> {{$client1->EMAIL}}</td>
-				<td> {{$client1->TIPO_CLIENTE}}</td>
-				<td> {{$client1->COMENTARIOS}}</td>
-				<td> {{$client1->PATH_SCAN}}</td>
+				    <td> {{$client1->APELLIDO1}}</td>
+				    <td> {{$client1->TELEFONO}}</td>
+				    <td> {{$client1->EMAIL}}</td>
                     <td>
                         <a href="{{route('clients.details',[$client1->ID_CLIENTE])}}">
                             <span data-feather="edit"></span>

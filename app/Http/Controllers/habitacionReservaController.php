@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class habitacionReservaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	public function store(){
  	   $data = request()->all();
  	  //dd($data);

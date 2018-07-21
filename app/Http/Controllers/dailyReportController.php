@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 class dailyReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $title = 'Corte diario de Ofrendas';

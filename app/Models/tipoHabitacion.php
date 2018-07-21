@@ -12,6 +12,5 @@ class tipoHabitacion extends Model
          protected $fillable = [
              'DESCRIPCION',
              'PERSONAS',
-		   'ID_PRECIO',
          ];
 }

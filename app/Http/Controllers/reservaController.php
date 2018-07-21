@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class reservaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	public function index(){
          $reservas = Reserva::all();
          $title = 'Listado de reservas';

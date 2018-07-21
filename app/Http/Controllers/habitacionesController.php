@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class habitacionesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	public function index(){
 	    $habitaciones = Habitaciones::all();
 	    $title = 'Listado de Habitaciones';

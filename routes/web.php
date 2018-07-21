@@ -88,43 +88,30 @@ Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
   ->where('tipo','\d+')
   ->name('tiposHabitaciones.details');
 #IMPUESTOS ROUTES
-    Route::get('/impuestos','ImpuestoController@index')
-	 ->name('impuestos');
+Route::get('/impuestos','ImpuestoController@index')
+ ->name('impuestos');
 
-    Route::get('/impuestos/create','ImpuestoController@create')
-	 ->name('impuestos.create');
+Route::get('/impuestos/create','ImpuestoController@create')
+ ->name('impuestos.create');
 
-    Route::post('/impuestos','ImpuestoController@store');
-    Route::put('/impuestos/{impuesto}','ImpuestoController@update');
-    Route::get('/impuestos/{impuesto}','ImpuestoController@details')
-	 ->where('impuesto','\d+')
-	 ->name('impuestos.details');
- #CLIENT ROUTES
-    Route::get('/clients','ClientController@index')
-        ->name('clients');
+Route::post('/impuestos','ImpuestoController@store');
+Route::put('/impuestos/{impuesto}','ImpuestoController@update');
+Route::get('/impuestos/{impuesto}','ImpuestoController@details')
+ ->where('impuesto','\d+')
+ ->name('impuestos.details');
+#CLIENT ROUTES
+Route::get('/clients','ClientController@index')
+    ->name('clients');
 
-    Route::get('/clients/create','ClientController@create')
-        ->name('clients.create');
+Route::get('/clients/create','ClientController@create')
+    ->name('clients.create');
 
-    Route::post('/clients','ClientController@store');
-    #Ruta del boton update
-    Route::put('/clients/{client}','ClientController@update');
-    Route::get('/clients/{client}','ClientController@details')
-        ->where('client','\d+')
-        ->name('clients.details');
-    //Rutas de Precios
-    Route::get('/precio','priceController@index')
-        ->name('precio');
-
-    Route::get('/precio/create','priceController@create')
-        ->name('precio.create');
-
-    Route::post('/precio','priceController@store');
-    Route::put('/precio/{precio}','priceController@update');
-
-    Route::get('/precio/{precio}','priceController@details')
-        ->where('precio','\d+')
-        ->name('precio.details');
+Route::post('/clients','ClientController@store');
+#Ruta del boton update
+Route::put('/clients/{client}','ClientController@update');
+Route::get('/clients/{client}','ClientController@details')
+    ->where('client','\d+')
+    ->name('clients.details');
 
 //Rutas de fuentes de reservas
 Route::get('/fuentes','fuenteReservaController@index')

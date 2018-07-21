@@ -27,34 +27,38 @@
                                  usuarios
                               </a>
                            </li>
-
+                        </ul>
+                     </div>
+                  <!-- Finanzas-->
+                     <li>
+                        <a class="nav-link" href="#" data-toggle="collapse"  data-target="#collapseFinanzas" aria-expanded="false" aria-controls="collapseFinanzas">
+                           <span data-feather="chevron-down"></span>
+                           Finanzas
+                        </a>
+                     </li>
+                     <div id="collapseFinanzas" class="collapse" data-parent="#accordion">
+                        <ul>
                            <li>
                               <a class="nav-link" href="{{route('currencies')}}">
-                              <span data-feather="dollar-sign"></span>
-                              Monedas
-                              </a>
-                           </li>
-                           <li>
-                              <a class="nav-link" href="{{route('clients')}}">
-                              <span data-feather="users"></span>
-                              Clientes
+                                 <span data-feather="dollar-sign"></span>
+                                 Monedas
                               </a>
                            </li>
                            <li>
                               <a class="nav-link" href="{{route('impuestos')}}">
-                              <span data-feather="square"></span>
-                              Impuesto
+                                 <span data-feather="square"></span>
+                                 Impuesto
                               </a>
                            </li>
                         </ul>
                      </div>
 				 <!-- Habitaciones-->
 				 <li>
-                        <a class="nav-link" href="#" data-toggle="collapse"  data-target="#collapseHab" aria-expanded="false" aria-controls="collapseHab">
+                     <a class="nav-link" href="#" data-toggle="collapse"  data-target="#collapseHab" aria-expanded="false" aria-controls="collapseHab">
                         <span data-feather="chevron-down"></span>
                         Habitaciones
-                        </a>
-                     </li>
+                     </a>
+                  </li>
                      <div id="collapseHab" class="collapse" data-parent="#accordion">
                         <ul>
                            <li>
@@ -63,12 +67,13 @@
                               Tipo de habitación
                               </a>
                            </li>
-                           <li>
-                              <a class="nav-link" href="{{route('habitaciones')}}">
-                              <span data-feather="square"></span>
-                              Imagenes de habitaciones
-                              </a>
-                           </li>
+                            <li >
+                                <a class="nav-link" href="{{route('estados')}}">
+                                    <span data-feather="check-circle"></span>
+                                    Estado habitaciones
+                                </a>
+                            </li>
+
                         </ul>
                      </div>
 				 <!-- Reservas-->
@@ -89,23 +94,26 @@
                         </ul>
                      </div>
 				 <!--Precios-->
-                     <li>
-                        <a class="nav-link" href="#" data-toggle="collapse"  data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseR1 collapseR2">
-                         <span data-feather="chevron-down"></span>
-                        Precios
-                        </a>
-                        <ul>
-                           <li class="collapse multi-collapse" id="collapseR2" data-parent="#accordion">
-                              <a class="nav-link" href="{{route('precio')}}">
-                              <span data-feather="dollar-sign"></span>
-                              Determinación de precios
-                              </a>
-                           </li>
-                        </ul>
-                     </li>
                   </ul>
                </div>
             </li>
+         </ul>
+      </li>
+
+      <li class="nav-item" data-toggle="collapse"  data-target="#collapseClientes" aria-expanded="false" aria-controls="collapseClientes">
+         <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            Clientes
+         </a>
+         <ul class = "nav-tabs navbar-collapse" >
+
+            <li id="collapseClientes" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" >
+               <a class="nav-link" href="{{route('clients')}}">
+                  <span data-feather="users"></span>
+                  Clientes
+               </a>
+            </li>
+
          </ul>
       </li>
       <li class="nav-item" data-toggle="collapse"  data-target="#collapseSocios" aria-expanded="false" aria-controls="collapseSocios">
@@ -130,22 +138,23 @@
 
 		    <ul class = "nav-tabs navbar-collapse" >
 			     <div id="collapseHabitaciones" class="collapse" data-parent="#accordion">
-		     		  <li >
-		     			<a class="nav-link" href="{{route('nuevasHabitaciones')}}">
-		     			<span data-feather="calendar"></span>
-		     			Habitaciones
-		     			</a>
-		     		  </li>
-		     		  <li >
-		     		     <a class="nav-link" href="{{route('estados')}}">
-		     		     <span data-feather="calendar"></span>
-		     		     Estado habitaciones
-		     		     </a>
-		     		  </li>
+                    <li >
+                        <a class="nav-link" href="{{route('nuevasHabitaciones')}}">
+                            <span data-feather="home"></span>
+                            Habitaciones
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{route('habitaciones')}}">
+                         <span data-feather="image"></span>
+                         Imagenes de habitaciones
+                        </a>
+                    </li>
 			   </div>
      	    </ul>
 
 	 </li>
+   <!--
       <li class="nav-item" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="false" aria-controls="collapseReportes">
          <a class="nav-link" href="#">
          <span data-feather="bar-chart-2"></span>
@@ -180,6 +189,7 @@
             </div>
          </ul>
       </li>
+       -->
       <!--
          <li class="nav-item">
              <a class="nav-link" href="#">
