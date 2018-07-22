@@ -4,6 +4,7 @@
 @section('css-template')
     @parent
     <link href="{{asset("css/form-validation.css")}}" rel="stylesheet">
+    <link href="{{asset("css/autocomplete.css")}}" rel="stylesheet">
 @endsection
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -16,7 +17,7 @@
     </div>
 @endsection
 @section('content')
-    <form class="needs-validation" method="POST" action="{{url('/login')}}">
+    <form class="needs-validation" method="POST" action="{{url('/reservas')}}">
         {{csrf_field()}}
         <div class="row">
             <div class="col-4 mb-3">
@@ -25,13 +26,16 @@
             </div>
             <div class="col-4 mb-3">
                 <label for="description">Cliente</label>
-                <select class="form-control" name="cliente" id="moneda" required>
- 		   		<option value="">--- Escoja el cliente ---</option>
- 		   		@foreach($clientes as $cliente)
- 		   		   <option value="{{ $cliente['ID_CLIENTE'] }}">{{ $cliente['NOMBRE1']}} {{ $cliente['APELLIDO1']}} </option>
- 		   		@endforeach
- 		   	</select>
+				<!--<input type="text" class="form-control" id="cliente" name="cliente">-->
+
+				<input type="text" name="country" id="autocomplete-ajax" class="form-control" style="position: absolute; z-index: 2; background: transparent;"/>
+				<input type="text" name="country" id="autocomplete-ajax-x" class="form-control" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
+                <!--
+                <input type="text" class="form-control" id="_country" name="_country" style="color: yellow" value="">
+                -->
+                <div id="selction-ajax" name="_country"></div>
             </div>
+
 		  <div class="col-4 mb-3">
 			 <label for="description">Fuente</label>
 			 <select class="form-control" name="moneda" id="moneda" required>$fuentes
@@ -131,7 +135,65 @@
         </div>
     </form>
     <br><br>
-    <script type="text/javascript">
-    	$('#myModal').modal(options)
-    </script>
+@endsection
+
+@section('scripts')
+	<script type="text/javascript" src="{{asset("js/jquery.mockjax.js")}}"></script>
+	<script type="text/javascript" src="{{asset("js/jquery.autocomplete.js")}}"></script>
+    <script type="text/javascript" src="{{asset("js/filters/test.js")}}"></script>
+	<!--
+	<script type="text/javascript" src="{{asset("js/filters/customers.js")}}"></script>
+	-->
+	<script>
+        /*jslint  browser: true, white: true, plusplus: true */
+        /*global $, countries */
+
+        $(function () {
+            'use strict';
+
+            var countriesArray = $.map(@json($clientes), function (value, key) { return { value: value, data: key }; });
+
+            // Setup jQuery ajax mock:
+            $.mockjax({
+                url: '*',
+                responseTime: 2000,
+                response: function (settings) {
+                    var query = settings.data.query,
+                        queryLowerCase = query.toLowerCase(),
+                        re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi'),
+                        suggestions = $.grep(countriesArray, function (country) {
+                            // return country.value.toLowerCase().indexOf(queryLowerCase) === 0;
+                            return re.test(country.value);
+                        }),
+                        response = {
+                            query: query,
+                            suggestions: suggestions
+                        };
+
+                    this.responseText = JSON.stringify(response);
+                }
+            });
+
+            // Initialize ajax autocomplete:
+            $('#autocomplete-ajax').autocomplete({
+                // serviceUrl: '/autosuggest/service/url',
+                lookup: countriesArray,
+                lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
+                    var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
+                    return re.test(suggestion.value);
+                },
+                onSelect: function(suggestion) {
+                    $('#selction-ajax').html(suggestion.data);
+                    $('#id').val("asds");
+                },
+                onHint: function (hint) {
+                    $('#autocomplete-ajax-x').val(hint);
+                },
+                onInvalidateSelection: function() {
+                    $('#selction-ajax').html('You selected: none');
+                }
+            });
+
+        });
+	</script>
 @endsection

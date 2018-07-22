@@ -200,6 +200,8 @@
          -->
    </ul>
 </div>
+<!--
 <script type="text/javascript">
-   $('.collapse').collapse()
+   $('.collapse').collapse();
 </script>
+-->

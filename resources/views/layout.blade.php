@@ -65,7 +65,9 @@
 </script>
 
 <!-- Graphs -->
-<script src="{{asset('js/media/Chart.min.js')}}"></script>
-@yield('script-graphs')
+<!--<script src="{{asset('js/media/Chart.min.js')}}"></script>-->
+<!--yield('script-graphs')-->
+
+@yield('scripts')
 </body>
 </html>

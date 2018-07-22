@@ -190,7 +190,7 @@
                         <div class="form-group mx-sm-3 mb-2">
                             <label for="modal-txtamount-pending" class="sr-only">modal-txtamount-pending</label>
                             <input type="number" class="form-control" id="modal-txtamount-pending" placeholder="00.00" readonly>
-
+n
                         </div>
                     </form>
                 </div>

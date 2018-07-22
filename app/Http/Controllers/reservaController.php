@@ -22,7 +22,9 @@ class reservaController extends Controller
      }
      public function create(){
          $title = 'Definir reservas';
-	     $clientes=Client::all();
+	     //$clientes=Client::all()->toJson(JSON_PRETTY_PRINT);
+         $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
+         //dd($clientes);
 		 $fuentes=fuenteReserva::all();
 		 $habitaciones=nuevaHabitacion::all();
 		 $reservas=habitacion_reserva::all();
@@ -37,7 +39,7 @@ class reservaController extends Controller
      }
      public function store(){
          $data = request()->all();
- 	   //dd($data);
+         dd($data);
          Reserva::create([
              'CODIGO' => $data['code'],
              'DESCRIPCION'   => $data['description'],
