@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\tipoHabitacion;
-use App\Models\Price;
+use App\Models\Impuesto;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 
 class tipoHabitacionController extends Controller
@@ -23,8 +24,9 @@ class tipoHabitacionController extends Controller
 
     public function create(){
         $title = 'Definir habitacion';
-        $precios=Price::all();
-        return view('tiposHabitaciones.create',compact('precios','title'));
+        $impuestos=Impuesto::all();
+	   $currencies=Currency::all();
+        return view('tiposHabitaciones.create',compact('currencies','impuestos','title'));
     }
      public function details(tipoHabitacion $tipo){
         $id=$tipo->ID_TIPO_HABITACION;

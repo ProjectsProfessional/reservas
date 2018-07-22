@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use App\Models\Impuesto;
 use App\Models\Currency;
 use App\Models\price;
 use Illuminate\Http\Request;
@@ -25,9 +26,10 @@ class priceController extends Controller
 	    return view('precio.index', compact('precios','title', 'currencies'));
 	}
 	public function create(){
-	    $currencies=Currency::all();
 	    $title = 'Definir precio';
-	    return view('precio.create',compact('currencies','title'));
+	    $impuestos=Impuesto::all();
+		$currencies=Currency::all();
+	    return view('precio.create',compact('impuestos','currencies','title'));
 	}
 	public function details(price $precio){
 		$id=$precio->ID_PRECIO;
@@ -41,9 +43,16 @@ class priceController extends Controller
 
      public function store(){
          $data = request()->all();
+	    $lastId = DB::select('select last_insert_id()');
+
+	   dd($lastId);
          price::create([
              'ID_MONEDA' => $data['moneda'],
-             'PRECIO'   => $data['description'],
+             'PRECIO'   => $data['price'],
+		   'ID_IMPUESTO'=> $data['impuesto'],
+		   'BRUTO'=> $data['grossTotal'],
+		   'ID_TIPO_HABITACION'=> $data['1'],
+
          ]);
          return redirect()->route('precio');
      }

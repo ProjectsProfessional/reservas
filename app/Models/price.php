@@ -11,6 +11,9 @@ class price extends Model
      protected $table = 'PRECIO';
      protected $fillable = [
          'ID_MONEDA',
-         'PRECIO',
+         'ID_IMPUESTO',
+	    'BRUTO',
+	    'PRECIO',
+	    'ID_TIPO_HABITACION'
      ];
 }

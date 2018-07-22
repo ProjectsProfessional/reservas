@@ -16,20 +16,23 @@
                 <div class="row">
                     <div class="col-4 mb-3">
                         <label for="currenci">Moneda</label>
-                        <select class="form-control" name="currency" required>
-                            <option value="">--- Escoja la moneda ---</option>
-                        </select>
+				    <select class="form-control" name="moneda" required>
+	    		   		<option value="">--- Escoja la moneda ---</option>
+	    		   		@foreach($currencies as $currency)
+	    		   		   <option value="{{ $currency['ID_MONEDA'] }}">{{ $currency['DESCRIPCION'] }}</option>
+	    		   		@endforeach
+	    		   	</select>
                     </div>
 
                     <div class="col-4 mb-3">
                         <label for="tax">Impuesto</label>
-                        <select class="form-control" name="tax" required>
-                            <option value="">--- Escoja Impuesto ---</option>
-
-                        </select>
+				    <select class="form-control" name="impuesto" required>
+				    	<option value="">--- Escoja el impuesto ---</option>
+				    	@foreach($impuestos as $impuesto)
+				    	   <option value="{{ $impuesto['ID_IMPUESTO'] }}">{{ $impuesto['TASA'] }}</option>
+				    	@endforeach
+				    </select>
                     </div>
-
-
                 </div>
                 <div class="row">
                     <div class="col-4 mb-3">
@@ -44,13 +47,13 @@
                         <input type="number" class="form-control" id="price" name="price" required>
                     </div>
                     <div class="col-4 mb-3">
-                        <label for="add">Agregar </label>
+
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
-                                <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModalLong">
+                                <!--<a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModalLong">
                                     <span data-feather="add"></span>
-                                    Agregar ...
-                                </a>
+
+						 </a>-->
                             </div>
                         </div>
                     </div>

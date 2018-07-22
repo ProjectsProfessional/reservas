@@ -17,21 +17,43 @@
 @endsection
 @section('content')
     <form class="needs-validation" method="POST" action="{{url('/precio')}}">
-        <div class="row">
-		   {{csrf_field()}}
-		   <div class="col-4 mb-3">
-		   	<label for="description">Moneda</label>
-		   	<select class="form-control" name="moneda" id="moneda" required>
-		   		<option value="">--- Escoja la moneda ---</option>
-		   		@foreach($currencies as $currency)
-		   		   <option value="{{ $currency['ID_MONEDA'] }}">{{ $currency['DESCRIPCION'] }}</option>
-		   		@endforeach
-		   	</select>
+{{csrf_field()}}
+	   <div class="row">
+
+		   <div class="row">
+		       <div class="col-6 mb-3">
+		   	   <label for="currencies">Moneda</label>
+		   	   <select class="form-control" name="moneda" required>
+		   	    <option value="">--- Escoja la moneda ---</option>
+		   	    @foreach($currencies as $currency)
+		   		  <option value="{{ $currency['ID_MONEDA'] }}">{{ $currency['DESCRIPCION'] }}</option>
+		   	    @endforeach
+		       </select>
+		       </div>
+
+		       <div class="col-6 mb-3">
+		   	   <label for="tax">Impuesto</label>
+		   	   <select class="form-control" name="impuesto" required>
+		   	    <option value="">--- Escoja el impuesto ---</option>
+		   	    @foreach($impuestos as $impuesto)
+		   		  <option value="{{ $impuesto['ID_IMPUESTO'] }}">{{ $impuesto['TASA'] }}</option>
+		   	    @endforeach
+		   	   </select>
+		       </div>
 		   </div>
-            <div class="col-6 mb-3">
-                <label for="description">Precio</label>
-                <input type="text" class="form-control" id="description" name="description" required>
-            </div>
+		   <div class="row">
+		       <div class="col-6 mb-3">
+		   	   <label for="grossTotal">Precio Bruto</label>
+		   	   <select class="form-control" name="grossTotal" required>
+		   		  <option value="1">Si</option>
+		   		  <option value="0">No</option>
+		   	   </select>
+		       </div>
+		       <div class="col-6 mb-3">
+		   	   <label for="price">Precio</label>
+		   	   <input type="number" class="form-control" id="price" name="price" required>
+		       </div>
+		   </div>
         </div>
         <div class="row">
             <div class="col-12"></div>
