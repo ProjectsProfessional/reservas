@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Client;
 use App\Models\Reserva;
-use App\Models\fuenteReserva;
 use App\Models\nuevaHabitacion;
 use App\Models\habitacion_reserva;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +18,20 @@ class reservaController extends Controller
          $title = 'Listado de reservas';
          return view('reservas.index', compact('reservas','title'));
      }
-     public function create(){
-         $title = 'Definir reservas';
-	     //$clientes=Client::all()->toJson(JSON_PRETTY_PRINT);
-         $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
-         //dd($clientes);
-		 $fuentes=fuenteReserva::all();
-		 $habitaciones=nuevaHabitacion::all();
-		 $reservas=habitacion_reserva::all();
-		 $precios = DB::table('PRECIO')->pluck('PRECIO');
+    public function create(){
+     $title = 'Definir reservas';
+     $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
+     $fuentes=DB::table('FUENTE')->pluck('DESCRIPCION','CODIGO');
 
-         return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title'));
-     }
+     $habitaciones= DB::table('HABITACION')
+        ->join('TIPO_HABITACION','HABITACION.ID_TIPO_HABITACION','=','TIPO_HABITACION.ID_TIPO_HABITACION')
+        ->select('HABITACION.ID_HABITACION','HABITACION.DETALLES','TIPO_HABITACION.DESCRIPCION')
+        ->get();
+     $reservas=habitacion_reserva::all();
+     $precios = DB::table('PRECIO')->pluck('PRECIO');
+
+     return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title'));
+    }
 
      public function details(Reserva $reserva){
  	   // dd($currency);

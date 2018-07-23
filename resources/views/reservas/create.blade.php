@@ -28,22 +28,16 @@
                 <label for="description">Cliente</label>
 				<!--<input type="text" class="form-control" id="cliente" name="cliente">-->
 
-				<input type="text" name="country" id="autocomplete-ajax" class="form-control" style="position: absolute; z-index: 2; background: transparent;"/>
-				<input type="text" name="country" id="autocomplete-ajax-x" class="form-control" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
-                <!--
-                <input type="text" class="form-control" id="_country" name="_country" style="color: yellow" value="">
-                -->
-                <div id="selction-ajax" name="_country"></div>
+				<input type="text" id="autocomplete-cliente" class="form-control autocomplete" style=" z-index: 2; background: transparent;"/>
+				<input type="text" id="autocomplete-cliente-x" class="form-control autocomplete on-back" disabled="disabled" style="color: #CCC; background: transparent; z-index: 1;"/>
+                <input type="text" class="form-control on-back" id="cliente" name="cliente" value="" style="color: white; background: white;z-index: 3;"  readonly="true">
             </div>
 
 		  <div class="col-4 mb-3">
 			 <label for="description">Fuente</label>
-			 <select class="form-control" name="moneda" id="moneda" required>$fuentes
- 		   		<option value="">--- Escoja la fuente ---</option>
- 		   		@foreach($fuentes as $fuente)
- 		   		   <option value="{{ $fuente['ID_FUNTE'] }}">{{$fuente['DESCRIPCION'] }}</option>
- 		   		@endforeach
- 		   	</select>
+			  <input type="text"  id="autocomplete-fuente" class="form-control" style="position: absolute; z-index: 2; background: transparent;"/>
+			  <input type="text"  id="autocomplete-fuente-x" class="form-control" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
+			  <input type="text" class="form-control" id="fuente" name="fuente" style="color: white; background: white;z-index: 3 " disabled="disabled" readonly="true">
 		  </div>
         </div>
 	   <div class="row">
@@ -57,72 +51,41 @@
 		  </div>
 	    <div class="col-4 mb-3">
 		   <label for="description">Codigo de vuelo</label>
-		   <input type="text" class="form-control" id="description" name="codigoVuelo	">
+		   <input type="text" class="form-control" id="description" name="codigoVuelo">
 	    </div>
 	   </div>
-	   <hr>
-	   <div class="row">
-		  <div class="col-6">
-			  <div class="table-responsive">
-				  <h2>Disponibles</h2>
-			    <table class="table table-striped table-sm">
-				   <thead>
-				   <tr>
-					  <th>#</th>
-					  <th>Descripcion</th>
-					  <th>Carrito</th>
-					  <th>Ver detalles</th>
-				   </tr>
-				   </thead>
-				   <tbody>
+		<div class="row">
+			<div class="col-3 mb-3">
 
-				   @forelse($habitaciones as $habitacion)
-					  <tr>
-						 <td> {{ $habitacion->ID_HABITACION}}</td>
-						 <td> {{$habitacion->DETALLES}}</td>
-						 <td>
-							<a href="">
-							    <span data-feather="shopping-cart"></span>
-							    Añadir
-							</a>
-						 </td>
-						 <td>
-							<a href="{{route('nuevasHabitaciones.details',[$habitacion->ID_ESTADO_HABITACION])}}">
-							    <span data-feather="list"></span>
-							    Ver detalles
-							</a>
-						 </td>
-					  </tr>
-				   @empty
-					  <p>NO HAY ESTADOS DEFINIDOS</p>
-				   @endforelse
-				   </tbody>
-			    </table>
-			  </div>
-		  </div>
-		  <div class="col-6">
-			  <h2>Agregadas</h2>
-			  <div class="table-responsive">
-			  	<table class="table table-striped table-sm">
-			  	    <thead>
-			  	    <tr>
-			  	    <th>Habitacion</th>
-			  	    </tr>
-			  	    </thead>
-			  	    <tbody>
+				<div class="btn-toolbar mb-2 mb-md-0">
+					<div class="btn-group mr-2">
+						<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+							habitaciones
+						</button>
 
-			  	    @forelse($reservas as $reserva)
-			  	    <tr>
-			  	     <td> {{$reserva->DETALLES}}</td>
-			  	    </tr>
-			  	    @empty
-			  	    <p>AUN NO HA AGREGADO HABITACIONES</p>
-			  	    @endforelse
-			  	    </tbody>
-			  	</table>
-			  </div>
-		  </div>
-	   </div>
+						@include('modals.reservations.Rooms')
+					</div>
+				</div>
+			</div>
+			<div class="col-9">
+				<h3>Agregadas</h3>
+				<div class="table-responsive">
+					<table class="table table-striped table-sm habitaciones">
+						<thead>
+						<tr>
+                            <th>Habitación</th>
+                            <th>Tipo De Habitación</th>
+                            <th>Detalles</th>
+                            <th>Acción</th>
+						</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
         <div class="row">
 		   <br><br>
             <div class="col-12"></div>
@@ -140,60 +103,61 @@
 @section('scripts')
 	<script type="text/javascript" src="{{asset("js/jquery.mockjax.js")}}"></script>
 	<script type="text/javascript" src="{{asset("js/jquery.autocomplete.js")}}"></script>
-    <script type="text/javascript" src="{{asset("js/filters/test.js")}}"></script>
-	<!--
-	<script type="text/javascript" src="{{asset("js/filters/customers.js")}}"></script>
-	-->
-	<script>
-        /*jslint  browser: true, white: true, plusplus: true */
-        /*global $, countries */
+	@include('reservas.filters.customers')
+	@include('reservas.filters.sources')
 
-        $(function () {
-            'use strict';
-
-            var countriesArray = $.map(@json($clientes), function (value, key) { return { value: value, data: key }; });
-
-            // Setup jQuery ajax mock:
-            $.mockjax({
-                url: '*',
-                responseTime: 2000,
-                response: function (settings) {
-                    var query = settings.data.query,
-                        queryLowerCase = query.toLowerCase(),
-                        re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi'),
-                        suggestions = $.grep(countriesArray, function (country) {
-                            // return country.value.toLowerCase().indexOf(queryLowerCase) === 0;
-                            return re.test(country.value);
-                        }),
-                        response = {
-                            query: query,
-                            suggestions: suggestions
-                        };
-
-                    this.responseText = JSON.stringify(response);
-                }
-            });
-
-            // Initialize ajax autocomplete:
-            $('#autocomplete-ajax').autocomplete({
-                // serviceUrl: '/autosuggest/service/url',
-                lookup: countriesArray,
-                lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
-                    var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
-                    return re.test(suggestion.value);
-                },
-                onSelect: function(suggestion) {
-                    $('#selction-ajax').html(suggestion.data);
-                    $('#id').val("asds");
-                },
-                onHint: function (hint) {
-                    $('#autocomplete-ajax-x').val(hint);
-                },
-                onInvalidateSelection: function() {
-                    $('#selction-ajax').html('You selected: none');
-                }
-            });
+    <script>
+        $(document).ready(function(){
+            addRoom();
+            cancelRoom();
 
         });
-	</script>
+
+        function addRoom(){
+            $('.btn-link').click(function(){
+                var row = $(this).parents('tr');
+                var id = row.data('id');
+
+
+                //Agrego los Vaores a la tabla
+                var new_row = "<tr>";
+                for(var i = 0; i<=2; i++){
+                    new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
+                }
+                new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
+                new_row += "</tr>";
+                $('.habitaciones').append(new_row);
+                row.fadeOut();
+
+            });
+        };
+        function cancelRoom(){
+            $('.habitaciones').on('click','.btn-outline-link',function () {
+                var row = $(this).parents('tr');
+                row.fadeOut();
+
+                /*
+                * Se procede a Mostrar la fila oculta en la ventana modal...
+                * */
+                $('.btn-link').click(function(){
+                    var row = $(this).parents('tr');
+                    var id = row.data('id');
+
+
+                    //Agrego los Vaores a la tabla
+                    var new_row = "<tr>";
+                    for(var i = 0; i<=2; i++){
+                        new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
+                    }
+                    new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
+                    new_row += "</tr>";
+                    $('.habitaciones').append(new_row);
+                    row.fadeOut();
+
+                });
+                //alert(row.find("td").eq(2).html());
+                //row.show();
+            });
+        };
+    </script>
 @endsection

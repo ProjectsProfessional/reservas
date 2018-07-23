@@ -32,9 +32,9 @@
 
             @forelse($reservas as $reserva)
                 <tr>
-                    <td> {{$reserva->ID_RESERVA}}</td>
-                    <td> {{$reserva->CODIGO}}</td>
-                    <td> {{$reserva->ID_CLIENTE}}</td>
+                <td> {{$reserva->ID_RESERVA}}</td>
+                <td> {{$reserva->CODIGO}}</td>
+                <td> {{$reserva->ID_CLIENTE}}</td>
 				<td> {{$reserva->ID_FUENTE}}</td>
 				<td> {{$reserva->ID_ESTADO_RESERVA}}</td>
 				<td> {{$reserva->FECHA_INGRESO}}</td>

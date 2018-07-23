@@ -116,6 +116,30 @@
 
          </ul>
       </li>
+      <li class="nav-item" data-toggle="collapse" data-target="#collapseHabitaciones" aria-expanded="false" aria-controls="collapseHabitaciones">
+         <a class="nav-link" href="#">
+            <span data-feather="calendar"></span>
+            Habitaciones
+         </a>
+
+         <ul class = "nav-tabs navbar-collapse" >
+            <div id="collapseHabitaciones" class="collapse" data-parent="#accordion">
+               <li >
+                  <a class="nav-link" href="{{route('nuevasHabitaciones')}}">
+                     <span data-feather="home"></span>
+                     Habitaciones
+                  </a>
+               </li>
+               <li>
+                  <a class="nav-link" href="{{route('habitaciones')}}">
+                     <span data-feather="image"></span>
+                     Imagenes de habitaciones
+                  </a>
+               </li>
+            </div>
+         </ul>
+
+      </li>
       <li class="nav-item" data-toggle="collapse"  data-target="#collapseSocios" aria-expanded="false" aria-controls="collapseSocios">
          <a class="nav-link" href="#">
          <span data-feather="calendar"></span>
@@ -130,30 +154,7 @@
             </li>
          </ul>
       </li>
-	 <li class="nav-item" data-toggle="collapse" data-target="#collapseHabitaciones" aria-expanded="false" aria-controls="collapseHabitaciones">
-	    <a class="nav-link" href="#">
-	    <span data-feather="calendar"></span>
-	   Habitaciones
-	    </a>
 
-		    <ul class = "nav-tabs navbar-collapse" >
-			     <div id="collapseHabitaciones" class="collapse" data-parent="#accordion">
-                    <li >
-                        <a class="nav-link" href="{{route('nuevasHabitaciones')}}">
-                            <span data-feather="home"></span>
-                            Habitaciones
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{{route('habitaciones')}}">
-                         <span data-feather="image"></span>
-                         Imagenes de habitaciones
-                        </a>
-                    </li>
-			   </div>
-     	    </ul>
-
-	 </li>
    <!--
       <li class="nav-item" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="false" aria-controls="collapseReportes">
          <a class="nav-link" href="#">

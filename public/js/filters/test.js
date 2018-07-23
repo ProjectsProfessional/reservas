@@ -1,1 +1,0 @@
-var countries = {"1":"Norman Daniel Vicentess Orellana","2":"Luis Raul Fernandez Gonzalez","4":"Mariano Jose Fernandez Gonzalez","5":"Joel Raul Fernandez Gonzalez","6":"Norman Raul Fernandez Gonzalez"}
