@@ -128,7 +128,7 @@
 
             });
         };
-        
+
         function cancelRoom(){
             $('.habitaciones').on('click','.btn-outline-link',function () {
                 var row = $(this).parents('tr');
