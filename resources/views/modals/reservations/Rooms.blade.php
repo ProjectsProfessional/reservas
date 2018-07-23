@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-sm">
+                <table id="rooms-available" class="table table-striped table-sm">
                     <thead>
                     <tr>
                         <th>Habitación</th>

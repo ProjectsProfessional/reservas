@@ -116,9 +116,6 @@
         function addRoom(){
             $('.btn-link').click(function(){
                 var row = $(this).parents('tr');
-                var id = row.data('id');
-
-
                 //Agrego los Vaores a la tabla
                 var new_row = "<tr>";
                 for(var i = 0; i<=2; i++){
@@ -131,33 +128,25 @@
 
             });
         };
+        
         function cancelRoom(){
             $('.habitaciones').on('click','.btn-outline-link',function () {
                 var row = $(this).parents('tr');
+                var id = row.find("td").eq(0).html();
+                showRow(id);
                 row.fadeOut();
-
-                /*
-                * Se procede a Mostrar la fila oculta en la ventana modal...
-                * */
-                $('.btn-link').click(function(){
-                    var row = $(this).parents('tr');
-                    var id = row.data('id');
-
-
-                    //Agrego los Vaores a la tabla
-                    var new_row = "<tr>";
-                    for(var i = 0; i<=2; i++){
-                        new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
-                    }
-                    new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
-                    new_row += "</tr>";
-                    $('.habitaciones').append(new_row);
-                    row.fadeOut();
-
-                });
-                //alert(row.find("td").eq(2).html());
-                //row.show();
             });
         };
+
+        function showRow(id) {
+            /*accediendo a tabla de habitaciones disponibles*/
+            $('#rooms-available tbody tr').each(function (index) {
+                var room_id = $(this).data('id');
+                if(room_id ==id){
+                    $(this).show();
+                    return false;
+                }
+            });
+        }
     </script>
 @endsection
