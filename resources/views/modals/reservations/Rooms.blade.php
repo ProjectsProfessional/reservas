@@ -20,10 +20,10 @@
                     <tbody>
 
                     @forelse($habitaciones as $habitacion)
-                        <tr data-id="{{$habitacion->ID_HABITACION}}">
-                            <td> {{$habitacion->ID_HABITACION}} </td>
-                            <td> {{$habitacion->DESCRIPCION}}   </td>
-                            <td> {{$habitacion->DETALLES}}      </td>
+                        <tr data-id="{{$habitacion->HABITACION}}">
+                            <td> {{$habitacion->HABITACION}} </td>
+                            <td> {{$habitacion->TIPO_HAB}}   </td>
+                            <td> {{$habitacion->DESCRIPCION}} </td>
                             <td>
                                 <a href="#" class="btn-link">
                                     <span data-feather="arrow-right-circle"></span>
@@ -38,8 +38,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Aceptar</button>
+                <button type="button" class="btn btn-primary"data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

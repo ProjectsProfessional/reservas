@@ -23,7 +23,7 @@
              <div class="row">
                 <div class="col-12 col-sm-12 col-md-12">
                     <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Habitación</label>
-                      <select class="custom-select 	" id="inlineFormCustomSelectPref">
+                      <select class="custom-select" id="inlineFormCustomSelectPref">
                         <option selected>Elegir...</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>

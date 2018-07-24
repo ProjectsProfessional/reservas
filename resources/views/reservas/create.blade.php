@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-4 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="code" name="code">
+                <input type="text" class="form-control" id="code" name="code" readonly="true">
             </div>
             <div class="col-4 mb-3">
                 <label for="description">Cliente</label>
@@ -30,24 +30,24 @@
 
 				<input type="text" id="autocomplete-cliente" class="form-control autocomplete" style=" z-index: 2; background: transparent;"/>
 				<input type="text" id="autocomplete-cliente-x" class="form-control autocomplete on-back" disabled="disabled" style="color: #CCC; background: transparent; z-index: 1;"/>
-                <input type="text" class="form-control on-back" id="cliente" name="cliente" value="" style="color: white; background: white;z-index: 3;"  readonly="true">
+                <input type="text" class="form-control on-back" id="cliente" name="cliente" value="" style="color: white; background: white;z-index: 3;"  readonly="true"required>
             </div>
 
 		  <div class="col-4 mb-3">
 			 <label for="description">Fuente</label>
 			  <input type="text"  id="autocomplete-fuente" class="form-control" style="position: absolute; z-index: 2; background: transparent;"/>
 			  <input type="text"  id="autocomplete-fuente-x" class="form-control" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
-			  <input type="text" class="form-control" id="fuente" name="fuente" style="color: white; background: white;z-index: 3 " disabled="disabled" readonly="true">
+			  <input type="text" class="form-control" id="fuente" name="fuente" style="color: white; background: white;z-index: 3 " disabled="disabled" readonly="true"required>
 		  </div>
         </div>
 	   <div class="row">
 		  <div class="col-4 mb-3">
 			 <label for="code">Fecha de ingreso</label>
-			 <input type="date" class="form-control" id="code" name="fechaIngreso">
+			 <input type="date" class="form-control" id="code" name="fechaIngreso" required>
 		  </div>
 		  <div class="col-4 mb-3">
 			 <label for="description">Fecha de retiro</label>
-			 <input type="date" class="form-control" id="description" name="fechaSalida" >
+			 <input type="date" class="form-control" id="description" name="fechaSalida" required>
 		  </div>
 	    <div class="col-4 mb-3">
 		   <label for="description">Codigo de vuelo</label>
@@ -116,14 +116,21 @@
         function addRoom(){
             $('.btn-link').click(function(){
                 var row = $(this).parents('tr');
+                var id = row.data('id');
+
                 //Agrego los Vaores a la tabla
-                var new_row = "<tr>";
+                var new_row = "<tr id=\"1\">";
                 for(var i = 0; i<=2; i++){
                     new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
                 }
-                new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
+                new_row +="<input type=\"hidden\" id=\"habitacion-"+id+"\" name=\"habitacion-"+id+"\" value="+ id +">";
+
+                new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span></span> regresar </a></td>";
                 new_row += "</tr>";
+
                 $('.habitaciones').append(new_row);
+                $("table.habitaciones tbody > tr > td > a > span").attr("data-feather","arrow-left-circle");
+                feather.replace();//Refrescando el ícono
                 row.fadeOut();
 
             });
@@ -142,7 +149,9 @@
             /*accediendo a tabla de habitaciones disponibles*/
             $('#rooms-available tbody tr').each(function (index) {
                 var room_id = $(this).data('id');
+
                 if(room_id ==id){
+                    $("#habitacion-"+room_id).remove();
                     $(this).show();
                     return false;
                 }
