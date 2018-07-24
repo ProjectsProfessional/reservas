@@ -14,6 +14,7 @@
                         <th>Habitación</th>
                         <th>Tipo De Habitación</th>
                         <th>Detalles</th>
+                        <th>Precio</th>>
                         <th>Acción</th>
                     </tr>
                     </thead>
@@ -24,7 +25,19 @@
                             <td> {{$habitacion->HABITACION}} </td>
                             <td> {{$habitacion->TIPO_HAB}}   </td>
                             <td> {{$habitacion->DESCRIPCION}} </td>
+                            <td> {{$habitacion->PRECIO}} </td>
                             <td>
+                                    <a href="#"
+                                       id="precios"
+                                       class="badge badge-info"
+                                       data-toggle="popover"
+                                       title="Precios"
+                                       data-content="@foreach($precios as $precio)
+                                       @if($precio->HABITACION ==$habitacion->HABITACION)
+                                       {{"(".$precio->MONEDA ."-". $precio->PRECIO.")"}}
+                                       @endif
+                                       @endforeach"
+                                    >precios</a>
                                 <a href="#" class="btn-link">
                                     <span data-feather="arrow-right-circle"></span>
                                     Agregar

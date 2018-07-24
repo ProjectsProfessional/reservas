@@ -24,9 +24,11 @@ class reservaController extends Controller
      $fuentes=DB::table('FUENTE')->pluck('DESCRIPCION','CODIGO');
 
      $habitaciones= DB::table('DBV_DETALLES_HAB')
-         ->select('HABITACION','DESCRIPCION','TIPO_HAB')
-         ->where('ESTADO','Activo')
-         ->groupBy('HABITACION')
+         ->select('HABITACION','DESCRIPCION','TIPO_HAB','PRECIO')
+         ->where([
+             'ESTADO'=>'Activo',
+             'MONEDA'=>'QTZ'
+         ])
          ->get();
 
      $precios = DB::table('DBV_DETALLES_HAB')
@@ -34,8 +36,7 @@ class reservaController extends Controller
          ->where('ESTADO','Activo')
          ->get();
 
-
-     return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title'));
+     return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title','info'));
     }
 
      public function details(Reserva $reserva){

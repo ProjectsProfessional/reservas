@@ -76,11 +76,14 @@
                             <th>Habitación</th>
                             <th>Tipo De Habitación</th>
                             <th>Detalles</th>
+                            <th>precio</th>
                             <th>Acción</th>
 						</tr>
 						</thead>
 						<tbody>
 						</tbody>
+                        <tfoot id="foot">
+                        </tfoot>
 					</table>
 				</div>
 			</div>
@@ -101,47 +104,68 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $('[data-toggle="popover"]').popover()
+    </script>
 	<script type="text/javascript" src="{{asset("js/jquery.mockjax.js")}}"></script>
 	<script type="text/javascript" src="{{asset("js/jquery.autocomplete.js")}}"></script>
 	@include('reservas.filters.customers')
 	@include('reservas.filters.sources')
-
     <script>
         $(document).ready(function(){
             addRoom();
             cancelRoom();
 
         });
-
+        function restoreFoot(){
+            $("#foot").remove();
+            $("table.habitaciones").append('<tfoot id="foot"></tfoot>');
+        }
         function addRoom(){
             $('.btn-link').click(function(){
                 var row = $(this).parents('tr');
                 var id = row.data('id');
-
                 //Agrego los Vaores a la tabla
-                var new_row = "<tr id=\"1\">";
-                for(var i = 0; i<=2; i++){
+                var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
+                for(var i = 0; i<=3; i++){
+                    if(i==3){
+                        new_row +="<td><input id=\"precio-"+id+"\" type='text' class='form-control' readonly='true' value="+row.find("td").eq(i).html()+"></td>";
+                        break;
+                    }
                     new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
                 }
                 new_row +="<input type=\"hidden\" id=\"habitacion-"+id+"\" name=\"habitacion-"+id+"\" value="+ id +">";
-
                 new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span></span> regresar </a></td>";
                 new_row += "</tr>";
 
                 $('.habitaciones').append(new_row);
+
                 $("table.habitaciones tbody > tr > td > a > span").attr("data-feather","arrow-left-circle");
                 feather.replace();//Refrescando el ícono
+                priceTotal();
                 row.fadeOut();
 
             });
         };
+        function priceTotal(){
+            restoreFoot();
+            var foot = "<th>TOTAL:</th><th></th><th></th>";
+            var total = 0;
 
+            $('.habitaciones tbody > tr').each(function (index) {
+                var room_id = $(this).data('id');
+                total += parseFloat(document.getElementById("precio-"+room_id).value);
+            });
+            foot += "<th>"+total+"</th>";
+            $('#foot').append(foot);
+        }
         function cancelRoom(){
             $('.habitaciones').on('click','.btn-outline-link',function () {
                 var row = $(this).parents('tr');
                 var id = row.find("td").eq(0).html();
                 showRow(id);
-                row.fadeOut();
+
+                priceTotal();
             });
         };
 
@@ -151,7 +175,7 @@
                 var room_id = $(this).data('id');
 
                 if(room_id ==id){
-                    $("#habitacion-"+room_id).remove();
+                    $('[class="room-'+room_id+'"]').remove();
                     $(this).show();
                     return false;
                 }
