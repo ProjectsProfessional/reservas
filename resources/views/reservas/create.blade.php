@@ -115,8 +115,8 @@
         $(document).ready(function(){
             addRoom();
             cancelRoom();
-
         });
+
         function restoreFoot(){
             $("#foot").remove();
             $("table.habitaciones").append('<tfoot id="foot"></tfoot>');
@@ -129,7 +129,7 @@
                 var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
                 for(var i = 0; i<=3; i++){
                     if(i==3){
-                        new_row +="<td><input id=\"precio-"+id+"\" type='text' class='form-control' readonly='true' value="+row.find("td").eq(i).html()+"></td>";
+                        new_row +="<td><input id=\"precio-"+id+"\" name=\"precio-"+id+"\" type='text' class='form-control' readonly='"+modifyPrice()+"' value="+row.find("td").eq(i).html()+"></td>";
                         break;
                     }
                     new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
@@ -143,10 +143,12 @@
                 $("table.habitaciones tbody > tr > td > a > span").attr("data-feather","arrow-left-circle");
                 feather.replace();//Refrescando el ícono
                 priceTotal();
+
                 row.fadeOut();
 
             });
         };
+
         function priceTotal(){
             restoreFoot();
             var foot = "<th>TOTAL:</th><th></th><th></th>";
@@ -159,12 +161,30 @@
             foot += "<th>"+total+"</th>";
             $('#foot').append(foot);
         }
+
+        function modifyPrice(){
+            var available = false;
+            var customer = $('#cliente').val();
+            const data ={
+                _token:   '@csrf',
+                customer:   customer
+            };
+            $.ajax({
+                url:    "{{ url('/reservas') }}",
+                method: 'post',
+                data:   data,
+                success: function(result){
+                    alert("hola");
+                }
+            });
+            alert(customer);
+            return available;
+        }
         function cancelRoom(){
             $('.habitaciones').on('click','.btn-outline-link',function () {
                 var row = $(this).parents('tr');
                 var id = row.find("td").eq(0).html();
                 showRow(id);
-
                 priceTotal();
             });
         };

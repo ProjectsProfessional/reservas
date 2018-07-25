@@ -19,7 +19,6 @@
 @section('content')
 	<form class="" method="POST" action="{{url('/tiposHabitaciones')}}">
 		{{csrf_field()}}
-		<input type="text" name="" value="">
 		<div class="row">
 			<div class="col-6 mb-3">
 			    <label for="code">Descripcion</label>
@@ -27,7 +26,7 @@
 			</div>
 			<div class="col-6 mb-3">
 			    <label for="description">Cantidad de personas</label>
-			    <input type="text" class="form-control" id="personas" name="personas" id="personas" required>
+			    <input type="number" class="form-control" id="personas" name="personas" id="personas" required>
 			</div>
 		</div>
 		@include('modals.prices')

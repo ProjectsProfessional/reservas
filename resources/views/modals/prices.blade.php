@@ -21,7 +21,7 @@
 				    <select class="form-control" name="impuesto" id="impuesto">
 				    	<option value="">--- Escoja el impuesto ---</option>
 				    	@foreach($impuestos as $impuesto)
-				    	   <option value="{{ $impuesto['ID_IMPUESTO'] }}" id="impuesto">{{ $impuesto['TASA'] }}</option>
+				    	   <option value="{{ $impuesto['ID_IMPUESTO'] }}" id="impuesto">{{ $impuesto['CODIGO'] }}</option>
 				    	@endforeach
 				    </select>
                     </div>
@@ -48,7 +48,7 @@
                             <div class="btn-group mr-2">
                                 <a class="btn btn-sm btn-outline-secondary btn-link" id="btnModal" data-toggle="modal" data-target="#exampleModalLong">
                                     <span data-feather="add"></span>
-							 Agregar
+							 Aceptar
 						 </a>
                             </div>
                         </div>

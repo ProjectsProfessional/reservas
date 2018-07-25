@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class CustomerController extends Controller
 {
     public function __construct()
     {
@@ -58,6 +58,5 @@ class ClientController extends Controller
 			  'PATH_SCAN'  => $data['pathScan'],
              ]);
              return redirect()->route('clients');
-         }
-
+     }
 }
