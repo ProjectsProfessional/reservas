@@ -80,7 +80,7 @@ Route::get('/currencies','CurrencyController@index')
 Route::get('/currencies/create','CurrencyController@create')
     ->name('currencies.create');
 
-Route::post('/currencies','CurrencyController@store')->name("saveRooms");
+Route::post('/currencies','CurrencyController@store');
 Route::put('/currencies/{currency}','CurrencyController@update');
 
 Route::get('/currencies/{currency}','CurrencyController@details')
@@ -93,7 +93,7 @@ Route::get('/tiposHabitaciones','tipoHabitacionController@index')
 Route::get('/tiposHabitaciones/create','tipoHabitacionController@create')
   ->name('tiposHabitaciones.create');
 
-Route::post('/tiposHabitaciones','tipoHabitacionController@store');
+Route::post('/tiposHabitaciones','tipoHabitacionController@store')->name("saveRooms");
 Route::put('/tiposHabitaciones/{tipo}','tipoHabitacionController@update');
 
 Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
@@ -112,19 +112,16 @@ Route::get('/impuestos/{impuesto}','ImpuestoController@details')
  ->where('impuesto','\d+')
  ->name('impuestos.details');
 #CLIENT ROUTES
-Route::get('/clients','CustomerController@index')
+Route::get('/clients','ClientController@index')
     ->name('clients');
 
-Route::get('/clients/create','CustomerController@create')
+Route::get('/clients/create','ClientController@create')
     ->name('clients.create');
 
-Route::post('/clients','CustomerController@store');
-
-//Route::post('/clients','CustomerController@isPreferential')
-//    ->name('customer.preferential');
+Route::post('/clients','ClientController@store');
 #Ruta del boton update
-Route::put('/clients/{client}','CustomerController@update');
-Route::get('/clients/{client}','CustomerController@details')
+Route::put('/clients/{client}','ClientController@update');
+Route::get('/clients/{client}','ClientController@details')
     ->where('client','\d+')
     ->name('clients.details');
 
