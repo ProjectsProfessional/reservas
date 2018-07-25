@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Impuesto;
+use Illuminate\Support\Collection;
 use App\Models\Currency;
 use App\Models\price;
 use Illuminate\Http\Request;
@@ -41,20 +42,18 @@ class priceController extends Controller
          return view('precio.details',compact('id', 'currencies'));
      }
 
-     public function store(){
-         $data = request()->all();
-	    $lastId = DB::select('select last_insert_id()');
-
-	   dd($lastId);
-         price::create([
-             'ID_MONEDA' => $data['moneda'],
-             'PRECIO'   => $data['price'],
-		   'ID_IMPUESTO'=> $data['impuesto'],
-		   'BRUTO'=> $data['grossTotal'],
-		   'ID_TIPO_HABITACION'=> $data['1'],
-
-         ]);
-         return redirect()->route('precio');
+     public function store(request $request){
+	         $data = request()->all();
+		    $ID_MONEDA = $request->input('moneda');
+		    $precio = $request->input('price');
+		    $ID_IMPUESTO= $request->input('impuesto');
+		    $BRUTO= $request->input('grossTotal');
+		    $push=[$ID_MONEDA,$precio,$ID_IMPUESTO,$BRUTO];
+		    $collection = collect($push);
+		    $collection->push($push);
+		    $collection->all();
+		    dd($collection);
+         return redirect()->route('tiposHabitaciones');
      }
 	public function update(Price $precio){
 	   $data = request()->all();

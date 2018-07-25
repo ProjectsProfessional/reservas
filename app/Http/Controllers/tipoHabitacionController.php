@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\tipoHabitacion;
 use App\Models\Impuesto;
+use App\Models\Price;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
@@ -40,14 +41,23 @@ class tipoHabitacionController extends Controller
        return view('tiposHabitaciones.details', compact('habitaciones', 'id'));
 
      }
-     public function store(){
-       $data = request()->all();
-       tipoHabitacion::create([
-          'ID_PRECIO' => $data['precio'],
-          'DESCRIPCION'   => $data['description'],
-          'PERSONAS'   => $data['personas'],
-       ]);
-       return redirect()->route('tiposHabitaciones');
+     public function store(request $request){
+	 $tipo = new tipoHabitacion();
+	 $tipo->DESCRIPCION = $request->description;
+	 $tipo->PERSONAS = $request->personas;
+	 $tipo->save();
+	 $id=$tipo->ID_TIPO_HABITACION;
+	 $arr=$request->precios;
+	 for ($i=0; $i <count($arr) ; $i++) {
+		$precio[$i]= new Price();
+	 	$precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+		$precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+		$precio[$i]->BRUTO=$request->precios[$i]["gross"];
+		$precio[$i]->PRECIO=$request->precios[$i]["price"];
+		$precio[$i]->ID_TIPO_HABITACION=$id;
+		$precio[$i]->save();
+	 }
+      return response()->json(['success'=>'Data is successfully added']);
     }
     public function update(tipoHabitacion $tipo){
         $data = request()->all();

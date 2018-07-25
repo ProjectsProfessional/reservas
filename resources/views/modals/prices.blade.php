@@ -1,35 +1,27 @@
-<!-- Modal -->
-<!--
-    REFERENCES:
-    https://getbootstrap.com/docs/4.0/components/modal/#varying-modal-content
--->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Determinación de Precios</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body"  id="cont">
                 <div class="row">
                     <div class="col-4 mb-3">
-                        <label for="currenci">Moneda</label>
-				    <select class="form-control" name="moneda" required>
+                        <label for="currencies">Moneda</label>
+				    <select class="form-control" name="moneda" id="currency">
 	    		   		<option value="">--- Escoja la moneda ---</option>
 	    		   		@foreach($currencies as $currency)
-	    		   		   <option value="{{ $currency['ID_MONEDA'] }}">{{ $currency['DESCRIPCION'] }}</option>
+	    		   		   <option value="{{ $currency['ID_MONEDA'] }}" id="currency">{{ $currency['DESCRIPCION'] }}</option>
 	    		   		@endforeach
 	    		   	</select>
                     </div>
 
                     <div class="col-4 mb-3">
                         <label for="tax">Impuesto</label>
-				    <select class="form-control" name="impuesto" required>
+				    <select class="form-control" name="impuesto" id="impuesto">
 				    	<option value="">--- Escoja el impuesto ---</option>
 				    	@foreach($impuestos as $impuesto)
-				    	   <option value="{{ $impuesto['ID_IMPUESTO'] }}">{{ $impuesto['TASA'] }}</option>
+				    	   <option value="{{ $impuesto['ID_IMPUESTO'] }}" id="impuesto">{{ $impuesto['TASA'] }}</option>
 				    	@endforeach
 				    </select>
                     </div>
@@ -37,31 +29,33 @@
                 <div class="row">
                     <div class="col-4 mb-3">
                         <label for="grossTotal">Precio Bruto</label>
-                        <select class="form-control" name="grossTotal" required>
-                            <option value="1">Si</option>
-                            <option value="0">No</option>
+                        <select class="form-control" name="grossTotal" id="grossTotal">
+                            <option value="1" id="grossTotal">Si</option>
+                            <option value="0" id="grossTotal">No</option>
                         </select>
                     </div>
                     <div class="col-4 mb-3">
                         <label for="price">Precio</label>
-                        <input type="number" class="form-control" id="price" name="price" required>
+                        <input type="number" class="form-control" id="price" name="price">
                     </div>
+				<div class="col-4 mb-3">
+				    <label >test</label>
+				    <input type="number" class="form-control">
+				</div>
                     <div class="col-4 mb-3">
-
+					<label for="">Agregar</label>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
-                                <!--<a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModalLong">
+                                <a class="btn btn-sm btn-outline-secondary btn-link" id="btnModal" data-toggle="modal" data-target="#exampleModalLong">
                                     <span data-feather="add"></span>
-
-						 </a>-->
+							 Agregar
+						 </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Aceptar</button>
             </div>
         </div>
     </div>

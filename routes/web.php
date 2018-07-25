@@ -80,7 +80,7 @@ Route::get('/currencies','CurrencyController@index')
 Route::get('/currencies/create','CurrencyController@create')
     ->name('currencies.create');
 
-Route::post('/currencies','CurrencyController@store');
+Route::post('/currencies','CurrencyController@store')->name("saveRooms");;
 Route::put('/currencies/{currency}','CurrencyController@update');
 
 Route::get('/currencies/{currency}','CurrencyController@details')
