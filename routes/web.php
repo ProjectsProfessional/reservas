@@ -80,7 +80,7 @@ Route::get('/currencies','CurrencyController@index')
 Route::get('/currencies/create','CurrencyController@create')
     ->name('currencies.create');
 
-Route::post('/currencies','CurrencyController@store')->name("saveRooms");;
+Route::post('/currencies','CurrencyController@store')
 Route::put('/currencies/{currency}','CurrencyController@update');
 
 Route::get('/currencies/{currency}','CurrencyController@details')
@@ -93,7 +93,7 @@ Route::get('/tiposHabitaciones','tipoHabitacionController@index')
 Route::get('/tiposHabitaciones/create','tipoHabitacionController@create')
   ->name('tiposHabitaciones.create');
 
-Route::post('/tiposHabitaciones','tipoHabitacionController@store');
+Route::post('/tiposHabitaciones','tipoHabitacionController@store')->name("saveRooms");
 Route::put('/tiposHabitaciones/{tipo}','tipoHabitacionController@update');
 
 Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
