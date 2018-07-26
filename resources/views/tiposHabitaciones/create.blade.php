@@ -19,19 +19,21 @@
 @section('content')
 	<form class="" method="POST" action="{{url('/tiposHabitaciones')}}">
 		{{csrf_field()}}
-		<input type="text" name="" value="">
 		<div class="row">
-			<div class="col-6 mb-3">
+			<div class="col-4 mb-3">
 			    <label for="code">Descripcion</label>
 			    <input type="text" class="form-control" name="description" id="description" required >
 			</div>
-			<div class="col-6 mb-3">
+			<div class="col-4 mb-3">
 			    <label for="description">Cantidad de personas</label>
 			    <input type="text" class="form-control" id="personas" name="personas" id="personas" required>
 			</div>
+			<div class="col-4">
+				<label for="description">Precios</label>
+			     <input type="button" value="Agregar" class="btn btn-outline-secondary form-control" data-toggle="modal" data-target="#exampleModalLong" required>
+			</div>
 		</div>
 		@include('modals.prices')
-		<a data-toggle="modal" data-target="#exampleModalLong">Agregar precio</a>
 		<div class="row">
 			<div class="col-9">
 				<h3>Agregados</h3>
