@@ -64,7 +64,7 @@ class reservaController extends Controller
               $detail->ID_RESERVA    = $reservation->ID_RESERVA;
               $detail->PRECIO = $request->habitaciones[$i]["precio"];
               $detail->save();
-              //Es necesario actualizar las habitaciones como Reservadas
+              //Es necesario actualizar las habitaciones como Reservadas.
               $this->updateRoom($request->habitaciones[$i]["habitacion"]);
 
           }
