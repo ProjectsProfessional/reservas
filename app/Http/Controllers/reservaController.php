@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\nuevaHabitacion;
+use App\Models\habitaciones;
 use App\Models\habitacion_reserva;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -63,16 +64,21 @@ class reservaController extends Controller
               $detail->ID_RESERVA    = $reservation->ID_RESERVA;
               $detail->PRECIO = $request->habitaciones[$i]["precio"];
               $detail->save();
+              //Es necesario actualizar las habitaciones como Reservadas
+              $this->updateRoom($request->habitaciones[$i]["habitacion"]);
           }
+
+
          return response()->json(['message'=>'Se creado la reserva : '.$reservation->ID_RESERVA .' exitosamente']);
      }
+
 
      public function update(Reserva $reserva){
  	    $data = request()->all();
   	   	//dd($data);
  		$reserva->update([
-			'CODIGO' => $data['code'],
-               'DESCRIPCION'   => $data['description'],
+ 		    'CODIGO' => $data['code'],
+            'DESCRIPCION'   => $data['description'],
   		   'ID_CLIENTE'   => $data['cliente'],
   		   'ID_FUENTE'   => $data['fuente'],
   		   'ID_ESTADO_RESERVA'   => $data['estado'],
@@ -83,4 +89,15 @@ class reservaController extends Controller
  	    return redirect()->route('reservas');
      }
 
+     private function updateRoom(int $id){
+
+        $status = DB::table('ESTADO_HABITACION')
+            ->select('ID_ESTADO_HABITACION')
+            ->where('DESCRIPCION','Reservado')
+            ->first();
+
+        DB::table('HABITACION')
+            ->where('ID_HABITACION',$id)
+            ->update(['ID_ESTADO_HABITACION'=>$status->ID_ESTADO_HABITACION]);
+     }
 }
