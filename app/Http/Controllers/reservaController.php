@@ -66,6 +66,7 @@ class reservaController extends Controller
               $detail->save();
               //Es necesario actualizar las habitaciones como Reservadas
               $this->updateRoom($request->habitaciones[$i]["habitacion"]);
+
           }
 
 
