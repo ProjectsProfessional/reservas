@@ -38,20 +38,11 @@
                         <label for="price">Precio</label>
                         <input type="number" class="form-control" id="price" name="price">
                     </div>
-				<div class="col-4 mb-3">
-				    <label >test</label>
-				    <input type="number" class="form-control">
-				</div>
                     <div class="col-4 mb-3">
-					<label for="">Agregar</label>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group mr-2">
-                                <a class="btn btn-sm btn-outline-secondary btn-link" id="btnModal" data-toggle="modal" data-target="#exampleModalLong">
-                                    <span data-feather="add"></span>
-							 Aceptar
-						 </a>
-                            </div>
-                        </div>
+				    <div class="col-4">
+					    <label for="description">Agregar</label>
+					    <input class="btn btn-sm btn-outline-secondary" value="Agregar" id="btnModal" data-toggle="modal" data-target="#exampleModalLong">
+				    </div>
                     </div>
                 </div>
             </div>
