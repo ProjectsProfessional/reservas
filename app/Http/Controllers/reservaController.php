@@ -39,6 +39,7 @@ class reservaController extends Controller
      return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title','info'));
     }
 
+
      public function details(Reserva $reserva){
  	   // dd($currency);
          return view('reservas.details',compact('reserva'));
@@ -57,6 +58,7 @@ class reservaController extends Controller
          ]);
          return redirect()->route('reservas');
      }
+
      public function update(Reserva $reserva){
  	    $data = request()->all();
   	   	//dd($data);

@@ -112,16 +112,19 @@ Route::get('/impuestos/{impuesto}','ImpuestoController@details')
  ->where('impuesto','\d+')
  ->name('impuestos.details');
 #CLIENT ROUTES
-Route::get('/clients','ClientController@index')
+Route::get('/clients','CustomerController@index')
     ->name('clients');
 
-Route::get('/clients/create','ClientController@create')
+Route::get('/clients/create','CustomerController@create')
     ->name('clients.create');
 
-Route::post('/clients','ClientController@store');
+Route::post('/clients','CustomerController@store');
+Route::post('/price-available','CustomerController@isPreferentialCustomer')
+    ->name('reservas.modify-prices');
+
 #Ruta del boton update
-Route::put('/clients/{client}','ClientController@update');
-Route::get('/clients/{client}','ClientController@details')
+Route::put('/clients/{client}','CustomerController@update');
+Route::get('/clients/{client}','CustomerController@details')
     ->where('client','\d+')
     ->name('clients.details');
 
@@ -147,6 +150,8 @@ Route::get('/reservas/create','ReservaController@create')
     ->name('reservas.create');
 
 Route::post('/reservas','ReservaController@store');
+
+
 Route::put('/reservas/{reserva}','ReservaController@update');
 
 Route::get('/reservas/{reserva}','ReservaController@details')

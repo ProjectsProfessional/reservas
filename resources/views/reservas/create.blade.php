@@ -107,7 +107,7 @@
     <script>
         $('[data-toggle="popover"]').popover()
     </script>
-	<script type="text/javascript" src="{{asset("js/jquery.mockjax.js")}}"></script>
+	<!--<script type="text/javascript" src="{{asset("js/jquery.mockjax.js")}}"></script>-->
 	<script type="text/javascript" src="{{asset("js/jquery.autocomplete.js")}}"></script>
 	@include('reservas.filters.customers')
 	@include('reservas.filters.sources')
@@ -129,7 +129,7 @@
                 var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
                 for(var i = 0; i<=3; i++){
                     if(i==3){
-                        new_row +="<td><input id=\"precio-"+id+"\" name=\"precio-"+id+"\" type='text' class='form-control' readonly='"+modifyPrice()+"' value="+row.find("td").eq(i).html()+"></td>";
+                        new_row +="<td><input id=\"precio-"+id+"\" name=\"precio-"+id+"\" type='number' class='form-control prices' readonly='true' value="+row.find("td").eq(i).html()+"></td>";
                         break;
                     }
                     new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
@@ -143,6 +143,7 @@
                 $("table.habitaciones tbody > tr > td > a > span").attr("data-feather","arrow-left-circle");
                 feather.replace();//Refrescando el ícono
                 priceTotal();
+                modifyPrice();
 
                 row.fadeOut();
 
@@ -163,22 +164,21 @@
         }
 
         function modifyPrice(){
-            var available = false;
-            var customer = $('#cliente').val();
+
+            var customer = 1;//$('#cliente').val();
             const data ={
-                _token:   '@csrf',
+                _token:   "{{ csrf_token() }}",
                 customer:   customer
             };
-            $.ajax({
-                url:    "{{ url('/reservas') }}",
+            jQuery.ajax({
+                url:    "{{ Route('reservas.modify-prices') }}",
                 method: 'post',
                 data:   data,
                 success: function(result){
-                    alert("hola");
+                    alert(result.success)
+                    $('[class="form-control prices"]').removeAttr("readonly");
                 }
             });
-            alert(customer);
-            return available;
         }
         function cancelRoom(){
             $('.habitaciones').on('click','.btn-outline-link',function () {

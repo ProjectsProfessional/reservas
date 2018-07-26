@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -42,6 +43,18 @@ class CustomerController extends Controller
 		 return redirect()->route('clients');
 	 }
 
+    public function isPreferentialCustomer(/*request $request*/){
+        $data = request()->all();
+        //dd($data);
+
+        $customer = DB::table('CLIENTE')
+            ->select('TIPO_CLIENTE')
+            ->where('ID_ClIENTE',$data['customer'])
+            ->get();
+
+        //if ($customer->TIPO_CLIENTE == 'PREF')
+            return response()->json(['success'=>'1']);
+    }
      public function store(){
              $data = request()->all();
 		   //dd($data);
