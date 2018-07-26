@@ -149,7 +149,8 @@ Route::get('/reservas','ReservaController@index')
 Route::get('/reservas/create','ReservaController@create')
     ->name('reservas.create');
 
-Route::post('/reservas','ReservaController@store');
+Route::post('/reservas','ReservaController@store')
+    ->name('reservas.save');
 
 
 Route::put('/reservas/{reserva}','ReservaController@update');

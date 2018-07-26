@@ -53,7 +53,7 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-			    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="test();" id="enviar">
+			    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="save();" id="enviar">
 				   <span data-feather="save"></span>
 				   Guardar
 			    </button>
@@ -71,8 +71,8 @@
             addPrice();
             cancelRoom();
         });
-	   let arrPrices = [];
-	   function addPrice(){
+	   	let arrPrices = [];
+		function addPrice(){
 		//Boton del modal
 
 		  $('#btnModal').click(function(){
@@ -88,28 +88,27 @@
 			 arrPrices.push(arrPrice);
 			 var new_row = "<tr>";
 			 for(var i = 0; i<1; i++){
-				 console.log(arrPrice);
-				 console.log(arrPrices);
+				 //console.log(arrPrice);
+				 //console.log(arrPrices);
 				new_row +="<td>"+ row.find('#currency:selected').eq(i).html() +"</td>";
 				new_row +="<td>"+ row.find('#impuesto:selected').eq(i).html() +"</td>";
 				new_row +="<td>"+ row.find('#grossTotal:selected').eq(i).html() +"</td>";
 				new_row +="<td>"+ row.find('#price').val() +"</td>";
 			 }
-		 	console.log(new_row);
+			console.log(new_row);
 			 new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
 			 new_row += "</tr>";
 			 console.log(new_row);
 		   //Nombre de la tabla
 			 $('.precios').append(new_row);
 		  });
-	   };
-
-	   function test(){
-		 	const arrdata = {
+		}
+		function save(){
+			const arrdata = {
 				_token: "{{ csrf_token() }}",
-			    description:  $('#description').val(),
-			    personas:  $('#personas').val(),
-			    precios: arrPrices
+				description:  $('#description').val(),
+				personas:  $('#personas').val(),
+				precios: arrPrices
 			};
 		   jQuery.ajax({
 			 url: "{{ route('saveRooms') }}",
@@ -119,29 +118,26 @@
 				 document.location.href="{{route('tiposHabitaciones')}}";
 			 }});
 
-	   }
-	   jQuery(document).ready(function(){
-
-	   });
-        function cancelRoom(){
-            $('.precios').on('click','.btn-outline-link',function () {
-                var row = $(this).parents('tr');
-                var id = row.find("td").eq(0).html();
-                showRow(id);
-                row.fadeOut();
-            });
-        };
-        function showRow(id) {
-            /*accediendo a tabla de habitaciones disponibles*/
+		}
+		function cancelRoom(){
+			$('.precios').on('click','.btn-outline-link',function () {
+				var row = $(this).parents('tr');
+				var id = row.find("td").eq(0).html();
+				showRow(id);
+				row.fadeOut();
+			});
+		}
+		function showRow(id) {
+			/*accediendo a tabla de habitaciones disponibles*/
 		  //ID tabla de la vista rooms
 		  //table->tbody->tr
-            $('#rooms-available tbody tr').each(function (index) {
-                var room_id = $(this).data('id');
-                if(room_id ==id){
-                    $(this).show();
-                    return false;
-                }
-            });
-	  }
+			$('#rooms-available tbody tr').each(function (index) {
+				var room_id = $(this).data('id');
+				if(room_id ==id){
+					$(this).show();
+					return false;
+				}
+			});
+		}
     </script>
 @endsection

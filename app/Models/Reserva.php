@@ -10,8 +10,8 @@ class Reserva extends Model
      protected $primaryKey = 'ID_RESERVA';
      protected $table = 'RESERVA';
      protected $fillable = [
- 	   'CODIGO',
- 	   'ID_CLIENTE',
+        'ID_RESERVA',
+        'CODIGO',
  	   'ID_CLIENTE',
  	   'ID_FUENTE',
  	   'ID_ESTADO_RESERVA',

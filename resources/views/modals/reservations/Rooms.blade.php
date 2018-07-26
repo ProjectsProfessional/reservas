@@ -25,18 +25,43 @@
                             <td> {{$habitacion->HABITACION}} </td>
                             <td> {{$habitacion->TIPO_HAB}}   </td>
                             <td> {{$habitacion->DESCRIPCION}} </td>
-                            <td> {{$habitacion->PRECIO}} </td>
+                            <td> Defina Precio </td>
                             <td>
                                     <a href="#"
                                        id="precios"
                                        class="badge badge-info"
                                        data-toggle="popover"
                                        title="Precios"
-                                       data-content="@foreach($precios as $precio)
-                                       @if($precio->HABITACION ==$habitacion->HABITACION)
-                                       {{"(".$precio->MONEDA ."-". $precio->PRECIO.")"}}
-                                       @endif
-                                       @endforeach"
+                                       data-html="true"
+                                       data-content="
+                                            <table id='rooms-available' class='table table-striped table-sm'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Personas</th>
+                                                        <th>Moneda</th>
+                                                        <th>Precio</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                           @foreach($precios as $precio)
+                                           @if($precio->HABITACION ==$habitacion->HABITACION)
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>{{$precio->MONEDA}}</td>
+                                                    <td>{{$precio->PRECIO}}</td>
+                                                    <td>
+                                                        <a href='#' class='btn-link' onclick='addPrice({{$habitacion->HABITACION}},{{$precio->PRECIO}})'>
+                                                            <span data-feather='arrow-right-circle' ></span>
+                                                            Agregar
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                           @endif
+                                           @endforeach
+                                               </tbdody>
+                                            </table>
+                                        "
                                     >precios</a>
                                 <a href="#" class="btn-link">
                                     <span data-feather="arrow-right-circle"></span>

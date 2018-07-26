@@ -50,10 +50,12 @@ class CustomerController extends Controller
         $customer = DB::table('CLIENTE')
             ->select('TIPO_CLIENTE')
             ->where('ID_ClIENTE',$data['customer'])
-            ->get();
+            ->first();
 
-        //if ($customer->TIPO_CLIENTE == 'PREF')
-            return response()->json(['success'=>'1']);
+        if ($customer->TIPO_CLIENTE == 'PREF')
+            return response()->json(['message'=>true]);
+
+        return response()->json(['message'=>false]);
     }
      public function store(){
              $data = request()->all();

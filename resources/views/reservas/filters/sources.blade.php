@@ -8,8 +8,8 @@
         var countriesArray = $.map(@json($fuentes), function (value, key) { return { value: value, data: key }; });
 
         // Setup jQuery ajax mock:
-        $.mockjax({
-            url: '*',
+        $.ajax({
+            url: '#',
             responseTime: 2000,
             response: function (settings) {
                 var query = settings.data.query,

@@ -42,22 +42,25 @@ class tipoHabitacionController extends Controller
 
      }
      public function store(request $request){
-	 $tipo = new tipoHabitacion();
-	 $tipo->DESCRIPCION = $request->description;
-	 $tipo->PERSONAS = $request->personas;
-	 $tipo->save();
-	 $id=$tipo->ID_TIPO_HABITACION;
-	 $arr=$request->precios;
-	 for ($i=0; $i <count($arr) ; $i++) {
-		$precio[$i]= new Price();
-	 	$precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
-		$precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
-		$precio[$i]->BRUTO=$request->precios[$i]["gross"];
-		$precio[$i]->PRECIO=$request->precios[$i]["price"];
-		$precio[$i]->ID_TIPO_HABITACION=$id;
-		$precio[$i]->save();
-	 }
-      return response()->json(['success'=>'Data is successfully added']);
+
+        $tipo = new tipoHabitacion();
+        $tipo->DESCRIPCION = $request->description;
+        $tipo->PERSONAS = $request->personas;
+        $tipo->save();
+
+        $id=$tipo->ID_TIPO_HABITACION;
+        $arr=$request->precios;
+
+        for ($i=0; $i <count($arr) ; $i++) {
+            $precio[$i]= new Price();
+            $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+            $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+            $precio[$i]->BRUTO=$request->precios[$i]["gross"];
+            $precio[$i]->PRECIO=$request->precios[$i]["price"];
+            $precio[$i]->ID_TIPO_HABITACION=$id;
+            $precio[$i]->save();
+        }
+        return response()->json(['success'=>'Data is successfully added']);
     }
     public function update(tipoHabitacion $tipo){
         $data = request()->all();
