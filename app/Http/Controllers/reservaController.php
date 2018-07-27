@@ -15,8 +15,13 @@ class reservaController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-         $reservas = Reserva::all();
-         $title = 'Listado de reservas';
+	  	   $reservas=DB::table('RESERVA')
+	  	   	->JOIN('CLIENTE', 'RESERVA.ID_CLIENTE', '=', 'CLIENTE.ID_CLIENTE')
+	  		->JOIN('FUENTE', 'FUENTE.ID_FUENTE', '=', 'RESERVA.ID_FUENTE')
+	  		->JOIN('ESTADO_RESERVA', 'ESTADO_RESERVA.ID_ESTADO_RESERVA','=', 'RESERVA.ID_ESTADO_RESERVA')
+	  		->SELECT('CLIENTE.NOMBRE1 AS NOMBRE', 'CLIENTE.APELLIDO1 AS APELLIDO', 'ESTADO_RESERVA.DESCRIPCION AS ESTADO', 'FUENTE.DESCRIPCION AS FUENTE',
+	  		'RESERVA.CODIGO', 'RESERVA.FECHA_INGRESO', 'RESERVA.FECHA_RETIRO',
+			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->get();
          return view('reservas.index', compact('reservas','title'));
      }
     public function create(){
@@ -40,9 +45,10 @@ class reservaController extends Controller
      return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title','info'));
     }
 
-     public function details(Reserva $reserva){
+     public function details(){
  	   // dd($currency);
-         return view('reservas.details',compact('reserva'));
+
+         return view('reservas.details',compact('reserva', 'id'));
      }
 
      public function store(request $request){
@@ -101,4 +107,9 @@ class reservaController extends Controller
             ->where('ID_HABITACION',$id)
             ->update(['ID_ESTADO_HABITACION'=>$status->ID_ESTADO_HABITACION]);
      }
+	public function destroy(Reserva $reserva)
+	{
+	     $reserva->Delete();
+	     return redirect()->route('reservas');
+	}
 }

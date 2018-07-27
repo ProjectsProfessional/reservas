@@ -26,6 +26,8 @@
 			 <th>Fecha de ingreso</th>
 			 <th>Fecha de retiro</th>
                 <th>Codigo de vuelo</th>
+			 <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -34,9 +36,9 @@
                 <tr>
                 <td> {{$reserva->ID_RESERVA}}</td>
                 <td> {{$reserva->CODIGO}}</td>
-                <td> {{$reserva->ID_CLIENTE}}</td>
-				<td> {{$reserva->ID_FUENTE}}</td>
-				<td> {{$reserva->ID_ESTADO_RESERVA}}</td>
+                <td> {{$reserva->NOMBRE}} {{$reserva->APELLIDO}}</td>
+				<td> {{$reserva->FUENTE}}</td>
+				<td> {{$reserva->ESTADO}}</td>
 				<td> {{$reserva->FECHA_INGRESO}}</td>
 				<td> {{$reserva->FECHA_RETIRO}}</td>
 				<td> {{$reserva->CODIGO_VUELO}}</td>
@@ -46,6 +48,11 @@
                             Ver Detalles
                         </a>
                     </td>
+				<td>
+					{!! Form::open(['route'=>['reservas.destroy', $reserva->ID_RESERVA], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+					{!! Form::close() !!}
+				</td>
                 </tr>
             @empty
                 <p>NO EXISTEN RESERVAS</p>

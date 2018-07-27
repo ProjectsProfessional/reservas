@@ -76,6 +76,8 @@ Route::get('/tiposHabitaciones','tipoHabitacionController@index')
   ->name('tiposHabitaciones');
 Route::get('/tiposHabitaciones/create','tipoHabitacionController@create')
   ->name('tiposHabitaciones.create');
+  Route::delete('/tiposHabitaciones/{tipo}','tipoHabitacionController@destroy')
+      ->name('tiposHabitaciones.destroy');
 Route::post('/tiposHabitaciones','tipoHabitacionController@store')->name("saveRooms");
 Route::put('/tiposHabitaciones/{tipo}','tipoHabitacionController@update');
 Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
@@ -127,6 +129,8 @@ Route::get('/reservas/create','ReservaController@create')
     ->name('reservas.create');
 Route::post('/reservas','ReservaController@store')
     ->name('reservas.save');
+Route::delete('/reservas/{reserva}','ReservaController@destroy')
+ 	->name('reservas.destroy');
 Route::put('/reservas/{reserva}','ReservaController@update');
 Route::get('/reservas/{reserva}','ReservaController@details')
     ->where('reserva','\d+')
