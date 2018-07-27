@@ -109,7 +109,9 @@ class reservaController extends Controller
      }
 	public function destroy(Reserva $reserva)
 	{
-	     $reserva->Delete();
+		$id=$reserva->ID_RESERVA;
+		dd($id);
+		$deleted = DB::delete('delete from reservas where reserva.id_reserva = ? and habitacion_reserva.id_reserva', [$id]);
 	     return redirect()->route('reservas');
 	}
 }

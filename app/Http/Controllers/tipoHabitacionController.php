@@ -77,7 +77,22 @@ class tipoHabitacionController extends Controller
     }
     public function destroy(tipoHabitacion $tipo)
 	{
-	    $tipo->Delete();
+		$id=$tipo->ID_TIPO_HABITACION;
+	/*	$deleted = DB::delete('
+			DELETE P
+			FROM tipo_habitacion T JOIN PRECIO P
+			ON T.ID_TIPO_HABITACION=P.ID_TIPO_HABITACION
+			WHERE P.ID_TIPO_HABITACION=?
+		', [$id]);*/
+		 $users=DB::table('PRECIO')
+		         ->join('TIPO_HABITACION', function ($join) use($id) {
+		             $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
+		                  ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
+		         })
+		         ->delete();
+		DB::table('TIPO_HABITACION')->where('ID_TIPO_HABITACION', '=', $id)->delete();
+
+
 	    return redirect()->route('tiposHabitaciones');
     }
 }
