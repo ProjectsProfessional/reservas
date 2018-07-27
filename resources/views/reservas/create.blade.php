@@ -139,7 +139,7 @@
                     precio: row.find("td").eq(3).html()
                 });
 
-                //Agrego los Vaores a la tabla
+                //Agrego los Valores a la tabla
                 var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
                 for(let i = 0; i<=3; i++){
                     if(i==3){
