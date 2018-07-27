@@ -45,8 +45,6 @@ class CustomerController extends Controller
 
     public function isPreferentialCustomer(/*request $request*/){
         $data = request()->all();
-        //dd($data);
-
         $customer = DB::table('CLIENTE')
             ->select('TIPO_CLIENTE')
             ->where('ID_ClIENTE',$data['customer'])
