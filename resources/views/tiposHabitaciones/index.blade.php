@@ -21,7 +21,7 @@
                 <th>#</th>
                 <th>Descripcion</th>
                 <th>Numero de personas</th>
-			    <th>Detalles</th>
+			 <th>Detalles</th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +37,11 @@
                             Ver Detalles
                         </a>
                     </td>
+				<td>
+					{!! Form::open(['route'=>['tiposHabitaciones.destroy', $tipo->ID_TIPO_HABITACION], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+					{!! Form::close() !!}
+				</td>
                 </tr>
             @empty
                 <p><strong>NO HAY HABITACIONES DEFINIDAS</strong></p>

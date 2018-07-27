@@ -66,4 +66,9 @@ class nuevaHabitacionController extends Controller
 	  //  dd($data, $habitacion);
 	   return redirect()->route('nuevasHabitaciones');
 	}
+	public function destroy(nuevaHabitacion $habitacion)
+	 {
+		$habitacion->Delete();
+		return redirect()->route('nuevasHabitaciones');
+	}
 }

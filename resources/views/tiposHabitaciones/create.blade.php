@@ -119,7 +119,11 @@
 			 data: arrdata,
 			 success: function(result){
 				 document.location.href="{{route('tiposHabitaciones')}}";
-			 }});
+			 },
+			 error: function(jqXHR, textStatus, errorThrown) {
+				 alert(jqXHR.responseText);
+			 }
+		 });
 
 		}
 		function cancelRoom(){

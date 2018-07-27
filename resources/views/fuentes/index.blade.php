@@ -36,6 +36,11 @@
 			 			  Ver Detalles
 			 		   </a>
 			 	    </td>
+				    <td>
+					    {!! Form::open(['route'=>['fuentes.destroy', $fuente->ID_FUENTE], 'method'=>'DELETE'])!!}
+						    {!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+					    {!! Form::close() !!}
+				    </td>
 			 	</tr>
 			  @empty
 			 	<p>NO HAY FUENTES DEFINIDAS</p>

@@ -42,4 +42,9 @@ class ImpuestoController extends Controller
     	  ]);
     	 return redirect()->route('impuestos');
      }
+	public function destroy(Impuesto $impuesto)
+	 {
+		$impuesto->Delete();
+		return redirect()->route('impuestos');
+	}
 }

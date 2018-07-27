@@ -24,7 +24,10 @@ class EstadoHabitacionController extends Controller
 	   // dd($currency);
         return view('estados.details',compact('estado'));
     }
-    public function store(){
+    public function store(request $request){
+	    $this->validate($request,[
+		    'description' => 'required',
+	    ]);
         $data = request()->all();
 	   //dd($data);
         EstadoHabitacion::create([
@@ -38,6 +41,11 @@ class EstadoHabitacionController extends Controller
 		$estados->update([
                'DESCRIPCION' => $data['description'],
 		]);
+	    return redirect()->route('estados');
+    }
+    public function destroy(EstadoHabitacion $estado)
+    {
+	    $estado->Delete();
 	    return redirect()->route('estados');
     }
 }

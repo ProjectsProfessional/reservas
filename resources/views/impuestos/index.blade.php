@@ -13,7 +13,7 @@
     </div>
 @endsection
 @section('content')
-    <h2>ResUmen</h2>
+    <h2>Resumen</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -37,6 +37,11 @@
                             Ver Detalles
                         </a>
                     </td>
+				<td>
+					{!! Form::open(['route'=>['impuestos.destroy', $impuesto->ID_IMPUESTO], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+					{!! Form::close() !!}
+				</td>
                 </tr>
             @empty
                 <p>NO HAY IMPUESTOS DEFINIDAS</p>

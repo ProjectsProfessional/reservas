@@ -72,4 +72,9 @@ class CustomerController extends Controller
              ]);
              return redirect()->route('clients');
      }
+	public function destroy(Client $client)
+	{
+		$client->Delete();
+		return redirect()->route('clients');
+	}
 }

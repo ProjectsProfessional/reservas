@@ -18,19 +18,24 @@
 @section('content')
     <form class="needs-validation" method="POST" action="{{url('/currencies')}}">
         {{csrf_field()}}
+	   <ul>
+	   	@foreach($errors->all() as $error)
+			<li>{{$error}}</li>
+		@endforeach
+	   </ul>
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="code" name="code" placeholder="USD">
+                <input type="text" class="form-control" id="code" name="code" required>
             </div>
             <div class="col-6 mb-3">
                 <label for="description">Descripción</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Dolar americano">
+                <input type="text" class="form-control" id="description" name="description" required>
             </div>
         </div>
         <div class="row">
             <div class="col-6"></div>
-            <div class="col-6">
+            <div class="col-12">
                 <button class="btn btn-sm btn-outline-secondary">
                     <span data-feather="save"></span>
                     Guardar
