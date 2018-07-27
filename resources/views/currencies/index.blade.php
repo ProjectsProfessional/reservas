@@ -16,6 +16,9 @@
     <h2>Resumen</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
+		   @if (session('error'))
+		    <div class="alert alert-danger">{{ session('error') }}</div>
+			@endif
             <thead>
             <tr>
                 <th>#</th>
