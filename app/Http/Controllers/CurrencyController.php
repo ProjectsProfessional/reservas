@@ -24,7 +24,11 @@ class CurrencyController extends Controller
 	   // dd($currency);
         return view('currencies.details',compact('currency'));
     }
-    public function store(){
+    public function store(request $request){
+	    $this->validate($request,[
+		    'description' => 'required',
+		    'code' => 'required',
+	    ]);
         $data = request()->all();
 	   //dd($data);
         Currency::create([
@@ -42,7 +46,7 @@ class CurrencyController extends Controller
 		]);
 	    return redirect()->route('currencies');
     }
-    public function destroy(Currecny $currency)
+    public function destroy(Currency $currency)
     {
 	    $currency->Delete();
 	    return redirect()->route('currencies');

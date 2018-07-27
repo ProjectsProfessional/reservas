@@ -16,14 +16,14 @@
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Descripcion</th>
-                <th>Detalles</th>
-            </tr>
+	            <tr>
+	                <th>#</th>
+	                <th>Descripcion</th>
+	                <th>Detalles</th>
+				 <th>Acciones</th>
+	            </tr>
             </thead>
             <tbody>
-
             @forelse($estados as $estado)
                 <tr>
                     <td> {{$estado->ID_ESTADO_HABITACION}}</td>
@@ -34,6 +34,11 @@
                             Ver Detalles
                         </a>
                     </td>
+				<td>
+					{!! Form::open(['route'=>['estados.destroy', $estado->ID_ESTADO_HABITACION], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+					{!! Form::close() !!}
+				</td>
                 </tr>
             @empty
                 <p>NO HAY ESTADOS DEFINIDOS</p>

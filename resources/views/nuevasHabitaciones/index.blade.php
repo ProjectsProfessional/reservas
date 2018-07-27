@@ -22,6 +22,8 @@
                 <th>Tipo de habitaciones</th>
                 <th>Estado de habitaciones</th>
                 <th>Detalles</th>
+	  		 <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +39,11 @@
                             Ver Detalles
                         </a>
                     </td>
+				<td>
+					{!! Form::open(['route'=>['nuevasHabitaciones.destroy', $habitacion->ID_HABITACION], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+					{!! Form::close() !!}
+				</td>
                 </tr>
             @empty
                 <p>NO HAY HABITACIONES DEFINIDAS</p>

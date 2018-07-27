@@ -22,6 +22,7 @@
                 <th>código</th>
                 <th>Area/Departamento</th>
                 <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>

@@ -22,6 +22,7 @@
                 <th>Código</th>
                 <th>Descripcion</th>
                 <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -38,8 +39,8 @@
                         </a>
                     </td>
 				<td>
-					{!! Form::open(['route'=>['currency.destroy', $currency->ID_MONEDA], 'method'=>'DELETE'])!!}
-						{!! Form::submit('Eliminar', ['class'=>'btn btn-danger']) !!}
+					{!! Form::open(['route'=>['currencies.destroy', $currency->ID_MONEDA], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-link'],['data-feather'=>'edit']) !!}
 					{!! Form::close() !!}
 				</td>
                 </tr>

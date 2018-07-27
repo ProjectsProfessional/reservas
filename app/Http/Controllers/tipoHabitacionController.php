@@ -42,7 +42,10 @@ class tipoHabitacionController extends Controller
 
      }
      public function store(request $request){
-
+		$this->validate($request,[
+			'description' => 'required',
+			'personas' => 'required',
+		]);
         $tipo = new tipoHabitacion();
         $tipo->DESCRIPCION = $request->description;
         $tipo->PERSONAS = $request->personas;
@@ -71,5 +74,10 @@ class tipoHabitacionController extends Controller
              'PERSONAS'   => $data['personas'],
          ]);
         return redirect()->route('tiposHabitaciones');
+    }
+    public function destroy(tipoHabitacion $tipo)
+	{
+	    $tipo->Delete();
+	    return redirect()->route('tiposHabitaciones');
     }
 }

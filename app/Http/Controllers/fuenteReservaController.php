@@ -41,4 +41,9 @@ class fuenteReservaController extends Controller
     		]);
     	    return redirect()->route('fuentes');
         }
+	public function destroy(fuenteReserva $fuente)
+	 {
+		$fuente->Delete();
+		return redirect()->route('fuentes');
+	}
 }
