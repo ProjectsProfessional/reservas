@@ -21,7 +21,7 @@
 	   <div class="row">
             <div class="col-4 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="codigo" name="codigo" required>
+                <input type="text" class="form-control" id="code" name="code" required>
             </div>
             <div class="col-4 mb-3">
                 <label for="description">Primer nombre</label>

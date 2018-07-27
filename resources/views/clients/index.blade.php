@@ -31,9 +31,9 @@
 
             @forelse($client as $client1)
                 <tr>
-                    <td> {{$client1->ID_CLIENTE}}</td>
+                    	<td> {{$client1->ID_CLIENTE}}</td>
 				    <td> {{$client1->CODIGO}}</td>
-                    <td> {{$client1->NOMBRE1}}</td>
+                    	<td> {{$client1->NOMBRE1}}</td>
 				    <td> {{$client1->APELLIDO1}}</td>
 				    <td> {{$client1->TELEFONO}}</td>
 				    <td> {{$client1->EMAIL}}</td>
@@ -43,6 +43,11 @@
                             Ver Detalles
                         </a>
                     </td>
+				<td>
+					{!! Form::open(['route'=>['clients.destroy', $client1->ID_CLIENTE], 'method'=>'DELETE'])!!}
+						{!! Form::submit('Eliminar', ['class'=>'btn btn-danger']) !!}
+					{!! Form::close() !!}
+				</td>
                 </tr>
             @empty
                 <p>NO EXISTEN CLIENTES</p>
