@@ -22,6 +22,7 @@
                 <th>Código</th>
                 <th>Fuente</th>
                 <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>

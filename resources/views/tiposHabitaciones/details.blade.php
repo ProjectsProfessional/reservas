@@ -22,23 +22,26 @@
 	    {{csrf_field()}}
 
         <div class="row">
-            <div class="col-3 mb-3">
+            <div class="col-6 mb-3">
                 <label for="code">Descripcion</label>
                 <input type="text" class="form-control" id="firstName" name="description" value="{{$habitacion->DESCRIPCION}}">
             </div>
-            <div class="col-3 mb-3">
+            <div class="col-6 mb-3">
                 <label for="description">Personas</label>
                 <input type="text" class="form-control" id="lastName"  name="personas" value="{{$habitacion->PERSONAS}}">
             </div>
-		  <div class="col-3 mb-3">
-			 <label for="description">Precio</label>
-			 <input type="text" class="form-control" id="firstName" name="precio" value="{{$habitacion->PRECIO}}" maxlength="3">
-		  </div>
-		  <div class="col-3 mb-3">
-			 <label for="code">Moneda</label>
-			 <input type="text" class="form-control" id="firstName" value="{{$habitacion->MONEDA}}" name="code" maxlength="3">
-		  </div>
         </div>
+	   <div class="row">
+		   <h3>Precios asignados</h3>
+		  <div class="col-6 mb-3">
+			 <label for="code">Descripcion</label>
+			 <input type="text" class="form-control" id="firstName" name="description" value="{{$habitacion->DESCRIPCION}}">
+		  </div>
+		  <div class="col-6 mb-3">
+			 <label for="description">Personas</label>
+			 <input type="text" class="form-control" id="lastName"  name="personas" value="{{$habitacion->PERSONAS}}">
+		  </div>
+	   </div>
 	   <div class="row">
             <div class="col-12"></div>
             <div class="col-6">

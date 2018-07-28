@@ -30,6 +30,7 @@
                 <th>Descripcion</th>
                 <th>Numero de personas</th>
 			 <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>

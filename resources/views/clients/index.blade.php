@@ -18,13 +18,14 @@
         <table class="table table-striped table-sm">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Código</th>
-                <th>Nombre</th>
-			    <th>Apellido</th>
-			    <th>Telefono</th>
-                <th>Email</th>
-                <th>Detalles</th>
+	           <th>#</th>
+	           <th>Código</th>
+	           <th>Nombre</th>
+		      <th>Apellido</th>
+		      <th>Telefono</th>
+	           <th>Email</th>
+	           <th>Detalles</th>
+			 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
