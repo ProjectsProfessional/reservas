@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 use App\Models\tipoHabitacion;
 use App\Models\Impuesto;
 use App\Models\Price;
@@ -79,22 +80,20 @@ class tipoHabitacionController extends Controller
     public function destroy(tipoHabitacion $tipo)
 	{
 		$id=$tipo->ID_TIPO_HABITACION;
-	/*	$deleted = DB::delete('
-			DELETE P
-			FROM tipo_habitacion T JOIN PRECIO P
-			ON T.ID_TIPO_HABITACION=P.ID_TIPO_HABITACION
-			WHERE P.ID_TIPO_HABITACION=?
-		', [$id]);*/
-		 $query=DB::table('PRECIO')
-		         ->join('TIPO_HABITACION', function ($join) use($id) {
-		             $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
-		                  ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
-		         })
-		         ->get();
-		dd(count($query));
-		//DB::table('TIPO_HABITACION')->where('ID_TIPO_HABITACION', '=', $id)->delete();
-
-
+		try {
+			$query=DB::table('PRECIO')
+    		         ->join('TIPO_HABITACION', function ($join) use($id) {
+    		             $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
+	                  ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
+    		         })
+    		         ->get();
+    		//dd(count($query));
+    		DB::table('TIPO_HABITACION')->where('ID_TIPO_HABITACION', '=', $id)->delete();
 	    return redirect()->route('tiposHabitaciones');
+ 	    } catch (\Illuminate\Database\QueryException $e) {
+ 	    		$fallo='Error actualmente esta en uso';
+ 			return redirect('tiposHabitaciones')->with('fallo', $fallo);
+ 		}
+
     }
 }

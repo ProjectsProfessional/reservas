@@ -52,12 +52,11 @@ class CurrencyController extends Controller
     {
 	    try {
 		    $currency->Delete();
-	    } catch (Illuminate\Database\QueryException $e) {
-                dd($e);
+		    return redirect('currencies');
+	    } catch (\Illuminate\Database\QueryException $e) {
+	    		$fallo='Error actualmente esta en uso';
+			return redirect('currencies')->with('fallo', $fallo);
+		}
 
-            } catch (PDOException $e) {
-                dd($e);
-            }
-		  return redirect()->route('currencies');
     }
 }
