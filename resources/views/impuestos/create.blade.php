@@ -24,8 +24,8 @@
                 <input type="text" class="form-control" id="code" name="code">
             </div>
             <div class="col-6 mb-3">
-                <label for="description">Descripción</label>
-                <input type="text" class="form-control" id="tasa" name="tasa">
+                <label for="description">Tasa</label>
+                <input type="Number" class="form-control" id="tasa" name="tasa">
             </div>
         </div>
         <div class="row">

@@ -130,12 +130,14 @@
                      Habitaciones
                   </a>
                </li>
+               <!--
                <li>
                   <a class="nav-link" href="{{route('habitaciones')}}">
                      <span data-feather="image"></span>
                      Imagenes de habitaciones
                   </a>
                </li>
+               -->
             </div>
          </ul>
 

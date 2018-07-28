@@ -26,7 +26,7 @@
             </div>
             <div class="col-6 mb-3">
                 <label for="tasa">Tasa</label>
-                <input type="text" class="form-control" id="lastName" name="tasa"  value="{{$impuesto->TASA}}">
+                <input type="Number" class="form-control" id="lastName" name="tasa"  value="{{$impuesto->TASA}}">
             </div>
 		  <button class="btn btn-sm btn-outline-secondary">
 			 <span data-feather="save"></span>

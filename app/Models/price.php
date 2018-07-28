@@ -13,6 +13,7 @@ class price extends Model
          'ID_MONEDA',
          'ID_IMPUESTO',
 	    'BRUTO',
+         'PERSONAS',
 	    'PRECIO',
 	    'ID_TIPO_HABITACION'
      ];

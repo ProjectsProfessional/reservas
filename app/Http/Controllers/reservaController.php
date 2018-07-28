@@ -19,11 +19,13 @@ class reservaController extends Controller
 	  	   	->JOIN('CLIENTE', 'RESERVA.ID_CLIENTE', '=', 'CLIENTE.ID_CLIENTE')
 	  		->JOIN('FUENTE', 'FUENTE.ID_FUENTE', '=', 'RESERVA.ID_FUENTE')
 	  		->JOIN('ESTADO_RESERVA', 'ESTADO_RESERVA.ID_ESTADO_RESERVA','=', 'RESERVA.ID_ESTADO_RESERVA')
-	  		->SELECT('CLIENTE.NOMBRE1 AS NOMBRE', 'CLIENTE.APELLIDO1 AS APELLIDO', 'ESTADO_RESERVA.DESCRIPCION AS ESTADO', 'FUENTE.DESCRIPCION AS FUENTE',
-	  		'RESERVA.CODIGO', 'RESERVA.FECHA_INGRESO', 'RESERVA.FECHA_RETIRO',
+	  		->SELECT('CLIENTE.NOMBRE1 AS NOMBRE', 'CLIENTE.APELLIDO1 AS APELLIDO', 'ESTADO_RESERVA.DESCRIPCION AS ESTADO', 'FUENTE.CODIGO AS FUENTE','RESERVA.PERSONAS',
+	  		'RESERVA.CODIGO',DB::raw('DATE_FORMAT(FECHA_INGRESO,\' %d /%m /%Y\') AS FECHA_INGRESO,DATE_FORMAT(RESERVA.FECHA_RETIRO,\'%d/%m/%Y\') AS FECHA_RETIRO'),
 			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->get();
+
          return view('reservas.index', compact('reservas','title'));
      }
+
     public function create(){
      $title = 'Definir reservas';
      $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
@@ -58,7 +60,7 @@ class reservaController extends Controller
           $reservation->ID_CLIENTE = $request->cliente;
           $reservation->ID_FUENTE = $request->fuente;
           $reservation->ID_ESTADO_RESERVA = '1';
-          //$reservation->PERSONAS = $request->personas;
+          $reservation->PERSONAS = $request->personas;
           $reservation->FECHA_INGRESO = $request->fechaIngreso;
           $reservation->FECHA_RETIRO = $request->fechaSalida;
           $reservation->CODIGO_VUELO = $request->codigoVuelo;
@@ -74,7 +76,6 @@ class reservaController extends Controller
               $this->updateRoom($request->habitaciones[$i]["habitacion"]);
 
           }
-
 
          return response()->json(['message'=>'Se creado la reserva : '.$reservation->ID_RESERVA .' exitosamente']);
      }

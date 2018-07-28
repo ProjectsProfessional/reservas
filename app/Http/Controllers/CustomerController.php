@@ -43,7 +43,7 @@ class CustomerController extends Controller
 		 return redirect()->route('clients');
 	 }
 
-    public function isPreferentialCustomer(/*request $request*/){
+    public function isPreferentialCustomer(){
         $data = request()->all();
         $customer = DB::table('CLIENTE')
             ->select('TIPO_CLIENTE')
@@ -56,21 +56,23 @@ class CustomerController extends Controller
         return response()->json(['message'=>false]);
     }
      public function store(){
-             $data = request()->all();
-		   //dd($data);
-             Client::create([
-                 'CODIGO' => $data['code'],
-			  'NOMBRE1'  => $data['nombre'],
-			  'NOMBRE2'  => $data['segundoNombre'],
-			  'APELLIDO1'  => $data['primerApellido'],
-			  'APELLIDO2'  => $data['segundoApellido'],
-			  'TELEFONO'  => $data['telefono'],
-			  'EMAIL'  => $data['email'],
-			  'TIPO_CLIENTE'  => $data['tipoCliente'],
-			  'COMENTARIOS'  => $data['comentarios'],
-			  'PATH_SCAN'  => $data['pathScan'],
-             ]);
-             return redirect()->route('clients');
+
+        $data = request()->all();
+        $lastCustomer = DB::table('CLIENTE')->select(DB::raw('COUNT(1) AS Increment'))->first();
+
+        Client::create([
+        'CODIGO' => substr($data['nombre'],0,1).$data['primerApellido'].$lastCustomer->Increment,
+        'NOMBRE1'  => $data['nombre'],
+        'NOMBRE2'  => $data['segundoNombre'],
+        'APELLIDO1'  => $data['primerApellido'],
+        'APELLIDO2'  => $data['segundoApellido'],
+        'TELEFONO'  => $data['telefono'],
+        'EMAIL'  => $data['email'],
+        'TIPO_CLIENTE'  => $data['tipoCliente'],
+        'COMENTARIOS'  => $data['comentarios'],
+        'PATH_SCAN'  => $data['pathScan'],
+        ]);
+        return redirect()->route('clients');
      }
 	public function destroy(Client $client)
 	{

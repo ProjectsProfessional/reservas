@@ -20,10 +20,9 @@
     <form class="needs-validation" method="POST" action="{{url('/reservas')}}">
         {{csrf_field()}}
         <div class="row">
-
             <div class="col-4">
                 <label for="description">Cliente</label>
-                <input type="text" id="autocomplete-cliente" class="form-control autocomplete" style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
+                <input type="text" id="autocomplete-cliente" class="form-control autocomplete" onchange='showRow()' style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
                 <input type="text" id="autocomplete-cliente-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
                 <input type="text" class="form-control on-back" id="cliente" name="cliente" value="" style="color: white; background: white;z-index: 3;"  readonly="true"required>
             </div>
@@ -104,140 +103,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('[data-toggle="popover"]').popover()
-    </script>
-
-	<script type="text/javascript" src="{{asset("js/jquery.autocomplete.js")}}"></script>
-	@include('reservas.filters.customers')
-	@include('reservas.filters.sources')
-    <script>
-        var rooms = [];
-        $(document).ready(function(){
-            addRoom();
-            cancelRoom();
-        });
-
-        function addPrice(rowId,price) {
-            var row = $("[data-id=\""+rowId+"\"]");
-            var id = row.data('id');
-            row.find("td").eq(3).html(price);
-        }
-
-        function restoreFoot(){
-            $("#foot").remove();
-            $("table.habitaciones").append('<tfoot id="foot"></tfoot>');
-        }
-
-        function addRoom(){
-            $('.btn-link').click(function(){
-                var row = $(this).parents('tr');
-                var id = row.data('id');
-
-                rooms.push({
-                    habitacion: row.find("td").eq(0).html(),
-                    precio: row.find("td").eq(3).html()
-                });
-
-                //Agrego los Valores a la tabla
-                var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
-                for(let i = 0; i<=3; i++){
-                    if(i==3){
-                        new_row +="<td><input id=\"precio-"+id+"\" name=\"precio-"+id+"\" type='number' class='form-control prices' onchange='priceTotal()' readonly='true' value="+row.find("td").eq(i).html()+"></td>";
-                        break;
-                    }
-                    new_row +="<td>"+ row.find("td").eq(i).html() +"</td>";
-                }
-                new_row +="<input type=\"hidden\" id=\"habitacion-"+id+"\" name=\"habitacion-"+id+"\" value="+ id +">";
-                new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span></span> regresar </a></td>";
-                new_row += "</tr>";
-
-                $('.habitaciones').append(new_row);
-
-                $("table.habitaciones tbody > tr > td > a > span").attr("data-feather","arrow-left-circle");
-                feather.replace();//Refrescando el ícono
-                priceTotal();
-                modifyPrice();
-
-                row.fadeOut();
-
-            });
-        };
-
-        function priceTotal(){
-            restoreFoot();
-            var foot = "<th>TOTAL:</th><th></th><th></th>";
-            var total = 0;
-
-            $('.habitaciones tbody > tr').each(function (index) {
-                var room_id = $(this).data('id');
-                total += parseFloat(document.getElementById("precio-"+room_id).value);
-            });
-            foot += "<th>"+total.toFixed(2)+"</th>";
-            $('#foot').append(foot);
-        }
-
-        function modifyPrice(){
-
-            var customer = $('#cliente').val();
-            const data ={
-                _token:   "{{ csrf_token() }}",
-                customer:   customer
-            };
-            $.ajax({
-                url:    "{{ Route('reservas.modify-prices') }}",
-                method: 'post',
-                data:   data,
-                success: function(result){
-                    //alert(result.message);
-                    if(result.message)
-                        $('[class="form-control prices"]').removeAttr("readonly");
-                }
-            });
-        }
-
-        function cancelRoom(){
-            $('.habitaciones').on('click','.btn-outline-link',function () {
-                var row = $(this).parents('tr');
-                var id = row.find("td").eq(0).html();
-                showRow(id);
-                priceTotal();
-            });
-        }
-
-        function showRow(id) {
-            /*accediendo a tabla de habitaciones disponibles*/
-            $('#rooms-available tbody tr').each(function (index) {
-                var room_id = $(this).data('id');
-
-                if(room_id ==id){
-                    $('[class="room-'+room_id+'"]').remove();
-                    $(this).show();
-                    return false;
-                }
-            });
-        }
-
-        function saveReservation(){
-
-            const data = {
-                _token: "{{ csrf_token() }}",
-                cliente:            $('#cliente').val(),
-                fuente:             $('#fuente').val(),
-                personas:           $('#personas').val(),
-                fechaIngreso:       $('#fechaIngreso').val(),
-                fechaSalida:        $('#fechaSalida').val(),
-                codigoVuelo:        $('#codigoVuelo').val(),
-                habitaciones: rooms
-            };
-            $.ajax({
-                url: "{{ route('reservas.save') }}",
-                method: 'post',
-                data: data,
-                success: function(result){
-                    alert(result.message);
-                    document.location.href="{{route('reservas')}}";
-                }});
-        }
-    </script>
+    @include('reservas.js.scritps')
 @endsection

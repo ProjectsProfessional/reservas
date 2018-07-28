@@ -15,6 +15,7 @@ class Reserva extends Model
  	   'ID_CLIENTE',
  	   'ID_FUENTE',
  	   'ID_ESTADO_RESERVA',
+         'PERSONAS',
  	   'FECHA_INGRESO',
  	   'FECHA_RETIRO',
  	   'CODIGO_VUELO',

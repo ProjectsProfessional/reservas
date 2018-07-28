@@ -19,58 +19,83 @@
     <form class="needs-validation" method="POST" action="{{url('/clients')}}">
         {{csrf_field()}}
 	   <div class="row">
-            <div class="col-4 mb-3">
-                <label for="code">Código</label>
-                <input type="text" class="form-control" id="code" name="code" required>
+
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Primer y Segundo nombre</span>
+                    </div>
+                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                    <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" required>
+                </div>
             </div>
-            <div class="col-4 mb-3">
-                <label for="description">Primer nombre</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" required>
-            </div>
-		  <div class="col-4 mb-3">
-		      <label for="code">Segundo nombre</label>
-		      <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" required>
-		  </div>
-        </div>
+       </div>
 	   <div class="row">
+           <div class="col-8 mb-3">
+               <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text" id="">Primer y Segundo Apellido</span>
+                   </div>
+                   <input type="text" class="form-control" id="primerApellido" name="primerApellido"  required>
+                   <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" required>
+               </div>
+           </div>
             <div class="col-4 mb-3">
-                <label for="code">Primer Apellido</label>
-                <input type="text" class="form-control" id="primerApellido" name="primerApellido"  required>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Teléfono</span>
+                    </div>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                </div>
             </div>
-            <div class="col-4 mb-3">
-                <label for="description">Segundo Apellido</label>
-                <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" required>
-            </div>
-		  <div class="col-4 mb-3">
-		      <label for="code">Telefono</label>
-		      <input type="tel" class="form-control" id="telefono" name="telefono" required>
-		  </div>
-        </div>
+       </div>
 	   <div class="row">
-            <div class="col-4 mb-3">
-                <label for="code">Email</label>
-                <input type="email" class="form-control" id="email" name="email"  required>
+
+            <div class="col-6 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Email</span>
+                    </div>
+                    <input type="email" class="form-control" id="email" name="email"  required>
+                </div>
             </div>
             <div class="col-4 mb-3">
-                <label for="description">Tipo de cliente</label>
-                <input type="text" class="form-control" id="tipoCliente" name="tipoCliente"  required>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Tipo de cliente</span>
+                    </div>
+                    <select class="form-control" name="tipoCliente" id="tipoCliente">
+                        <option value="">No Aplica</option>
+                        <option value="PREF">Preferencial</option>
+                        <option value="ESP">Especial</option>
+                    </select>
+                </div>
             </div>
-		  <div class="col-4 mb-3">
-			 <label for="description">PATH SCAN</label>
-			 <input type="text" class="form-control" id="pathScan" name="pathScan" required>
-		  </div>
         </div>
 
 	   <div class="row">
-		   <div class="col-12 mb-3">
- 			 <label for="code">Comentarios</label>
- 			 <input type="text" class="form-control" id="comentarios" name="comentarios">
- 		  </div>
+           <div class="col-12 mb-3">
+               <div class="input-group mb-3">
+                   <div class="custom-file">
+                       <input type="file" class="custom-file-input form-control" id="pathScan" name="pathScan">
+                       <label class="custom-file-label" for="inputGroupFile02">Documento del cliente</label>
+                   </div>
+               </div>
+           </div>
         </div>
         <div class="row">
-            <div class="col-6"></div>
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Comentarios</span>
+                    </div>
+                    <textarea type="textarea" class="form-control" id="comentarios" name="comentarios"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-6">
-                <button class="btn btn-sm btn-outline-secondary">
+                <button class="btn btn-lg btn-outline-primary">
                     <span data-feather="save"></span>
                     Guardar
                 </button>

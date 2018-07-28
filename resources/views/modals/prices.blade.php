@@ -25,6 +25,10 @@
 				    	@endforeach
 				    </select>
                     </div>
+                    <div class="col-4 mb-3">
+                        <label for="personas">Personas</label>
+                        <input type="number" class="form-control" id="personas" name="personas" placeholder="1,2,3..." required>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-4 mb-3">

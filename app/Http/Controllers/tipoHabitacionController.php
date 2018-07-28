@@ -59,11 +59,12 @@ class tipoHabitacionController extends Controller
             $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
             $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
             $precio[$i]->BRUTO=$request->precios[$i]["gross"];
+            $precio[$i]->PERSONAS=$request->precios[$i]["personas"];
             $precio[$i]->PRECIO=$request->precios[$i]["price"];
             $precio[$i]->ID_TIPO_HABITACION=$id;
             $precio[$i]->save();
         }
-        return response()->json(['success'=>'Data is successfully added']);
+        return response()->json(['success'=>'Tipo de habitación '.$tipo->DESCRIPCION.' Creado Correctamente']);
     }
     public function update(tipoHabitacion $tipo){
         $data = request()->all();
