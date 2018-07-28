@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\Handler;
 use App\Models\Currency;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CurrencyController extends Controller
 {
@@ -48,7 +50,14 @@ class CurrencyController extends Controller
     }
     public function destroy(Currency $currency)
     {
-	    $currency->Delete();
-	    return redirect()->route('currencies');
+	    try {
+		    $currency->Delete();
+	    } catch (Illuminate\Database\QueryException $e) {
+                dd($e);
+
+            } catch (PDOException $e) {
+                dd($e);
+            }
+		  return redirect()->route('currencies');
     }
 }
