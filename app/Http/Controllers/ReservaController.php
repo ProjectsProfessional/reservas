@@ -33,9 +33,9 @@ class reservaController extends Controller
 
      $habitaciones= DB::table('DBV_DETALLES_HAB')
          ->select('HABITACION','DESCRIPCION','TIPO_HAB','PRECIO')
-         ->where([
+         ->where([//da
              'ESTADO'=>'Activo',
-             'MONEDA'=>'QTZ'
+             'MONEDA'=>'USD'
          ])
          ->get();
 

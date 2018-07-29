@@ -61,7 +61,6 @@
 						<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalLong">
 							habitaciones
 						</button>
-
 						@include('modals.reservations.Rooms')
 					</div>
 				</div>

@@ -93,7 +93,7 @@
                 if(result.message)
                     $('[class="form-control prices"]').removeAttr("readonly");
             },error: function(jqXHR, textStatus, errorThrown) {
-                alert('Lo Sentimos, no ha sido posible crear el tipo de habitación.');
+                //alert('');
                 //alert(jqXHR.responseText);
             }
         });
@@ -151,7 +151,7 @@
                 document.location.href="{{route('reservas')}}";
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert('Lo Sentimos, no ha sido posible crear el tipo de habitación.');
+                alert('No fue posible crear la reserva, contacte con el administrador del sistema');
                 //alert(jqXHR.responseText);
             }
         });
