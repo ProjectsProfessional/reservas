@@ -23,21 +23,28 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="firstName" name="code"  value="{{$precio->CODIGO}}" >
+			 <select class="form-control" name="moneda" id="moneda">
+				 <option name="moneda" value="{{ $precios->first()->ID_MONEDA }}">{{ $precios->first()->CODIGO }}</option>
+				  @foreach($currencies as $currency)
+					<option value="{{ $currency['ID_MONEDA'] }}" id="moneda"  name="moneda">{{ $currency['CODIGO'] }}</option>
+				  @endforeach
+			  </select>
+
             </div>
             <div class="col-6 mb-3">
                 <label for="description">Descripción</label>
-	           <input type="text" class="form-control" id="lastName"  name="precio" value="{{$precio->PRECIO}}">
+	           <input type="text" class="form-control" id="precio"  name="precio" value="{{$precio->PRECIO}}">
             </div>
 	  </div>
 	  <div class="row">
 			 <div class="col-6 mb-3">
 			     <label for="code">Impuesto</label>
-			     <input type="text" class="form-control" id="firstName" name="code"  value="{{$precio->IMPUESTO}}" >
-			 </div>
-			 <div class="col-6 mb-3">
-			     <label for="description">Bruto</label>
-			   <input type="text" class="form-control" id="lastName"  name="precio" value="{{$precio->BRUTO}}">
+				<select class="form-control" name="impuesto" id="impuesto">
+					<option value="" name="impuesto">{{ $precios->first()->TASA }}</option>
+					 @foreach($impuestos as $impuesto)
+					    <option value="{{ $impuesto['ID_IMPUESTO'] }}" id="impuesto" name="impuesto">{{ $impuesto['TASA'] }}</option>
+					 @endforeach
+				 </select>
 			 </div>
     	  </div>
 	  <button class="btn btn-sm btn-outline-secondary">

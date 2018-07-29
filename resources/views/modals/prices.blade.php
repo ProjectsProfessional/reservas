@@ -9,11 +9,11 @@
                     <div class="col-4 mb-3">
                         <label for="currencies">Moneda</label>
 				    <select class="form-control" name="moneda" id="currency">
-	    		   		<option value="">--- Escoja la moneda ---</option>
-	    		   		@foreach($currencies as $currency)
-	    		   		   <option value="{{ $currency['ID_MONEDA'] }}" id="currency">{{ $currency['DESCRIPCION'] }}</option>
-	    		   		@endforeach
-	    		   	</select>
+		    		   		<option value="">--- Escoja la moneda ---</option>
+		    		   		@foreach($currencies as $currency)
+		    		   		   <option value="{{ $currency['ID_MONEDA'] }}" id="currency">{{ $currency['DESCRIPCION'] }}</option>
+		    		   		@endforeach
+	    		   		</select>
                     </div>
 
                     <div class="col-4 mb-3">

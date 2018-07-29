@@ -42,10 +42,13 @@ class priceController extends Controller
 		   ->where('PRECIO.ID_PRECIO', '=', $id)
 		   ->select('MONEDA.CODIGO AS CODIGO', 'PRECIO.PRECIO AS PRECIO',
 		    'PRECIO.ID_PRECIO', 'PRECIO.ID_MONEDA', 'PRECIO.ID_TIPO_HABITACION',
-		    'PRECIO.ID_IMPUESTO', 'PRECIO.BRUTO', 'IMPUESTO.CODIGO AS IMPUESTO')
+		    'PRECIO.ID_IMPUESTO', 'PRECIO.BRUTO', 'IMPUESTO.TASA AS TASA')
 		   ->get();
-	//	   dd($precios, $id);
-         return view('precio.details',compact('id', 'precios'));
+		   $impuestos=Impuesto::all();
+		    $currencies=Currency::all();
+		    $categorylist = Price::pluck('PRECIO','ID_PRECIO');
+
+         return view('precio.details',compact('id', 'precios', 'impuestos', 'currencies', 'p'));
      }
 
      public function store(request $request){
@@ -65,10 +68,11 @@ class priceController extends Controller
 	   $data = request()->all();
 	    //dd($data);
 	    $precio->update([
-		    'ID_MONEDA' => $data['code'],
+		    'ID_MONEDA' => $data['moneda'],
               'PRECIO'   => $data['precio'],
+		    'IMPUESTO' => $data['impuesto'],
 	    ]);
-	   return redirect()->route('precio');
+	   return redirect()->route('tiposHabitaciones');
 	}
 	public function destroy(Price $p)
  	{
