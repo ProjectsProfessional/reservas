@@ -37,7 +37,7 @@ class tipoHabitacionController extends Controller
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
 		->join('IMPUESTO', 'PRECIO.ID_IMPUESTO', '=', 'IMPUESTO.ID_IMPUESTO')
 		->where('TIPO_HABITACION.ID_TIPO_HABITACION', '=', $id)
-		->select('TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS',
+		->select('TIPO_HABITACION.ID_TIPO_HABITACION', 'TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS',
 		'PRECIO.PRECIO', 'PRECIO.BRUTO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
 		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'PRECIO.PERSONAS')->first();
 		$precios = price::where('ID_TIPO_HABITACION', $id)->get();
@@ -73,15 +73,25 @@ class tipoHabitacionController extends Controller
         }
         return response()->json(['success'=>'Tipo de habitación '.$tipo->DESCRIPCION.' Creado Correctamente']);
     }
-    public function update(tipoHabitacion $tipo){
-        $data = request()->all();
-         //dd($data);
-         $tipo->update([
-             'ID_PRECIO' => $data['precio'],
-             'DESCRIPCION'   => $data['description'],
-             'PERSONAS'   => $data['personas'],
-         ]);
-        return redirect()->route('tiposHabitaciones');
+    public function update(Request $request){
+	    //dd($request);
+	     $data = tipoHabitacion::find( $request->id);
+		$data ->DESCRIPCION=$request->description;
+		$data ->PERSONAS=$request->personas;
+		$data->save();
+		$arr=$request->precios;
+		 $id=$request->id;
+		for ($i=0; $i <count($arr) ; $i++) {
+		    $precio[$i]= new Price();
+		    $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+		    $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+		    $precio[$i]->BRUTO=$request->precios[$i]["gross"];
+		    $precio[$i]->PERSONAS=$request->precios[$i]["personas"];
+		    $precio[$i]->PRECIO=$request->precios[$i]["price"];
+		    $precio[$i]->ID_TIPO_HABITACION=$id;
+		    $precio[$i]->save();
+		}
+        return response()->json(['success'=>'Actualizado Correctamente']);
     }
     public function destroy(tipoHabitacion $tipo)
 	{
