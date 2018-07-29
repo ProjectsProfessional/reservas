@@ -46,7 +46,7 @@
 						    <th>Moneda</th>
 						    <th>Precio</th>
 						    <th> Detalles</th>
-						    <th> Eliminar</th>
+						    <th>Eliminar</th>
 						</tr>
 					</thead>
 				@foreach($precios as $precio)

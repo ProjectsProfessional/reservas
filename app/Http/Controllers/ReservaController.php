@@ -8,7 +8,7 @@ use App\Models\habitacion_reserva;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class reservaController extends Controller
+class ReservaController extends Controller
 {
     public function __construct()
     {
