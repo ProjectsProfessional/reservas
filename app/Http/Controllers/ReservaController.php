@@ -35,7 +35,7 @@ class reservaController extends Controller
          ->select('HABITACION','DESCRIPCION','TIPO_HAB','PRECIO')
          ->where([
              'ESTADO'=>'Activo',
-             'MONEDA'=>'QTZ'
+             'MONEDA'=>'USD'
          ])
          ->get();
 

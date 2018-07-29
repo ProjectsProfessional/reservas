@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 
-use Validator;
+//use Validator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     public function __construct()
@@ -26,6 +27,9 @@ class LoginController extends Controller
             'email'     => 'email|required|string',
             'password'  => 'required|string',
         ]);
+
+        //dd(Hash::check('321','$2y$10$LNGTm9cmn.myiFd2.O9nE.q9KeZD2F8UFoWqVN50hUwBH9BuxqhOm'));
+
         if(Auth::attempt($credentials))
             return redirect()->route('welcome');
 
@@ -38,4 +42,5 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
 }

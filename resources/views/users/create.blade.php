@@ -29,7 +29,7 @@
             </div>
             <div class="col-4 mb-3">
                 <label for="password">Contraseña</label>
-                <input type="text" class="form-control" name="password" placeholder="123"  required>
+                <input type="password" class="form-control" name="password" placeholder="123"  required>
             </div>
         </div>
         <button class="btn btn-sm btn-outline-secondary">

@@ -18,11 +18,11 @@
 @section('content')
     <form class="needs-validation" method="POST" action="{{url("/clients/{$client->ID_CLIENTE}")}}">
 	  {{ method_field('PUT') }}
-	  	    {{csrf_field()}}
+        {{csrf_field()}}
         <div class="row">
             <div class="col-4 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="firstName" name="codigo"  value="{{$client->CODIGO}}">
+                <input type="text" class="form-control" id="firstName" name="codigo"readonly="true"  value="{{$client->CODIGO}} ">
             </div>
             <div class="col-4 mb-3">
                 <label for="description">Primer nombre</label>
@@ -52,21 +52,35 @@
                 <label for="code">Email</label>
                 <input type="text" class="form-control" id="firstName" name="email" value="{{$client->EMAIL}}">
             </div>
-            <div class="col-4 mb-3">
-                <label for="description">Tipo de cliente</label>
-                <input type="text" class="form-control" id="lastName" name="tipoCliente" value="{{$client->TIPO_CLIENTE}}">
-            </div>
-		  <div class="col-4 mb-3">
-			 <label for="description">PATH SCAN</label>
-			 <input type="text" class="form-control" name="pathScan" value="{{$client->PATH_SCAN}}">
-		  </div>
-        </div>
 
-	   <div class="row">
-		   <div class="col-6 mb-3">
- 			 <label for="code">Comentarios</label>
- 			 <input type="text" class="form-control" id="firstName" name="comentarios" value="{{$client->COMENTARIOS}}">
- 		  </div>
+            <div class="col-4 mb-3">
+                <label for="tipoCliente">Tipo de cliente</label>
+                <select class="form-control" name="tipoCliente" id="tipoCliente">
+                    <option @if(is_null($client->TIPO_CLIENTE)) selected="true" @endif value="">No Aplica</option>
+                    <option @if($client->TIPO_CLIENTE =='PREF') selected="true" @endif  value="PREF">Preferencial</option>
+                    <option @if($client->TIPO_CLIENTE =='ESP') selected="true" @endif   value="ESP">Especial</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input form-control" id="pathScan" name="pathScan">
+                        <label class="custom-file-label" for="inputGroupFile02">Documento del cliente</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Comentarios</span>
+                    </div>
+                    <textarea type="text" class="form-control" id="firstName" name="comentarios" value="{{$client->COMENTARIOS}}"></textarea>
+                </div>
+            </div>
         </div>
 	   <button class="btn btn-sm btn-outline-secondary">
 		  <span data-feather="save"></span>

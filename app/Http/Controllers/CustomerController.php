@@ -22,7 +22,8 @@ class CustomerController extends Controller
     	    return view('clients.create',compact('title'));
     	}
     	public function details(Client $client){
-             return view('clients.details',compact('client'));
+            //dd($client);
+            return view('clients.details',compact('client'));
          }
 
 	 public function update(Client $client){

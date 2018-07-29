@@ -1,7 +1,6 @@
 @extends('layout')
 @section('title', $title)
 @section('content-title',"Usuarios")
-
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
@@ -14,6 +13,11 @@
 @endsection
 @section('content')
     <h2>Resumen</h2>
+    @isset($message)
+        <div class="alert alert-primary" role="alert">
+            {{$message}}
+        </div>
+    @endisset
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -22,6 +26,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Detalles</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +40,11 @@
                             <span data-feather="edit"></span>
                             Ver Detalles
                         </a>
+                    </td>
+                    <td>
+                        {!! Form::open(['route'=>['user.destroy', $user->id], 'method'=>'DELETE'])!!}
+                        {!! Form::submit('Eliminar', ['class'=>'btn btn-link'],['data-feather'=>'delete']) !!}
+                        {!! Form::close() !!}
                     </td>
                 </tr>
             @empty

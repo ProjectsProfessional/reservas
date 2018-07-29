@@ -30,7 +30,7 @@
                 <th>Código</th>
                 <th>Descripcion</th>
                 <th>Detalles</th>
-			 <th>Acciones</th>
+			    <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
