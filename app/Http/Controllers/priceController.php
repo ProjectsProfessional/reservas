@@ -87,5 +87,6 @@ class priceController extends Controller
   	    		$fallo='Error actualmente esta en uso';
   			return redirect('tiposHabitaciones')->with('fallo', $fallo);
   		}
+		return "Error";
      }
 }

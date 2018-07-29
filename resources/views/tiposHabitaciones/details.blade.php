@@ -16,29 +16,30 @@
     </div>
 @endsection
 @section('content')
-    <form class="needs-validation" method="POST" action="{{url("/tiposHabitaciones/{$habitacion->ID_TIPO_HABITACION}")}}">
+    <form class="needs-validation" method="POST" action="{{url('/tiposHabitaciones')}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
 	        <div class="row">
 	            <div class="col-4 mb-3">
 	                <label for="code">Descripcion</label>
-	                <input type="text" class="form-control" id="firstName" name="description" value="{{$habitacion->DESCRIPCION}}">
+	                <input type="text" class="form-control" id="description" name="description" value="{{$habitacion->DESCRIPCION}}">
 	            </div>
 	            <div class="col-4 mb-3">
 	                <label for="description">Cantidad de personas</label>
-	                <input type="text" class="form-control" id="lastName"  name="personas" value="{{$habitacion->PERSONAS}}">
+	                <input type="text" class="form-control" id="personas"  name="personas" value="{{$habitacion->PERSONAS}}">
 	            </div>
 			  <div class="col-4">
 				  <label for="description">Precios</label>
 				  <input type="button" value="Agregar" class="btn btn-outline-secondary form-control" data-toggle="modal" data-target="#exampleModalLong" required>
 			  </div>
+			  <input type="hidden" name="" id="id" value="{{$habitacion->ID_TIPO_HABITACION}}">
 	        </div>
 		   @include('modals.prices')
 		   <hr>
 	   <h3>Precios asignados</h3>
 		 <div class="row">
 			<div class="col-9 table-responsive">
-				<table class="table table-striped table-sm  precios">
+				<table class="table table-striped table-sm">
 					<thead>
 						<tr>
 						    <th>Personas</th>
@@ -52,7 +53,7 @@
 					<tbody>
 						<tr>
 							<td>{{$precio->PERSONAS}}</td>
-		                        	<td> {{$precio->ID_MONEDA}}</td>
+		                        	<td> {{$habitacion->MONEDA}}</td>
 						 	<td> {{$precio->PRECIO}}</td>
 		                        <td>
 							    <a href="{{route('precio.details',[$precio->ID_PRECIO])}}">
@@ -62,7 +63,7 @@
 		                        </td>
 						    <td>
 							    {!! Form::open(['route'=>['price.destroy', $precio->ID_PRECIO], 'method'=>'DELETE'])!!}
-			    					{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+			    					{!! Form::submit('Eliminar', ['class'=>'btn btn-link btn-sm']) !!}
 			    				{!! Form::close() !!}
 						    </td>
 		                    </tr>
@@ -70,11 +71,26 @@
 			    	@endforeach
 				</table>
 			</div>
-		 </div>
+		</div>
+			<h3>Recientes</h3>
+			<div class="col-9 table-responsive">
+				<table class="table table-striped table-sm precios">
+					<thead>
+						<tr>
+						    <th>Personas</th>
+						    <th>Moneda</th>
+						    <th>Precio</th>
+						    <th> Detalles</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 	   <div class="row">
             <div class="col-12"></div>
             <div class="col-6">
-                <button class="btn btn-sm btn-outline-secondary">
+                <button type="button" onclick="update();" id="enviar" class="btn btn-sm btn-outline-secondary">
                     <span data-feather="save"></span>
                     Actualizar
                 </button>
@@ -82,4 +98,8 @@
         </div>
     </form>
 
+@endsection
+
+@section('scripts')
+	@include('precio.js.scritps')
 @endsection

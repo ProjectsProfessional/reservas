@@ -86,7 +86,8 @@ Route::get('/tiposHabitaciones/create','tipoHabitacionController@create')
   Route::delete('/tiposHabitaciones/{tipo}','tipoHabitacionController@destroy')
       ->name('tiposHabitaciones.destroy');
 Route::post('/tiposHabitaciones','tipoHabitacionController@store')->name("saveRooms");
-Route::put('/tiposHabitaciones/{tipo}','tipoHabitacionController@update');
+Route::put('/tiposHabitaciones','tipoHabitacionController@update')
+->name('updateRooms');
 Route::get('/tiposHabitaciones/{tipo}','tipoHabitacionController@details')
   ->where('tipo','\d+')
   ->name('tiposHabitaciones.details');
