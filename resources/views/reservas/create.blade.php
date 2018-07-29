@@ -58,7 +58,7 @@
 
 				<div class="btn-toolbar mb-2 mb-md-0">
 					<div class="btn-group mr-2">
-						<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+						<button type="button" disabled id="btnRooms" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalLong">
 							habitaciones
 						</button>
 						@include('modals.reservations.Rooms')
