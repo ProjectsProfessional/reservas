@@ -8,7 +8,7 @@
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <a class="btn btn-sm btn-outline-secondary" href="{{route('precio')}}">
+            <a class="btn btn-sm btn-outline-secondary" href="{{route('tiposHabitaciones')}}">
                 <span data-feather="arrow-left-circle"></span>
                 Cancelar
             </a>
@@ -16,20 +16,30 @@
     </div>
 @endsection
 @section('content')
-@foreach($currencies as $currency)
-    <form class="needs-validation" method="POST" action="{{url("/precio/{$currency->ID_PRECIO}")}}">
+@foreach($precios as $precio)
+    <form class="needs-validation" method="POST" action="{{url("/precio/{$precio->ID_PRECIO}")}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="firstName" name="code"  value="{{$currency->CODIGO}}" readonly>
+                <input type="text" class="form-control" id="firstName" name="code"  value="{{$precio->CODIGO}}" >
             </div>
             <div class="col-6 mb-3">
                 <label for="description">Descripción</label>
-                <input type="text" class="form-control" id="lastName"  name="precio" value="{{$currency->PRECIO}}">
+	           <input type="text" class="form-control" id="lastName"  name="precio" value="{{$precio->PRECIO}}">
             </div>
 	  </div>
+	  <div class="row">
+			 <div class="col-6 mb-3">
+			     <label for="code">Impuesto</label>
+			     <input type="text" class="form-control" id="firstName" name="code"  value="{{$precio->IMPUESTO}}" >
+			 </div>
+			 <div class="col-6 mb-3">
+			     <label for="description">Bruto</label>
+			   <input type="text" class="form-control" id="lastName"  name="precio" value="{{$precio->BRUTO}}">
+			 </div>
+    	  </div>
 	  <button class="btn btn-sm btn-outline-secondary">
 		 <span data-feather="save"></span>
 		 Actualizar

@@ -35,9 +35,11 @@ Route::get('/precio','priceController@index')
     ->name('precio');
 Route::get('/precio/create','priceController@create')
     ->name('precio.create');
+Route::delete('/precio/{p}','priceController@destroy')
+   ->name('price.destroy');
 Route::post('/precio','priceController@store');
 Route::put('/precio/{precio}','priceController@update');
-Route::get('/precio/{precio}','priceController@details')
+Route::get('/precio/{p}','priceController@details')
     ->where('precio','\d+')
     ->name('precio.details');
  #Estado de habitaciones routes

@@ -7,6 +7,7 @@ use App\Models\Impuesto;
 use Illuminate\Support\Collection;
 use App\Models\Currency;
 use App\Models\price;
+use App\Models\tipoHabitacion;
 use Illuminate\Http\Request;
 
 class priceController extends Controller
@@ -30,16 +31,21 @@ class priceController extends Controller
 	    $title = 'Definir precio';
 	    $impuestos=Impuesto::all();
 		$currencies=Currency::all();
-	    return view('precio.create',compact('impuestos','currencies','title'));
+	    return view('price.create',compact('impuestos','currencies','title'));
 	}
-	public function details(price $precio){
-		$id=$precio->ID_PRECIO;
-		$currencies = DB::table('precio')
-		   ->join('moneda', 'precio.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+	public function details(price $p){
+		$id=$p->ID_PRECIO;
+	//	dd($id);
+		$precios = DB::table('precio')
+		   ->join('MONEDA', 'precio.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+		   ->join('IMPUESTO', 'IMPUESTO.ID_IMPUESTO', '=', 'PRECIO.ID_IMPUESTO')
 		   ->where('PRECIO.ID_PRECIO', '=', $id)
-		   ->select('MONEDA.CODIGO AS CODIGO', 'PRECIO.PRECIO', 'PRECIO.ID_PRECIO')
+		   ->select('MONEDA.CODIGO AS CODIGO', 'PRECIO.PRECIO AS PRECIO',
+		    'PRECIO.ID_PRECIO', 'PRECIO.ID_MONEDA', 'PRECIO.ID_TIPO_HABITACION',
+		    'PRECIO.ID_IMPUESTO', 'PRECIO.BRUTO', 'IMPUESTO.CODIGO AS IMPUESTO')
 		   ->get();
-         return view('precio.details',compact('id', 'currencies'));
+	//	   dd($precios, $id);
+         return view('precio.details',compact('id', 'precios'));
      }
 
      public function store(request $request){
@@ -64,4 +70,22 @@ class priceController extends Controller
 	    ]);
 	   return redirect()->route('precio');
 	}
+	public function destroy(Price $p)
+ 	{
+ 		$id=$p->ID_PRECIO;
+		//dd($id);
+ 		try{
+			$query=DB::table('PRECIO')
+			    ->join('TIPO_HABITACION', function ($join) use($id) {
+				   $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
+				   ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
+			    })->get();
+    			 DB::table('PRECIO')->where('ID_PRECIO', '=', $id)->delete();
+ 	    		return redirect()->route('tiposHabitaciones');
+  	    } catch (\Illuminate\Database\QueryException $e)
+ 	    {
+  	    		$fallo='Error actualmente esta en uso';
+  			return redirect('tiposHabitaciones')->with('fallo', $fallo);
+  		}
+     }
 }

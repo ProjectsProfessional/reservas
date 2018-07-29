@@ -31,14 +31,7 @@ class tipoHabitacionController extends Controller
     }
      public function details(tipoHabitacion $tipo){
 		 $id=$tipo->ID_TIPO_HABITACION;
-		/* $habitaciones = DB::table('TIPO_HABITACION')
-		   ->join('PRECIO', 'TIPO_HABITACION.ID_PRECIO', '=', 'PRECIO.ID_PRECIO')
-		   ->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
-		   ->where('TIPO_HABITACION.ID_TIPO_HABITACION', '=', $id)
-		   ->select('TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS', 'PRECIO.PRECIO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
-		   'MONEDA.CODIGO as MONEDA')->get();
-
-		$habitaciones = DB::table('TIPO_HABITACION')
+		$habitacion = DB::table('TIPO_HABITACION')
 		->join('PRECIO', 'TIPO_HABITACION.ID_TIPO_HABITACION'
 		, '=', 'PRECIO.ID_TIPO_HABITACION')
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
@@ -46,13 +39,13 @@ class tipoHabitacionController extends Controller
 		->where('TIPO_HABITACION.ID_TIPO_HABITACION', '=', $id)
 		->select('TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS',
 		'PRECIO.PRECIO', 'PRECIO.BRUTO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
-		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO')->get();
-		$precios=DB::table('PRECIO')
-		->where('PRECIO.ID_TIPO_HABITACION','=',$id)
-		->select('*');*/
-		$precios = App\Models\Price::find($id);
-		dd($precios);
-       	return view('tiposHabitaciones.details', compact('precios', 'id'));
+		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'PRECIO.PERSONAS')->first();
+		$precios = price::where('ID_TIPO_HABITACION', $id)->get();
+		$impuestos=Impuesto::all();
+		$currencies=Currency::all();
+		//$habitaciones = tipoHabitacion::where('ID_TIPO_HABITACION', $id)->get();
+		//dd(count($habitacion));
+       	return view('tiposHabitaciones.details', compact('precios', 'habitacion', 'impuestos', 'currencies'));
 
      }
      public function store(request $request){
@@ -108,4 +101,5 @@ class tipoHabitacionController extends Controller
  			return redirect('tiposHabitaciones')->with('fallo', $fallo);
  		}
     }
+
 }

@@ -30,7 +30,7 @@
                 new_row +="<td>"+ row.find('#price').val() +"</td>";
             }
             console.log(new_row);
-            new_row +="<td> <a href=\"#\" class=\"btn-outline-link\"><span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
+            new_row +="<td> <a href=\"#\" <span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
             new_row += "</tr>";
             //console.log(new_row);
             //Nombre de la tabla

@@ -25,13 +25,13 @@
 			</div>
 		   @endif
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Descripcion</th>
-                <th>Numero de personas</th>
-			 <th>Detalles</th>
-			 <th>Acciones</th>
-            </tr>
+	            <tr>
+	                <th>#</th>
+	                <th>Descripcion</th>
+	                <th>Numero de personas</th>
+				 <th>Detalles</th>
+				 <th>Acciones</th>
+	            </tr>
             </thead>
             <tbody>
 
