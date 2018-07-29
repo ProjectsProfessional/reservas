@@ -53,7 +53,7 @@
 					<tbody>
 						<tr>
 							<td>{{$precio->PERSONAS}}</td>
-		                        	<td> {{$precio->ID_MONEDA}}</td>
+		                        	<td> {{$habitacion->MONEDA}}</td>
 						 	<td> {{$precio->PRECIO}}</td>
 		                        <td>
 							    <a href="{{route('precio.details',[$precio->ID_PRECIO])}}">
