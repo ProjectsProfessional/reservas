@@ -137,6 +137,10 @@ Route::get('/reservas/create','ReservaController@create')
     ->name('reservas.create');
 Route::post('/reservas','ReservaController@store')
     ->name('reservas.save');
+
+Route::post('/reservas/rooms','ReservaController@rooms')
+    ->name('reservas.showRooms');
+
 Route::delete('/reservas/{reserva}','ReservaController@destroy')
  	->name('reservas.destroy');
 Route::put('/reservas/{reserva}','ReservaController@update');

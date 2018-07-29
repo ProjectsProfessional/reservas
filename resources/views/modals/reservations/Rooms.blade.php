@@ -19,7 +19,7 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    @isset($habitaciones)
                     @forelse($habitaciones as $habitacion)
                         <tr data-id="{{$habitacion->HABITACION}}">
                             <td> {{$habitacion->HABITACION}} </td>
@@ -72,6 +72,7 @@
                     @empty
                         <h3>No existen habitaciones disponibles</h3>
                     @endforelse
+                    @endisset
                     </tbody>
                 </table>
             </div>

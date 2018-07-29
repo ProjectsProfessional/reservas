@@ -8,7 +8,7 @@ use App\Models\habitacion_reserva;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class reservaController extends Controller
+class ReservaController extends Controller
 {
     public function __construct()
     {
@@ -31,25 +31,29 @@ class reservaController extends Controller
      $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
      $fuentes=DB::table('FUENTE')->pluck('CODIGO','ID_FUENTE');
 
+     return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title','info'));
+    }
+
+    public function showRooms(request $request){
+
      $habitaciones= DB::table('DBV_DETALLES_HAB')
-         ->select('HABITACION','DESCRIPCION','TIPO_HAB','PRECIO')
-         ->where([//da
-             'ESTADO'=>'Activo',
-             'MONEDA'=>'USD'
-         ])
+         ->select('HABITACION','DESCRIPCION','TIPO_HAB')
+         ->whereRaw('(FECHA_INGRESO != ? AND FECHA_RETIRO != ?) OR (FECHA_INGRESO IS NULL AND FECHA_RETIRO IS NULL)',
+             [$request->dateIn,
+             $request->dateOut]
+         )
+         ->groupBy('HABITACION','DESCRIPCION','TIPO_HAB')
          ->get();
 
      $precios = DB::table('DBV_DETALLES_HAB')
          ->select('HABITACION','MONEDA','PRECIO')
-         ->where('ESTADO','Activo')
+         ->whereRaw('(FECHA_INGRESO != ? AND FECHA_RETIRO != ?) OR (FECHA_INGRESO IS NULL AND FECHA_RETIRO IS NULL)',[$request->dateIn,$request->dateOut])
          ->get();
 
-     return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title','info'));
+
     }
 
      public function details(){
- 	   // dd($currency);
-
          return view('reservas.details',compact('reserva', 'id'));
      }
 
@@ -73,7 +77,7 @@ class reservaController extends Controller
               $detail->PRECIO = $request->habitaciones[$i]["precio"];
               $detail->save();
               //Es necesario actualizar las habitaciones como Reservadas.
-              $this->updateRoom($request->habitaciones[$i]["habitacion"]);
+              //$this->updateRoom($request->habitaciones[$i]["habitacion"]);
 
           }
 
@@ -96,7 +100,7 @@ class reservaController extends Controller
  		]);
  	    return redirect()->route('reservas');
      }
-
+    /*
      private function updateRoom(int $id){
 
         $status = DB::table('ESTADO_HABITACION')
@@ -108,6 +112,7 @@ class reservaController extends Controller
             ->where('ID_HABITACION',$id)
             ->update(['ID_ESTADO_HABITACION'=>$status->ID_ESTADO_HABITACION]);
      }
+    */
 	public function destroy(Reserva $reserva)
 	{
 		$id=$reserva->ID_RESERVA;
