@@ -23,34 +23,51 @@ class ReservaController extends Controller
 	  		'RESERVA.CODIGO',DB::raw('DATE_FORMAT(FECHA_INGRESO,\' %d /%m /%Y\') AS FECHA_INGRESO,DATE_FORMAT(RESERVA.FECHA_RETIRO,\'%d/%m/%Y\') AS FECHA_RETIRO'),
 			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->get();
 
-         return view('reservas.index', compact('reservas','title'));
+         return view('reservas.index', compact('reservas'));
      }
 
     public function create(){
-     $title = 'Definir reservas';
-     $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
-     $fuentes=DB::table('FUENTE')->pluck('CODIGO','ID_FUENTE');
+        /*
+         * Evaluo si las fechas solicitadas se encuentran disponibles.
+         * */
+        $data = request()->all();
+        $rooms = $this->showRooms($data['dateIn'],$data['dateOut']);
 
-     return view('reservas.create',compact('reservas','precios','habitaciones','fuentes','clientes','title','info'));
+        if (count($rooms['habitaciones'])>0){
+            $dateIn = $data['dateIn'];
+            $dateOut = $data['dateOut'];
+            //puedo levantar con la vista de habitaciones
+            $habitaciones = $rooms['habitaciones'];
+            $precios =$rooms['precios'];
+
+            $title = 'Definir reservas';
+            $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
+            $fuentes=DB::table('FUENTE')->pluck('CODIGO','ID_FUENTE');
+            return view('reservas.create',compact('title','clientes','fuentes','habitaciones','precios','dateIn','dateOut'));
+        }
+        return redirect()->route('reservas')->with('warning', 'Todas las habitaciones se encuentran reservadas en la fecha seleccionada.');
     }
 
-    public function showRooms(request $request){
+    public function showRooms($dateIn,$dateOut){
 
-     $habitaciones= DB::table('DBV_DETALLES_HAB')
-         ->select('HABITACION','DESCRIPCION','TIPO_HAB')
-         ->whereRaw('(FECHA_INGRESO != ? AND FECHA_RETIRO != ?) OR (FECHA_INGRESO IS NULL AND FECHA_RETIRO IS NULL)',
-             [$request->dateIn,
-             $request->dateOut]
-         )
-         ->groupBy('HABITACION','DESCRIPCION','TIPO_HAB')
+        $habitaciones= DB::table('DBV_HABITACIONES_DISP')
+            ->select('HABITACION','DESCRIPCION','TIPO_HAB')
+            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
+                T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
+                [$dateIn,$dateIn, $dateOut]
+            )
+            ->groupBy('HABITACION','DESCRIPCION','TIPO_HAB')
+            ->get();
+
+        $precios = DB::table('DBV_HABITACIONES_DISP')
+            ->select('DBV_HABITACIONES_DISP.HABITACION','PERSONAS','MONEDA','PRECIO')
+            ->join('DBV_PRECIOS_ASIGNADOS','DBV_HABITACIONES_DISP.ID_TIPO_HABITACION','DBV_PRECIOS_ASIGNADOS.ID_TIPO_HABITACION')
+            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
+                T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
+                [$dateIn,$dateIn, $dateOut]
+            )
          ->get();
-
-     $precios = DB::table('DBV_DETALLES_HAB')
-         ->select('HABITACION','MONEDA','PRECIO')
-         ->whereRaw('(FECHA_INGRESO != ? AND FECHA_RETIRO != ?) OR (FECHA_INGRESO IS NULL AND FECHA_RETIRO IS NULL)',[$request->dateIn,$request->dateOut])
-         ->get();
-
-
+        return (compact('habitaciones','precios'));
     }
 
      public function details(){

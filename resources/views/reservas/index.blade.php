@@ -5,16 +5,23 @@
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <a class="btn btn-sm btn-outline-secondary" href="{{route('reservas.create')}}">
+            <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal"
+               href="">
                 <span data-feather="arrow-up-circle"></span>
                 Nueva Reserva
-            </a>
+            </button>
+            @include('modals.reservations.DatesAvailables')
         </div>
     </div>
 @endsection
 @section('content')
     <h2>Resumen</h2>
     <div class="table-responsive">
+        @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
         <table class="table table-striped table-sm">
             <thead>
             <tr>

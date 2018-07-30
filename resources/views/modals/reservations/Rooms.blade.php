@@ -19,7 +19,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @isset($habitaciones)
                     @forelse($habitaciones as $habitacion)
                         <tr data-id="{{$habitacion->HABITACION}}">
                             <td> {{$habitacion->HABITACION}} </td>
@@ -47,7 +46,7 @@
                                            @foreach($precios as $precio)
                                            @if($precio->HABITACION ==$habitacion->HABITACION)
                                                 <tr>
-                                                    <td>1</td>
+                                                    <td>{{$precio->PERSONAS}}</td>
                                                     <td>{{$precio->MONEDA}}</td>
                                                     <td>{{$precio->PRECIO}}</td>
                                                     <td>
@@ -72,7 +71,6 @@
                     @empty
                         <h3>No existen habitaciones disponibles</h3>
                     @endforelse
-                    @endisset
                     </tbody>
                 </table>
             </div>

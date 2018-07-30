@@ -133,13 +133,17 @@ Route::get('/fuentes/{fuente}','fuenteReservaController@details')
 #Reservas ROUTES
 Route::get('/reservas','ReservaController@index')
     ->name('reservas');
-Route::get('/reservas/create','ReservaController@create')
+
+Route::post('/reservas/create','ReservaController@create')
     ->name('reservas.create');
+
 Route::post('/reservas','ReservaController@store')
     ->name('reservas.save');
 
+/*
 Route::post('/reservas/rooms','ReservaController@rooms')
     ->name('reservas.showRooms');
+*/
 
 Route::delete('/reservas/{reserva}','ReservaController@destroy')
  	->name('reservas.destroy');

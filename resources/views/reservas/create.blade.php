@@ -42,11 +42,11 @@
 	   <div class="row">
 		  <div class="col-4 mb-3">
 			 <label for="code">Fecha de ingreso</label>
-			 <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" required>
+			 <input type="date" disabled class="form-control" id="fechaIngreso" name="fechaIngreso" value="{{$dateIn}}" required>
 		  </div>
 		  <div class="col-4 mb-3">
 			 <label for="description">Fecha de retiro</label>
-			 <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" required>
+			 <input type="date" disabled class="form-control" id="fechaSalida" name="fechaSalida"value="{{$dateOut}}" required>
 		  </div>
 	    <div class="col-4 mb-3">
 		   <label for="description">Codigo de vuelo</label>
@@ -58,7 +58,7 @@
 
 				<div class="btn-toolbar mb-2 mb-md-0">
 					<div class="btn-group mr-2">
-						<button type="button" disabled id="btnRooms" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+						<button type="button" id="btnRooms" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalLong">
 							habitaciones
 						</button>
 						@include('modals.reservations.Rooms')

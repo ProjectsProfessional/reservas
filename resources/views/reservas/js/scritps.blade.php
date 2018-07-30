@@ -8,49 +8,6 @@
 <script>
     var rooms = [];
 
-    $('#fechaIngreso').change(function(){
-        var dateIn  =$('#fechaIngreso').val();
-        var dateOut  =$('#fechaSalida').val();
-
-        if(dateIn !="" && dateOut !=""){
-            $('#btnRooms').removeAttr("disabled");
-
-        }else{
-            $('#btnRooms').attr("disabled", true);
-        }
-    });
-
-    $('#fechaSalida').change(function(){
-        var dateIn  =$('#fechaIngreso').val();
-        var dateOut  =$('#fechaSalida').val();
-
-        if(dateIn !="" && dateOut !=""){
-            $('#btnRooms').removeAttr("disabled");
-
-        }else{
-            $('#btnRooms').attr("disabled", true);
-        }
-    });
-    function rooms(dateIn,dateOut){
-        const data ={
-            _token:     "{{ csrf_token() }}",
-            dateIn:     dateIn,
-            dateOut:    dateOut
-        };
-        $.ajax({
-            url:    "{{ Route('reservas.showRooms') }}",
-            method: 'post',
-            data:   data,
-            success: function(result){
-                //alert(result.message);
-                if(result.message)
-                    $('[class="form-control prices"]').removeAttr("readonly");
-            },error: function(jqXHR, textStatus, errorThrown) {
-                //alert('');
-                alert(jqXHR.responseText);
-            }
-        });
-    }
     $(document).ready(function(){
         addRoom();
         cancelRoom();
@@ -137,8 +94,7 @@
                 if(result.message)
                     $('[class="form-control prices"]').removeAttr("readonly");
             },error: function(jqXHR, textStatus, errorThrown) {
-                //alert('');
-                alert(jqXHR.responseText);
+                alert('Es necesario seleccionar el cliente en la reserva');
             }
         });
     }
@@ -176,6 +132,11 @@
     }
     function saveReservation(){
 
+        if($.isEmptyObject(rooms)){
+
+            alert("No se ha agregado habitaciones a la reserva");
+            return false;
+        }
         const data = {
             _token: "{{ csrf_token() }}",
             cliente:            $('#cliente').val(),
