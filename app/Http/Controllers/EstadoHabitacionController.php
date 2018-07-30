@@ -35,10 +35,10 @@ class EstadoHabitacionController extends Controller
         ]);
         return redirect()->route('estados');
     }
-    public function update(EstadoHabitacion $estados){
+    public function update(EstadoHabitacion $estado){
 	    $data = request()->all();
- 	   	//dd($data);
-		$estados->update([
+	    //dd($data);
+		$estado->update([
                'DESCRIPCION' => $data['description'],
 		]);
 	    return redirect()->route('estados');

@@ -10,6 +10,6 @@ class EstadoHabitacion extends Model
 	protected $primaryKey = 'ID_ESTADO_HABITACION';
 	protected $table = 'ESTADO_HABITACION';
 	protected $fillable = [
-	    'DESCRIPCION',
+	    'DESCRIPCION'
 	];
 }

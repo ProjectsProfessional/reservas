@@ -16,13 +16,13 @@
     </div>
 @endsection
 @section('content')
-    <form class="needs-validation" method="POST" action="{{url("/estados/{$estado->ID_ESTADOS_HABITACION}")}}">
+    <form class="needs-validation" method="POST" action="{{url("/estados/{$estado->ID_ESTADO_HABITACION}")}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="description">Descripción</label>
-                <input type="text" class="form-control" id="lastName"  name="description" value="{{$estado->DESCRIPCION}}">
+                <input type="text" class="form-control" id="description"  name="description" value="{{$estado->DESCRIPCION}}">
             </div>
         </div>
 	   <div class="row">
