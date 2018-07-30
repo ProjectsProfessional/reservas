@@ -44,7 +44,9 @@ class nuevaHabitacionController extends Controller
 			'HABITACION.DETALLES AS DETALLES', 'HABITACION.ID_TIPO_HABITACION',
 			'HABITACION.ID_ESTADO_HABITACION')
 	     ->get();
-	    return view('nuevasHabitaciones.details',compact('habitaciones'));
+		$tipos=tipoHabitacion::all();
+		$estados=EstadoHabitacion::all();
+	    return view('nuevasHabitaciones.details',compact('habitaciones', 'tipos', 'estados'));
 	}
 	public function store(){
 	    $data = request()->all();
@@ -56,19 +58,25 @@ class nuevaHabitacionController extends Controller
 	    ]);
 	    return redirect()->route('nuevasHabitaciones');
 	}
-	public function update(nuevaHabitacion $habitacion){
+	public function update(nuevaHabitacion $habitaciones){
 	    $data = request()->all();
-	    $habitacion->update([
+	    $habitaciones->update([
 		    'ID_TIPO_HABITACION' => $data['tipo'],
 		    'ID_ESTADO_HABITACION'   => $data['estado'],
 		    'DETALLES' => $data['description'],
 	    ]);
-	  //  dd($data, $habitacion);
-	   return redirect()->route('nuevasHabitaciones');
+	    return redirect()->route('nuevasHabitaciones');
 	}
 	public function destroy(nuevaHabitacion $habitacion)
 	 {
-		$habitacion->Delete();
-		return redirect()->route('nuevasHabitaciones');
+
+		try{
+			 $habitacion->Delete();
+			 return redirect()->route('nuevasHabitaciones');
+	    } catch (\Illuminate\Database\QueryException $e)
+	    {
+			$fallo='Error actualmente esta en uso';
+			return redirect('tiposHabitaciones')->with('fallo', $fallo);
+		}
 	}
 }

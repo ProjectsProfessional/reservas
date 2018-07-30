@@ -17,17 +17,35 @@
 @endsection
 @section('content')
 @foreach($habitaciones as $habitacion)
-    <form class="needs-validation" method="POST" action="{{url("/nuevasHabitaciones/{$habitacion->ID_ESTADO_HABITACION}")}}">
+    <form class="needs-validation" method="POST" action="{{url("/nuevasHabitaciones/{$habitacion->ID_HABITACION}")}}">
 	    {{ method_field('PUT') }}
 	    {{csrf_field()}}
+	    @if (session('fallo'))
+		   <div class="alert alert-danger alert-dismissible fade show" role="alert">
+		   {{ session('fallo') }}
+		   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		   </button>
+		 </div>
+	    @endif
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="code">Tipo de habitacion</label>
-                <input type="text" class="form-control"  name="tipo" value="{{$habitacion->DESCRIPCION}}">
+			 <select class="form-control" name="tipo" id="tipo">
+				 <option name="tipo" value="{{ $habitaciones->first()->ID_TIPO_HABITACION }}">{{$habitacion->DESCRIPCION}}</option>
+				  @foreach($tipos as $tipo)
+					<option value="{{ $tipo['ID_TIPO_HABITACION'] }}" id="tipo"  name="tipo">{{ $tipo['DESCRIPCION'] }}</option>
+				  @endforeach
+			  </select>
             </div>
             <div class="col-6 mb-3">
                 <label for="description">Estado</label>
-                <input type="text" class="form-control"  name="estado" value="{{$habitacion->ESTADO}}">
+			 <select class="form-control" name="estado" id="estado">
+				 <option name="estado" value="{{ $habitaciones->first()->ESTADO}}">{{$habitacion->ESTADO}}</option>
+				  @foreach($estados as $estado)
+					<option value="{{ $estado['ID_ESTADO_HABITACION'] }}" id="estado"  name="estado">{{ $estado['DESCRIPCION'] }}</option>
+				  @endforeach
+			  </select>
             </div>
 		  <div class="col-6 mb-3">
                 <label for="description">Detalles</label>

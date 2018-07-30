@@ -46,6 +46,11 @@
 					 @endforeach
 				 </select>
 			 </div>
+
+    		  <div class="col-6 mb-3">
+    			 <label for="description">Personas</label>
+    		    <input type="text" class="form-control" id="precio"  name="precio" value="{{$precio->PERSONAS}}">
+    		  </div>
     	  </div>
 	  <button class="btn btn-sm btn-outline-secondary">
 		 <span data-feather="save"></span>

@@ -42,12 +42,12 @@ class priceController extends Controller
 		   ->where('PRECIO.ID_PRECIO', '=', $id)
 		   ->select('MONEDA.CODIGO AS CODIGO', 'PRECIO.PRECIO AS PRECIO',
 		    'PRECIO.ID_PRECIO', 'PRECIO.ID_MONEDA', 'PRECIO.ID_TIPO_HABITACION',
-		    'PRECIO.ID_IMPUESTO', 'PRECIO.BRUTO', 'IMPUESTO.TASA AS TASA')
+		    'PRECIO.ID_IMPUESTO', 'PRECIO.BRUTO', 'IMPUESTO.TASA AS TASA',
+		    'PRECIO.PERSONAS AS PERSONAS')
 		   ->get();
 		   $impuestos=Impuesto::all();
 		    $currencies=Currency::all();
 		    $categorylist = Price::pluck('PRECIO','ID_PRECIO');
-
          return view('precio.details',compact('id', 'precios', 'impuestos', 'currencies', 'p'));
      }
 
