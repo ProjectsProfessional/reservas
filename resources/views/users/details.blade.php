@@ -28,7 +28,7 @@
         </div>
     @endisset
 
-    <form class="needs-validation" method="POST" action="{{url('/users')}}">
+    <form class="needs-validation" method="POST" action="{{url("/users/{$user->id}")}}">
         {{ method_field('PUT') }}
         {{csrf_field()}}
         <div class="row">

@@ -27,14 +27,15 @@
             <tr>
                 <th>#</th>
                 <th>Código</th>
-			 <th>Cliente</th>
-			 <th># Personas</th>
-			 <th>Estado</th>
-			 <th>Fecha de ingreso</th>
-			 <th>Fecha de retiro</th>
+                <th>Cliente</th>
+                <th>Fuente</th>
+                <th># Personas</th>
+                <th>Estado</th>
+                <th>Fecha de ingreso</th>
+                <th>Fecha de retiro</th>
                 <th>Codigo de vuelo</th>
-			 <th>Detalles</th>
-			 <th>Acciones</th>
+                <th>Detalles</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -44,6 +45,7 @@
                 <td> {{$reserva->ID_RESERVA}}</td>
                 <td> {{$reserva->CODIGO}}</td>
                 <td> {{$reserva->NOMBRE}} {{$reserva->APELLIDO}}</td>
+                <td>{{$reserva->FUENTE}}</td>
 				<td> {{$reserva->PERSONAS}}</td>
 				<td> {{$reserva->ESTADO}}</td>
 				<td> {{$reserva->FECHA_INGRESO}}</td>

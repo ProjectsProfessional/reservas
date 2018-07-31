@@ -48,6 +48,7 @@ class CurrencyController extends Controller
 		]);
 	    return redirect()->route('currencies');
     }
+
     public function destroy(Currency $currency)
     {
 	    try {

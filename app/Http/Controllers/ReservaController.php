@@ -77,7 +77,7 @@ class ReservaController extends Controller
      public function store(request $request){
 
           $reservation = new Reserva();
-          $reservation->CODIGO = 'TODO:';
+          $reservation->CODIGO = $request->code;
           $reservation->ID_CLIENTE = $request->cliente;
           $reservation->ID_FUENTE = $request->fuente;
           $reservation->ID_ESTADO_RESERVA = '1';
