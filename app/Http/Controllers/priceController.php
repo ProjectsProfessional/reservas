@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Support\Facades\DB;
 use App\Models\Impuesto;
 use Illuminate\Support\Collection;
@@ -16,6 +17,7 @@ class priceController extends Controller
     {
         $this->middleware('auth');
     }
+
 	public function index(){
 	    $precios = price::all();
 	    $currencies = DB::table('precio')
@@ -74,23 +76,17 @@ class priceController extends Controller
 	    ]);
 	   return redirect()->route('tiposHabitaciones');
 	}
-	public function destroy(Price $p)
+	public function destroy(Request $request)
  	{
- 		$id=$p->ID_PRECIO;
-		//dd($id);
- 		try{
-			$query=DB::table('PRECIO')
-			    ->join('TIPO_HABITACION', function ($join) use($id) {
-				   $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
-				   ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
-			    })->get();
+		$id=$request->id;
+	//	dd($request->id);
+		try{
     			 DB::table('PRECIO')->where('ID_PRECIO', '=', $id)->delete();
- 	    		return redirect()->route('tiposHabitaciones');
+			 return response ()->json ('Eliminado');
   	    } catch (\Illuminate\Database\QueryException $e)
  	    {
-  	    		$fallo='Error actualmente esta en uso';
-  			return redirect('tiposHabitaciones')->with('fallo', $fallo);
+		    $fallo='Error actualmente esta en uso';
+		    return 'e la gran puta';
   		}
-		return "Error";
      }
 }

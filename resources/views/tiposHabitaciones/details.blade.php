@@ -22,11 +22,11 @@
 	        <div class="row">
 	            <div class="col-4 mb-3">
 	                <label for="code">Descripcion</label>
-	                <input type="text" class="form-control" id="description" name="description" value="{{$habitacion->DESCRIPCION}}">
+	                <input type="text" class="form-control" id="description" name="description" value="{{$habitacion->DESCRIPCION}}" required>
 	            </div>
 	            <div class="col-4 mb-3">
 	                <label for="description">Cantidad de personas</label>
-	                <input type="text" class="form-control" id="personas"  name="personas" value="{{$habitacion->PERSONAS}}">
+	                <input type="text" class="form-control" id="personas"  name="personas" value="{{$habitacion->PERSONAS}}" required>
 	            </div>
 			  <div class="col-4">
 				  <label for="description">Precios</label>
@@ -39,7 +39,7 @@
 	   <h3>Precios asignados</h3>
 		 <div class="row">
 			<div class="col-9 table-responsive">
-				<table class="table table-striped table-sm">
+				<table class="table table-striped table-sm" id="myTable">
 					<thead>
 						<tr>
 						    <th>Personas</th>
@@ -49,9 +49,10 @@
 						    <th>Eliminar</th>
 						</tr>
 					</thead>
-				@foreach($precios as $precio)
+				@forelse($precios as $precio)
 					<tbody>
 						<tr>
+							<input type="hidden" name="" id="idPrecio" value="{{$precio->ID_PRECIO}}">
 							<td>{{$precio->PERSONAS}}</td>
 		                        	<td> {{$precio->ID_MONEDA}}</td>
 						 	<td> {{$precio->PRECIO}}</td>
@@ -62,13 +63,16 @@
 							    </a>
 		                        </td>
 						    <td>
-							    {!! Form::open(['route'=>['price.destroy', $precio->ID_PRECIO], 'method'=>'DELETE'])!!}
-			    					{!! Form::submit('Eliminar', ['class'=>'btn btn-link btn-sm']) !!}
-			    				{!! Form::close() !!}
+							    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="eliminar();" id="delete">
+								   <span data-feather="save"></span>
+								   Guardar
+							    </button>
 						    </td>
 		                    </tr>
 					</tbody>
-			    	@endforeach
+				@empty
+				    <p><strong>No hay precios asignados</strong></p>
+				@endforelse
 				</table>
 			</div>
 		</div>
@@ -99,7 +103,6 @@
     </form>
 
 @endsection
-
 @section('scripts')
 	@include('precio.js.scritps')
 @endsection

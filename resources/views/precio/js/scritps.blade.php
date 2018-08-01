@@ -38,6 +38,26 @@
             $('.precios').append(new_row);
         });
     }
+    var rowCount = $('#myTable tr').length;
+    function eliminar(){
+	    const arrdata = {
+ 	    _token: "{{ csrf_token() }}",
+ 	    id: $('#idPrecio').val(),
+ 	   };
+ 	   jQuery.ajax({
+ 	    url: "{{ route('deletePrice') }}",
+ 	    method: 'put',
+ 	    data: arrdata,
+ 	    success: function(result){
+ 		   alert(result.success);
+ 		   document.location.href="{{route('tiposHabitaciones')}}";
+ 	    },
+ 	    error: function(jqXHR, textStatus, errorThrown) {
+ 		   alert('Lo Sentimos, no se pudo eliminar.');
+ 		   //alert(jqXHR.responseText);
+ 	    }
+ 	   });
+    }
     function update(){
         const arrdata = {
             _token: "{{ csrf_token() }}",
@@ -47,7 +67,7 @@
 		  id: $('#id').val(),
         };
         jQuery.ajax({
-            url: "{{ route('updateRooms') }}",
+		  url: "{{ route('updateRooms') }}",
             method: 'put',
             data: arrdata,
 		  success: function(result){
@@ -58,6 +78,8 @@
 			 alert('Lo Sentimos, no ha sido posible crear el tipo de habitación.');
 			 //alert(jqXHR.responseText);
 		  }
+
+
         });
 
     }

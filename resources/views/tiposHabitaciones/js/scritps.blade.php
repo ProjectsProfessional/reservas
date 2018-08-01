@@ -46,7 +46,7 @@
         };
         jQuery.ajax({
             url: "{{ route('saveRooms') }}",
-            method: 'post',
+            type: 'POST',
             data: arrdata,
             success: function(result){
                 alert(result.success);

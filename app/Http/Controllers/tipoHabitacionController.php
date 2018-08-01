@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 
 class tipoHabitacionController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -30,8 +29,9 @@ class tipoHabitacionController extends Controller
         return view('tiposHabitaciones.create',compact('currencies','impuestos','title'));
     }
      public function details(tipoHabitacion $tipo){
+
 		 $id=$tipo->ID_TIPO_HABITACION;
-		$habitacion = DB::table('TIPO_HABITACION')
+		$query = DB::table('TIPO_HABITACION')
 		->join('PRECIO', 'TIPO_HABITACION.ID_TIPO_HABITACION'
 		, '=', 'PRECIO.ID_TIPO_HABITACION')
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
@@ -41,11 +41,16 @@ class tipoHabitacionController extends Controller
 		'PRECIO.PRECIO', 'PRECIO.BRUTO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
 		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'PRECIO.PERSONAS')->first();
 		$precios = price::where('ID_TIPO_HABITACION', $id)->get();
+		$habitacion = tipoHabitacion::findOrFail($id);
+		$rows=count($query);
 		$impuestos=Impuesto::all();
 		$currencies=Currency::all();
-		//$habitaciones = tipoHabitacion::where('ID_TIPO_HABITACION', $id)->get();
-		//dd(count($habitacion));
-       	return view('tiposHabitaciones.details', compact('precios', 'habitacion', 'impuestos', 'currencies'));
+		if($rows!=0){
+			$habitacion=$query;
+			return view('tiposHabitaciones.details', compact('precios', 'habitacion', 'impuestos', 'currencies'));
+		}else{
+			return view('tiposHabitaciones.details', compact('precios', 'habitacion', 'impuestos', 'currencies'));
+		}
 
      }
      public function store(request $request){

@@ -35,7 +35,7 @@
             </thead>
             <tbody>
 
-            @forelse($tipos as $tipo)
+            @foreach($tipos as $tipo)
                 <tr>
                     <td> {{$tipo->ID_TIPO_HABITACION}}</td>
                     <td> {{$tipo->DESCRIPCION}}</td>
@@ -52,9 +52,7 @@
 					{!! Form::close() !!}
 				</td>
                 </tr>
-            @empty
-                <p><strong>NO HAY HABITACIONES DEFINIDAS</strong></p>
-            @endforelse
+			 @endforeach
             </tbody>
         </table>
     </div>

@@ -36,14 +36,14 @@ Route::put('/nuevasHabitaciones/{habitaciones}','nuevaHabitacionController@updat
 Route::get('/nuevasHabitaciones/{habitacion}','nuevaHabitacionController@details')
 ->where('habitacion','\d+')
 ->name('nuevasHabitaciones.details');
+
 Route::get('/precio','priceController@index')
     ->name('precio');
 Route::get('/precio/create','priceController@create')
     ->name('precio.create');
-Route::delete('/precio/{p}','priceController@destroy')
-   ->name('price.destroy');
+Route::any('/precio','priceController@destroy')->name('deletePrice');
 Route::post('/precio','priceController@store');
-Route::put('/precio/{precio}','priceController@update');
+Route::put('/precio/{p}','priceController@update');
 Route::get('/precio/{p}','priceController@details')
     ->where('precio','\d+')
     ->name('precio.details');
