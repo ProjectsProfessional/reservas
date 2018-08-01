@@ -16,11 +16,7 @@ class ClientController extends Controller
     	    $title = 'Listado de Clientes';
     	    return view('clients.index', compact('client','title'));
     	}
-	public function destroy(Client $client)
-	{
-		$client->Delete();
-		return redirect()->route('clients');
-	}
+
     	public function create(){
     	    $title = 'Crear Cliente';
     	    return view('clients.create',compact('title'));

@@ -69,14 +69,13 @@ class nuevaHabitacionController extends Controller
 	}
 	public function destroy(nuevaHabitacion $habitacion)
 	 {
-
 		try{
 			 $habitacion->Delete();
 			 return redirect()->route('nuevasHabitaciones');
 	    } catch (\Illuminate\Database\QueryException $e)
 	    {
 			$fallo='Error actualmente esta en uso';
-			return redirect('tiposHabitaciones')->with('fallo', $fallo);
+			return redirect('nuevasHabitaciones')->with('fallo', $fallo);
 		}
 	}
 }

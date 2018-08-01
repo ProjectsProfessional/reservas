@@ -77,7 +77,13 @@ class CustomerController extends Controller
      }
 	public function destroy(Client $client)
 	{
-		$client->Delete();
-		return redirect()->route('clients');
+		try{
+			$client->Delete();
+			return redirect()->route('clients');
+	    } catch (\Illuminate\Database\QueryException $e)
+	    {
+			$fallo='Error actualmente esta en uso';
+			return redirect('clients')->with('fallo', $fallo);
+		}
 	}
 }
