@@ -20,21 +20,27 @@
     <form class="needs-validation" method="POST" action="{{url('/reservas')}}">
         {{csrf_field()}}
         <div class="row">
-            <div class="col-4">
+
+            <div class="col-3 mb-3">
+                <label for="code">Código</label>
+                <input type="number" class="form-control" id="code" name="code" required>
+            </div>
+
+            <div class="col-3 mb-3">
                 <label for="description">Cliente</label>
                 <input type="text" id="autocomplete-cliente" class="form-control autocomplete" onchange='showRow()' style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
                 <input type="text" id="autocomplete-cliente-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
                 <input type="text" class="form-control on-back" id="cliente" name="cliente" value="" style="color: white; background: white;z-index: 3;"  readonly="true"required>
             </div>
 
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
              <label for="description">Fuente</label>
               <input type="text"  id="autocomplete-fuente" class="form-control" style="width: 301px !important; border:none !important; position: absolute; z-index: 2; background: transparent;" required/>
               <input type="text"  id="autocomplete-fuente-x" class="form-control" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
               <input type="text" class="form-control" id="fuente" name="fuente" style="color: white; background: white;z-index: 3 "  readonly="true"required>
             </div>
 
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
                 <label for="personas">Personas</label>
                 <input type="number" class="form-control" id="personas" name="personas" required>
             </div>

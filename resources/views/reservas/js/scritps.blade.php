@@ -139,6 +139,7 @@
         }
         const data = {
             _token: "{{ csrf_token() }}",
+            code:               $('#code').val(),
             cliente:            $('#cliente').val(),
             fuente:             $('#fuente').val(),
             personas:           $('#personas').val(),
