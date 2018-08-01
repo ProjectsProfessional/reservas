@@ -43,7 +43,13 @@ class fuenteReservaController extends Controller
         }
 	public function destroy(fuenteReserva $fuente)
 	 {
-		$fuente->Delete();
-		return redirect()->route('fuentes');
+		try{
+			$fuente->Delete();
+			return redirect()->route('fuentes');
+	    } catch (\Illuminate\Database\QueryException $e)
+	    {
+			$fallo='Error actualmente esta en uso';
+			return redirect('fuentes')->with('fallo', $fallo);
+		}
 	}
 }

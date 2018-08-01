@@ -45,7 +45,14 @@ class EstadoHabitacionController extends Controller
     }
     public function destroy(EstadoHabitacion $estado)
     {
-	    $estado->Delete();
-	    return redirect()->route('estados');
-    }
+		 try
+		  {
+			$estado->Delete();
+			return redirect()->route('estados');
+		} catch (\Illuminate\Database\QueryException $e)
+	     {
+			$fallo='Error actualmente esta en uso';
+			return redirect('estados')->with('fallo', $fallo);
+		}
+	}
 }

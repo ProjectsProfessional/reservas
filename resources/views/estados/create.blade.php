@@ -21,10 +21,10 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="description">Descripción</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Activo">
+                <input type="text" class="form-control" id="description" name="description">
             </div>
         </div>
-	   <div class="col-6">
+	   <div class="col-12">
 		  <button class="btn btn-sm btn-outline-secondary">
 			 <span data-feather="save"></span>
 			 Guardar

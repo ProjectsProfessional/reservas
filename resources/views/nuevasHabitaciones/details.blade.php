@@ -41,7 +41,7 @@
             <div class="col-6 mb-3">
                 <label for="description">Estado</label>
 			 <select class="form-control" name="estado" id="estado">
-				 <option name="estado" value="{{ $habitaciones->first()->ESTADO}}">{{$habitacion->ESTADO}}</option>
+				 <option name="estado" value="{{ $habitaciones->first()->ID_ESTADO_HABITACION}}">{{$habitacion->ESTADO}}</option>
 				  @foreach($estados as $estado)
 					<option value="{{ $estado['ID_ESTADO_HABITACION'] }}" id="estado"  name="estado">{{ $estado['DESCRIPCION'] }}</option>
 				  @endforeach

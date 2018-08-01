@@ -35,19 +35,9 @@ class UserController extends Controller
         return redirect()->route('users');
     }
 
-    public function update(User $user){
-        $data = request()->all();
-        $user->update([
-            'name' => $data['name'],
-            'email'   => $data['email'],
-        ]);
-        return redirect()->route('users');
-    }
-
     public function changePassword(){
         $data = request()->all();
         $user = User::findOrFail($data['user']);
-
         if($data['newPassword']==$data['verifyPassword']){
             if(Hash::check($data['oldPassword'],$user->password)){
                 $user->update([
