@@ -12,7 +12,7 @@ class fuenteReservaController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-    	    $fuentes = fuenteReserva::all();
+    	    $fuentes = fuenteReserva::paginate(10);
     	    $title = 'Fuentes de reserva';
     	    return view('fuentes.index', compact('fuentes','title'));
         }

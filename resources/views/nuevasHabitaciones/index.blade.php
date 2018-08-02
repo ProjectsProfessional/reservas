@@ -56,6 +56,7 @@
             @empty
                 <p>NO HAY HABITACIONES DEFINIDAS</p>
             @endforelse
+		  {{ $habitaciones->links()}}
             </tbody>
         </table>
     </div>

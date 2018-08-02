@@ -66,6 +66,7 @@
             @empty
                 <p>NO EXISTEN RESERVAS</p>
             @endforelse
+		  {{ $reservas->links()}}
             </tbody>
         </table>
     </div>

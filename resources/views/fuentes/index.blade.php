@@ -54,6 +54,7 @@
 			  @empty
 			 	<p>NO HAY FUENTES DEFINIDAS</p>
 			  @endforelse
+			  {{ $fuentes->links()}}
             </tbody>
         </table>
     </div>

@@ -84,7 +84,7 @@
 						    <th>Personas</th>
 						    <th>Moneda</th>
 						    <th>Precio</th>
-						    <th> Detalles</th>
+						    <th>Detalles</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -21,7 +21,8 @@ class ReservaController extends Controller
 	  		->JOIN('ESTADO_RESERVA', 'ESTADO_RESERVA.ID_ESTADO_RESERVA','=', 'RESERVA.ID_ESTADO_RESERVA')
 	  		->SELECT('CLIENTE.NOMBRE1 AS NOMBRE', 'CLIENTE.APELLIDO1 AS APELLIDO', 'ESTADO_RESERVA.DESCRIPCION AS ESTADO', 'FUENTE.CODIGO AS FUENTE','RESERVA.PERSONAS',
 	  		'RESERVA.CODIGO',DB::raw('DATE_FORMAT(FECHA_INGRESO,\' %d /%m /%Y\') AS FECHA_INGRESO,DATE_FORMAT(RESERVA.FECHA_RETIRO,\'%d/%m/%Y\') AS FECHA_RETIRO'),
-			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->get();
+			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->paginate(10);
+
 
          return view('reservas.index', compact('reservas'));
      }
@@ -52,7 +53,7 @@ class ReservaController extends Controller
 
         $habitaciones= DB::table('DBV_HABITACIONES_DISP')
             ->select('HABITACION','DESCRIPCION','TIPO_HAB')
-            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
+            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE
                 T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
                 [$dateIn,$dateIn, $dateOut]
             )
@@ -62,7 +63,7 @@ class ReservaController extends Controller
         $precios = DB::table('DBV_HABITACIONES_DISP')
             ->select('DBV_HABITACIONES_DISP.HABITACION','PERSONAS','MONEDA','PRECIO')
             ->join('DBV_PRECIOS_ASIGNADOS','DBV_HABITACIONES_DISP.ID_TIPO_HABITACION','DBV_PRECIOS_ASIGNADOS.ID_TIPO_HABITACION')
-            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
+            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE
                 T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
                 [$dateIn,$dateIn, $dateOut]
             )

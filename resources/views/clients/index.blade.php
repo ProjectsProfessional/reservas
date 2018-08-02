@@ -58,6 +58,7 @@
 					{!! Form::close() !!}
 				</td>
                 </tr>
+			 		  {{ $client->links()}}
             @empty
                 <p>NO EXISTEN CLIENTES</p>
             @endforelse

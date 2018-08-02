@@ -22,7 +22,7 @@ class nuevaHabitacionController extends Controller
 			   'TIPO_HABITACION.DESCRIPCION AS DESCRIPCION',
 			  'HABITACION.DETALLES AS DETALLES', 'HABITACION.ID_TIPO_HABITACION',
 			  'HABITACION.ID_ESTADO_HABITACION')
-		  ->get();
+		  ->paginate(10);
 	    $title = 'Listado habitacion';
 	    return view('nuevasHabitaciones.index', compact('habitaciones','title'));
 	}
