@@ -76,9 +76,10 @@
 	    table = document.getElementById("myTable");
 	    tr = table.getElementsByTagName("tr");
 	    for (i = 0; i < tr.length; i++) {
-	      td = tr[i].getElementsByTagName("td")[2];
-	      if (td) {
-	        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	      nombre = tr[i].getElementsByTagName("td")[2];
+		 apellido = tr[i].getElementsByTagName("td")[3];
+	      if ((nombre) || (apellido)) {
+	        if ((nombre.innerHTML.toUpperCase().indexOf(filter) > -1) || (apellido.innerHTML.toUpperCase().indexOf(filter) > -1)) {
 	          tr[i].style.display = "";
 	        } else {
 	          tr[i].style.display = "none";
