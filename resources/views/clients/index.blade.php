@@ -23,7 +23,10 @@
 	@endif
     <h2>Resumen</h2>
     <div class="table-responsive">
-        <table class="table table-striped table-sm">
+	<br>
+	<input type="text" id="myInput" onkeyup="search()" placeholder="Buscar.." class="form-control">
+	<hr>
+        <table class="table table-striped table-sm" id="myTable"	>
             <thead>
             <tr>
 	           <th>#</th>
@@ -39,7 +42,7 @@
             <tbody>
 
             @forelse($client as $client1)
-                <tr>
+                <tr id="tableSearch">
                     	<td> {{$client1->ID_CLIENTE}}</td>
 				    <td> {{$client1->CODIGO}}</td>
                     	<td> {{$client1->NOMBRE1}}</td>
@@ -58,10 +61,31 @@
 					{!! Form::close() !!}
 				</td>
                 </tr>
+			 		  {{ $client->links()}}
             @empty
                 <p>NO EXISTEN CLIENTES</p>
             @endforelse
             </tbody>
         </table>
     </div>
+    <script type="text/javascript">
+    function search() {
+	    var input, filter, table, tr, td, i;
+	    input = document.getElementById("myInput");
+	    filter = input.value.toUpperCase();
+	    table = document.getElementById("myTable");
+	    tr = table.getElementsByTagName("tr");
+	    for (i = 0; i < tr.length; i++) {
+	      nombre = tr[i].getElementsByTagName("td")[2];
+		 apellido = tr[i].getElementsByTagName("td")[3];
+	      if ((nombre) || (apellido)) {
+	        if ((nombre.innerHTML.toUpperCase().indexOf(filter) > -1) || (apellido.innerHTML.toUpperCase().indexOf(filter) > -1)) {
+	          tr[i].style.display = "";
+	        } else {
+	          tr[i].style.display = "none";
+	        }
+	      }
+	    }
+	}
+    </script>
 @endsection

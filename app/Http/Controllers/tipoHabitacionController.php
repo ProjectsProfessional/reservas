@@ -7,6 +7,8 @@ use Illuminate\Database\QueryException;
 use App\Models\tipoHabitacion;
 use App\Models\Impuesto;
 use App\Models\Price;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,7 @@ class tipoHabitacionController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-        $tipos = tipoHabitacion::all();
+         $tipos = tipoHabitacion::paginate(10);
  	    $title = 'Listado';
  	    return view('tiposHabitaciones.index', compact('tipos','title'));
      }

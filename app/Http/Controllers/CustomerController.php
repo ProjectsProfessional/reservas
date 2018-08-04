@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +15,7 @@ class CustomerController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-    	    $client = Client::all();
+    	    $client = Client::paginate(10);
     	    $title = 'Listado de Clientes';
     	    return view('clients.index', compact('client','title'));
     	}

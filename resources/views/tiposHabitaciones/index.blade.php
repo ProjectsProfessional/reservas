@@ -53,6 +53,7 @@
 				</td>
                 </tr>
 			 @endforeach
+			{{ $tipos->links() }}
             </tbody>
         </table>
     </div>
