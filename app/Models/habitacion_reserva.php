@@ -12,6 +12,7 @@ class habitacion_reserva extends Model
        protected $fillable = [
            'ID_HABITACION',
            'ID_RESERVA',
+           'ID_MONEDA',
 		    'PRECIO',
        ];
 }

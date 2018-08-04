@@ -14,7 +14,8 @@
                         <th>Habitación</th>
                         <th>Tipo De Habitación</th>
                         <th>Detalles</th>
-                        <th>Precio</th>>
+                        <th>Moneda</th>
+                        <th>Precio</th>
                         <th>Acción</th>
                     </tr>
                     </thead>
@@ -24,6 +25,7 @@
                             <td> {{$habitacion->HABITACION}} </td>
                             <td> {{$habitacion->TIPO_HAB}}   </td>
                             <td> {{$habitacion->DESCRIPCION}} </td>
+                            <td> Precio no Definido </td>
                             <td> Defina Precio </td>
                             <td>
                                     <a href="#"
@@ -50,7 +52,7 @@
                                                     <td>{{$precio->MONEDA}}</td>
                                                     <td>{{$precio->PRECIO}}</td>
                                                     <td>
-                                                        <a href='#' class='btn-link' onclick='addPrice({{$habitacion->HABITACION}},{{$precio->PRECIO}})'>
+                                                        <a href='#' class='btn-link' onclick='addPrice({{$habitacion->HABITACION}},&#34{{$precio->MONEDA}}&#34,{{$precio->PRECIO}})'>
                                                             <span data-feather='arrow-right-circle' ></span>
                                                             Agregar
                                                         </a>

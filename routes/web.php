@@ -45,10 +45,12 @@ Route::get('/precio/create','priceController@create')
     ->name('precio.create');
 Route::any('/precio','priceController@destroy')->name('deletePrice');
 Route::post('/precio','priceController@store');
-Route::put('/precio/{p}','priceController@update');
-Route::get('/precio/{p}','priceController@details')
+Route::put('/precio/{price}','priceController@update');
+
+Route::get('/precio/{price}','priceController@details')
     ->where('precio','\d+')
     ->name('precio.details');
+
  #Estado de habitaciones routes
  Route::get('/estados','EstadoHabitacionController@index')
 	->name('estados');

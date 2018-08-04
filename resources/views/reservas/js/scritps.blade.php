@@ -13,10 +13,11 @@
         cancelRoom();
     });
 
-    function addPrice(rowId,price) {
+    function addPrice(rowId,currency,price) {
         var row = $("[data-id=\""+rowId+"\"]");
         var id = row.data('id');
-        row.find("td").eq(3).html(price);
+        row.find("td").eq(3).html(currency);
+        row.find("td").eq(4).html(price);
     }
 
     function restoreFoot(){
@@ -32,13 +33,14 @@
 
             rooms.push({
                 habitacion: row.find("td").eq(0).html(),
-                precio: row.find("td").eq(3).html()
+                moneda: row.find("td").eq(3).html(),
+                precio: row.find("td").eq(4).html()
             });
 
             //Agrego los Valores a la tabla
             var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
-            for(let i = 0; i<=3; i++){
-                if(i==3){
+            for(let i = 0; i<=4; i++){
+                if(i==4){
                     new_row +="<td><input id=\"precio-"+id+"\" name=\"precio-"+id+"\" type='number' class='form-control prices' onchange='priceTotal()' readonly='true' value="+row.find("td").eq(i).html()+"></td>";
                     price = ($.isNumeric(row.find("td").eq(i).html()))
                     break;
@@ -67,7 +69,7 @@
 
     function priceTotal(){
         restoreFoot();
-        var foot = "<th>TOTAL:</th><th></th><th></th>";
+        var foot = "<th>TOTAL:</th><th></th><th></th><th></th>";
         var total = 0;
 
         $('.habitaciones tbody > tr').each(function (index) {

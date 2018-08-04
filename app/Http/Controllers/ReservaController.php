@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Currency;
 use App\Models\Reserva;
 use App\Models\nuevaHabitacion;
 use App\Models\habitaciones;
@@ -24,7 +25,9 @@ class ReservaController extends Controller
 			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->paginate(10);
 
 
-         return view('reservas.index', compact('reservas'));
+	  	   $currencies = Currency::all();
+
+         return view('reservas.index', compact('reservas','currencies'));
      }
 
     public function create(){
@@ -32,9 +35,9 @@ class ReservaController extends Controller
          * Evaluo si las fechas solicitadas se encuentran disponibles.
          * */
         $data = request()->all();
-        $rooms = $this->showRooms($data['dateIn'],$data['dateOut']);
+        $rooms = $this->showRooms($data['dateIn'],$data['dateOut'],$data['currency']);
 
-        if (count($rooms['habitaciones'])>0){
+        if ((count($rooms['habitaciones'])>0) && (count($rooms['precios'])>0)){
             $dateIn = $data['dateIn'];
             $dateOut = $data['dateOut'];
             //puedo levantar con la vista de habitaciones
@@ -45,15 +48,17 @@ class ReservaController extends Controller
             $clientes = DB::table('DBV_CLIENTES')->pluck('CLIENTE','ID_CLIENTE');
             $fuentes=DB::table('FUENTE')->pluck('CODIGO','ID_FUENTE');
             return view('reservas.create',compact('title','clientes','fuentes','habitaciones','precios','dateIn','dateOut'));
+        }elseif ((count($rooms['habitaciones'])>0) && (count($rooms['precios'])<=0)){
+            return redirect()->route('reservas')->with('warning', 'No se han definido precios en '.$data['currency'] .' para las habitaciones disponibles.');
         }
         return redirect()->route('reservas')->with('warning', 'Todas las habitaciones se encuentran reservadas en la fecha seleccionada.');
     }
 
-    public function showRooms($dateIn,$dateOut){
+    public function showRooms($dateIn,$dateOut,$currency){
 
         $habitaciones= DB::table('DBV_HABITACIONES_DISP')
             ->select('HABITACION','DESCRIPCION','TIPO_HAB')
-            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE
+            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
                 T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
                 [$dateIn,$dateIn, $dateOut]
             )
@@ -63,11 +68,12 @@ class ReservaController extends Controller
         $precios = DB::table('DBV_HABITACIONES_DISP')
             ->select('DBV_HABITACIONES_DISP.HABITACION','PERSONAS','MONEDA','PRECIO')
             ->join('DBV_PRECIOS_ASIGNADOS','DBV_HABITACIONES_DISP.ID_TIPO_HABITACION','DBV_PRECIOS_ASIGNADOS.ID_TIPO_HABITACION')
-            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE
-                T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
-                [$dateIn,$dateIn, $dateOut]
+            ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
+                T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?)) AND MONEDA = ?',
+                [$dateIn,$dateIn, $dateOut,$currency]
             )
-         ->get();
+            ->groupBy('DBV_HABITACIONES_DISP.HABITACION','PERSONAS','MONEDA','PRECIO')
+            ->get();
         return (compact('habitaciones','precios'));
     }
 
@@ -75,34 +81,42 @@ class ReservaController extends Controller
          return view('reservas.details',compact('reserva', 'id'));
      }
 
-     public function store(request $request){
+     public function store(request $request)
+     {
 
-          $reservation = new Reserva();
-          $reservation->CODIGO = $request->code;
-          $reservation->ID_CLIENTE = $request->cliente;
-          $reservation->ID_FUENTE = $request->fuente;
-          $reservation->ID_ESTADO_RESERVA = '1';
-          $reservation->PERSONAS = $request->personas;
-          $reservation->FECHA_INGRESO = $request->fechaIngreso;
-          $reservation->FECHA_RETIRO = $request->fechaSalida;
-          $reservation->CODIGO_VUELO = $request->codigoVuelo;
-          $reservation->save();
+         $reservation = new Reserva();
+         $reservation->CODIGO = $request->code;
+         $reservation->ID_CLIENTE = $request->cliente;
+         $reservation->ID_FUENTE = $request->fuente;
+         $reservation->ID_ESTADO_RESERVA = '1';
+         $reservation->PERSONAS = $request->personas;
+         $reservation->FECHA_INGRESO = $request->fechaIngreso;
+         $reservation->FECHA_RETIRO = $request->fechaSalida;
+         $reservation->CODIGO_VUELO = $request->codigoVuelo;
 
-          for($i=0; $i<count($request->habitaciones);$i++){
-              $detail = new habitacion_reserva();
-              $detail->ID_HABITACION = $request->habitaciones[$i]["habitacion"];
-              $detail->ID_RESERVA    = $reservation->ID_RESERVA;
-              $detail->PRECIO = $request->habitaciones[$i]["precio"];
-              $detail->save();
-              //Es necesario actualizar las habitaciones como Reservadas.
-              //$this->updateRoom($request->habitaciones[$i]["habitacion"]);
+         DB::beginTransaction();
 
-          }
+         $reservation->save();
 
+         for ($i = 0; $i < count($request->habitaciones); $i++) {
+             $detail = new habitacion_reserva();
+             $detail->ID_HABITACION = $request->habitaciones[$i]["habitacion"];
+             $detail->ID_RESERVA = $reservation->ID_RESERVA;
+             $detail->ID_RESERVA = $reservation->ID_RESERVA;
+             $detail->PRECIO = $request->habitaciones[$i]["precio"];
+             $detail->save();
+             //Es necesario actualizar las habitaciones como Reservadas.
+             //$this->updateRoom($request->habitaciones[$i]["habitacion"]);
+
+             DB::commit();
+         }
+         DB::rollBack();
          return response()->json(['message'=>'Se creado la reserva : '.$reservation->ID_RESERVA .' exitosamente']);
      }
 
+     private function getCurrency($currency){
 
+     }
      public function update(Reserva $reserva){
  	    $data = request()->all();
   	   	//dd($data);
@@ -118,19 +132,7 @@ class ReservaController extends Controller
  		]);
  	    return redirect()->route('reservas');
      }
-    /*
-     private function updateRoom(int $id){
 
-        $status = DB::table('ESTADO_HABITACION')
-            ->select('ID_ESTADO_HABITACION')
-            ->where('DESCRIPCION','Reservado')
-            ->first();
-
-        DB::table('HABITACION')
-            ->where('ID_HABITACION',$id)
-            ->update(['ID_ESTADO_HABITACION'=>$status->ID_ESTADO_HABITACION]);
-     }
-    */
 	public function destroy(Reserva $reserva)
 	{
 		$id=$reserva->ID_RESERVA;

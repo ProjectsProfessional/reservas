@@ -11,6 +11,19 @@
                 <form method="post" action="{{route('reservas.create')}}">
                     {{csrf_field()}}
                     <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Moneda de la reserva</span>
+                            </div>
+                            <select class="form-control" name="currency" id="currency" required>
+                                <option value="">Seleccione moneda</option>
+                                @foreach($currencies as $currency)
+                                    <option value="{{$currency->CODIGO}}">{{$currency->DESCRIPCION}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="dateIn">Fecha de ingreso</label>
                         <input type="date" class="form-control" id="dateIn" name="dateIn" placeholder="Fecha de reserva">
                     </div>
