@@ -64,8 +64,8 @@
 		                        </td>
 						    <td>
 							    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="eliminar();" id="delete">
-								   <span data-feather="save"></span>
-								   Guardar
+								   <span data-feather="trash-2"></span>
+								   Eliminar
 							    </button>
 						    </td>
 		                    </tr>

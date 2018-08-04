@@ -31,7 +31,7 @@
                 new_row +="<td>"+ row.find('#price').val() +"</td>";
             }
             console.log(new_row);
-            new_row +="<td> <a href=\"#\" <span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
+            new_row +="<td> <a href=\"#\" class=\"btn-outline-link\" <span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
             new_row += "</tr>";
             //console.log(new_row);
             //Nombre de la tabla
@@ -50,7 +50,7 @@
  	    data: arrdata,
  	    success: function(result){
  		   alert(result.success);
- 		   document.location.href="{{route('tiposHabitaciones')}}";
+ 		   document.location.href="{{route('tiposHabitaciones.details',[$habitacion->ID_TIPO_HABITACION])}}";
  	    },
  	    error: function(jqXHR, textStatus, errorThrown) {
  		   alert('Lo Sentimos, no se pudo eliminar.');
@@ -87,6 +87,7 @@
         $('.precios').on('click','.btn-outline-link',function () {
             var row = $(this).parents('tr');
             var id = row.find("td").eq(0).html();
+		  arrPrices.splice(id.val(), 1);
             showRow(id);
             row.fadeOut();
         });

@@ -21,19 +21,14 @@
                 price: row.find('#price').val()
             };
             arrPrices.push(arrPrice);
-            var new_row = "<tr>";
+            var new_row = "<tr onclick=\"myFunction(this)\">";
             for(var i = 0; i<1; i++){
-                //console.log(arrPrice);
-                //console.log(arrPrices);
                 new_row +="<td>"+ row.find('#personas').val() +"</td>";
                 new_row +="<td>"+ row.find('#currency:selected').eq(i).html() +"</td>";
                 new_row +="<td>"+ row.find('#price').val() +"</td>";
             }
-            console.log(new_row);
-            new_row +="<td> <a href=\"#\" <span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
+            new_row +="<td> <a href=\"#\" class=\"btn-outline-link\" <span data-feather=\"arrow-left-circle\"></span> regresar </a></td>";
             new_row += "</tr>";
-            //console.log(new_row);
-            //Nombre de la tabla
             $('.precios').append(new_row);
         });
     }
@@ -59,24 +54,21 @@
         });
 
     }
+    function destroy(row) {
+	    //index de la columna
+	    index=row.rowIndex-1;
+	    //lo saco del arreglo
+	    arrPrices.splice(index, 1);
+	    //elimino la columna
+	    document.getElementById("myTable").deleteRow(index);
+	    //Visual
+	    row.fadeOut();
+    }
     function cancelRoom(){
         $('.precios').on('click','.btn-outline-link',function () {
             var row = $(this).parents('tr');
-            var id = row.find("td").eq(0).html();
-            showRow(id);
-            row.fadeOut();
-        });
-    }
-    function showRow(id) {
-        /*accediendo a tabla de habitaciones disponibles*/
-        //ID tabla de la vista rooms
-        //table->tbody->tr
-        $('#rooms-available tbody tr').each(function (index) {
-            var room_id = $(this).data('id');
-            if(room_id ==id){
-                $(this).show();
-                return false;
-            }
+            //var id = row.find("td").eq(0).html(;
+           // row.fadeOut();
         });
     }
 </script>

@@ -38,7 +38,7 @@
 			<div class="col-9">
 				<h3>Agregados</h3>
 				<div class="table-responsive">
-					<table class="table table-striped table-sm precios">
+					<table class="table table-striped table-sm precios" id="myTable">
 						<thead>
 							<tr>
 							   <th>Personas</th>

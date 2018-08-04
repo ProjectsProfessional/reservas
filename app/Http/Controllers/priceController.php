@@ -86,7 +86,6 @@ class priceController extends Controller
   	    } catch (\Illuminate\Database\QueryException $e)
  	    {
 		    $fallo='Error actualmente esta en uso';
-		    return 'e la gran puta';
   		}
      }
 }
