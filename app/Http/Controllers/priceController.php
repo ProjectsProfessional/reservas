@@ -35,8 +35,8 @@ class priceController extends Controller
 		$currencies=Currency::all();
 	    return view('price.create',compact('impuestos','currencies','title'));
 	}
-	public function details(price $p){
-		$id=$p->ID_PRECIO;
+	public function details(price $price){
+		$id=$price->ID_PRECIO;
 	//	dd($id);
 		$precios = DB::table('precio')
 		   ->join('MONEDA', 'precio.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
@@ -66,10 +66,10 @@ class priceController extends Controller
 		    dd($collection);
          return redirect()->route('tiposHabitaciones');
      }
-	public function update(Price $precio){
+	public function update(Price $price){
 	   $data = request()->all();
 	    //dd($data);
-	    $precio->update([
+	    $price->update([
 		    'ID_MONEDA' => $data['moneda'],
               'PRECIO'   => $data['precio'],
 		    'IMPUESTO' => $data['impuesto'],
