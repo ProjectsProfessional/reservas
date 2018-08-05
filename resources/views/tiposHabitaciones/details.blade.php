@@ -49,12 +49,13 @@
 						    <th>Eliminar</th>
 						</tr>
 					</thead>
-				@forelse($precios as $precio)
+						@forelse($precios as $precio)
 					<tbody>
 						<tr>
 							<input type="hidden" name="" id="idPrecio" value="{{$precio->ID_PRECIO}}">
+
 							<td>{{$precio->PERSONAS}}</td>
-		                        	<td> {{$precio->ID_MONEDA}}</td>
+		                        	<td> {{$precio->CODIGO}}</td>
 						 	<td> {{$precio->PRECIO}}</td>
 		                        <td>
 							    <a href="{{route('precio.details',[$precio->ID_PRECIO])}}">
@@ -70,9 +71,9 @@
 						    </td>
 		                    </tr>
 					</tbody>
-				@empty
-				    <p><strong>No hay precios asignados</strong></p>
-				@endforelse
+					@empty
+						<p>No existen precios</p>
+					@endforelse
 				</table>
 			</div>
 		</div>

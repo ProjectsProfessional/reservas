@@ -42,7 +42,13 @@ class tipoHabitacionController extends Controller
 		->select('TIPO_HABITACION.ID_TIPO_HABITACION', 'TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS',
 		'PRECIO.PRECIO', 'PRECIO.BRUTO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
 		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'PRECIO.PERSONAS')->first();
-		$precios = price::where('ID_TIPO_HABITACION', $id)->get();
+
+		$precios = DB::table('PRECIO')
+		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
+		->where('PRECIO.ID_TIPO_HABITACION', '=', $id)
+		->select('PRECIO.PERSONAS as PERSONAS', 'PRECIO.ID_PRECIO AS ID_PRECIO',
+		 'PRECIO.PRECIO as PRECIO', 'MONEDA.CODIGO AS CODIGO')->get();
+	//	dd($precios);
 		$habitacion = tipoHabitacion::findOrFail($id);
 		$rows=count($query);
 		$impuestos=Impuesto::all();
