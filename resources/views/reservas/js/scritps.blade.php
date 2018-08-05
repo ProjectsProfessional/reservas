@@ -36,7 +36,6 @@
                 moneda: row.find("td").eq(3).html(),
                 precio: row.find("td").eq(4).html()
             });
-
             //Agrego los Valores a la tabla
             var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
             for(let i = 0; i<=4; i++){

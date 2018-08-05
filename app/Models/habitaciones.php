@@ -13,4 +13,5 @@ class habitaciones extends Model
         'ID_HABITACION',
         'PATH',
     ];
+
 }

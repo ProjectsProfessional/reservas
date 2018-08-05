@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Client;
@@ -21,11 +22,15 @@ class CustomerController extends Controller
     	}
     	public function create(){
     	    $title = 'Crear Cliente';
-    	    return view('clients.create',compact('title'));
+    	    $paises = DB::table('PAIS')->pluck('PAIS','ID_PAIS');
+    	    return view('clients.create',compact('title','paises'));
     	}
     	public function details(Client $client){
-            //dd($client);
-            return view('clients.details',compact('client'));
+            $paises = Country::all();
+            $pais = $paises->find($client->ID_PAIS);
+            $paises = DB::table('PAIS')->pluck('PAIS','ID_PAIS');
+            $pais = $pais->PAIS;
+            return view('clients.details',compact('client','paises','pais'));
          }
 
 	 public function update(Client $client){
@@ -33,6 +38,7 @@ class CustomerController extends Controller
 		 // dd($data);
 		  $client->update([
 			  'CODIGO' => $data['codigo'],
+			  'ID_PAIS' => $data['pais'],
 			  'NOMBRE1'  => $data['nombre'],
 			  'NOMBRE2'  => $data['segundoNombre'],
 			  'APELLIDO1'  => $data['primerApellido'],
@@ -65,6 +71,7 @@ class CustomerController extends Controller
 
         Client::create([
         'CODIGO' => substr($data['nombre'],0,1).$data['primerApellido'].$lastCustomer->Increment,
+        'ID_PAIS' => $data['pais'],
         'NOMBRE1'  => $data['nombre'],
         'NOMBRE2'  => $data['segundoNombre'],
         'APELLIDO1'  => $data['primerApellido'],

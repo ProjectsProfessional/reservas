@@ -151,7 +151,9 @@ Route::post('/reservas/rooms','ReservaController@rooms')
 
 Route::delete('/reservas/{reserva}','ReservaController@destroy')
  	->name('reservas.destroy');
+
 Route::put('/reservas/{reserva}','ReservaController@update');
+
 Route::get('/reservas/{reserva}','ReservaController@details')
     ->where('reserva','\d+')
     ->name('reservas.details');

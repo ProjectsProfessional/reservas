@@ -20,4 +20,16 @@ class Reserva extends Model
  	   'FECHA_RETIRO',
  	   'CODIGO_VUELO',
      ];
+
+     public function customer(){
+         return $this->belongsTo('App\Models\Client','ID_CLIENTE');
+     }
+
+     public function source(){
+        return $this->belongsTo('App\Models\fuenteReserva','ID_FUENTE');
+     }
+
+     public function rooms(){
+        return $this->hasMany('App\Models\RoomsByReservation','ID_RESERVA');
+     }
 }

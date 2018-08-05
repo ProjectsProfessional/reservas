@@ -50,7 +50,6 @@
             @empty
                 <p>NO HAY USUARIOS REGISTRADOS</p>
             @endforelse
-		  {{ $users->links()}}
             </tbody>
         </table>
     </div>

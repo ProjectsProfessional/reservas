@@ -46,7 +46,7 @@ class CurrencyController extends Controller
 			'CODIGO' => $data['code'],
             'DESCRIPCION'   => $data['description'],
 		]);
-	    return redirect()->route('currencies');
+        return redirect()->route('currencies');
     }
 
     public function destroy(Currency $currency)

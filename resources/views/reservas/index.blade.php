@@ -29,11 +29,12 @@
                 <th>Código</th>
                 <th>Cliente</th>
                 <th>Fuente</th>
-                <th># Personas</th>
+                <th>Personas</th>
                 <th>Estado</th>
-                <th>Fecha de ingreso</th>
-                <th>Fecha de retiro</th>
-                <th>Codigo de vuelo</th>
+                <th>Del</th>
+                <th>Al</th>
+                <th>Cod de vuelo</th>
+                <th>Importe</th>
                 <th>Detalles</th>
                 <th>Acciones</th>
             </tr>
@@ -42,26 +43,27 @@
 
             @forelse($reservas as $reserva)
                 <tr>
-                <td> {{$reserva->ID_RESERVA}}</td>
-                <td> {{$reserva->CODIGO}}</td>
-                <td> {{$reserva->NOMBRE}} {{$reserva->APELLIDO}}</td>
-                <td>{{$reserva->FUENTE}}</td>
-				<td> {{$reserva->PERSONAS}}</td>
-				<td> {{$reserva->ESTADO}}</td>
-				<td> {{$reserva->FECHA_INGRESO}}</td>
-				<td> {{$reserva->FECHA_RETIRO}}</td>
-				<td> {{$reserva->CODIGO_VUELO}}</td>
+                    <td> {{$reserva->ID_RESERVA}}</td>
+                    <td> {{$reserva->CODIGO}}</td>
+                    <td> {{$reserva->NOMBRE}}</td>
+                    <td>{{$reserva->FUENTE}}</td>
+                    <td> {{$reserva->PERSONAS}}</td>
+                    <td> {{$reserva->ESTADO}}</td>
+                    <td> {{$reserva->FECHA_INGRESO}}</td>
+                    <td> {{$reserva->FECHA_RETIRO}}</td>
+                    <td> {{$reserva->CODIGO_VUELO}}</td>
+                    <td> ({{$reserva->MONEDA}}) {{$reserva->IMPORTE}}</td>
                     <td>
                         <a href="{{route('reservas.details',[$reserva->ID_RESERVA])}}">
                             <span data-feather="edit"></span>
                             Ver Detalles
                         </a>
                     </td>
-				<td>
-					{!! Form::open(['route'=>['reservas.destroy', $reserva->ID_RESERVA], 'method'=>'DELETE'])!!}
-						{!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
-					{!! Form::close() !!}
-				</td>
+                    <td>
+                        {!! Form::open(['route'=>['reservas.destroy', $reserva->ID_RESERVA], 'method'=>'DELETE'])!!}
+                            {!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
             @empty
                 <p>NO EXISTEN RESERVAS</p>

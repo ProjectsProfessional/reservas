@@ -35,6 +35,16 @@ class UserController extends Controller
         return redirect()->route('users');
     }
 
+    public function update(User $user){
+        $data = request()->all();
+        //dd($data);
+        $user->update([
+            'name' => $data['name'],
+            'email'   => $data['email'],
+        ]);
+        return redirect()->route('users');
+    }
+
     public function changePassword(){
         $data = request()->all();
         $user = User::findOrFail($data['user']);

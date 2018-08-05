@@ -16,17 +16,8 @@ class ReservaController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-	  	   $reservas=DB::table('RESERVA')
-	  	   	->JOIN('CLIENTE', 'RESERVA.ID_CLIENTE', '=', 'CLIENTE.ID_CLIENTE')
-	  		->JOIN('FUENTE', 'FUENTE.ID_FUENTE', '=', 'RESERVA.ID_FUENTE')
-	  		->JOIN('ESTADO_RESERVA', 'ESTADO_RESERVA.ID_ESTADO_RESERVA','=', 'RESERVA.ID_ESTADO_RESERVA')
-	  		->SELECT('CLIENTE.NOMBRE1 AS NOMBRE', 'CLIENTE.APELLIDO1 AS APELLIDO', 'ESTADO_RESERVA.DESCRIPCION AS ESTADO', 'FUENTE.CODIGO AS FUENTE','RESERVA.PERSONAS',
-	  		'RESERVA.CODIGO',DB::raw('DATE_FORMAT(FECHA_INGRESO,\' %d /%m /%Y\') AS FECHA_INGRESO,DATE_FORMAT(RESERVA.FECHA_RETIRO,\'%d/%m/%Y\') AS FECHA_RETIRO'),
-			 'RESERVA.CODIGO_VUELO', 'RESERVA.ID_RESERVA')->paginate(10);
-
-
+	  	   $reservas=DB::table('DBV_DETALLES_RESERVAS')->paginate(10);
 	  	   $currencies = Currency::all();
-
          return view('reservas.index', compact('reservas','currencies'));
      }
 
@@ -77,8 +68,11 @@ class ReservaController extends Controller
         return (compact('habitaciones','precios'));
     }
 
-     public function details(){
-         return view('reservas.details',compact('reserva', 'id'));
+     public function details(Reserva $reserva){
+
+        $habitaciones = Reserva::find($reserva->ID_RESERVA)->rooms;
+        //dd($habitaciones);
+        return view('reservas.details',compact('reserva', 'habitaciones'));
      }
 
      public function store(request $request)
@@ -97,25 +91,26 @@ class ReservaController extends Controller
          DB::beginTransaction();
 
          $reservation->save();
-
          for ($i = 0; $i < count($request->habitaciones); $i++) {
              $detail = new habitacion_reserva();
              $detail->ID_HABITACION = $request->habitaciones[$i]["habitacion"];
              $detail->ID_RESERVA = $reservation->ID_RESERVA;
-             $detail->ID_RESERVA = $reservation->ID_RESERVA;
+             $detail->ID_MONEDA = $this->getCurrency($request->habitaciones[$i]["moneda"]);
              $detail->PRECIO = $request->habitaciones[$i]["precio"];
              $detail->save();
-             //Es necesario actualizar las habitaciones como Reservadas.
-             //$this->updateRoom($request->habitaciones[$i]["habitacion"]);
 
              DB::commit();
+
          }
          DB::rollBack();
          return response()->json(['message'=>'Se creado la reserva : '.$reservation->ID_RESERVA .' exitosamente']);
      }
 
      private function getCurrency($currency){
-
+        return DB::table('MONEDA')
+            ->select('ID_MONEDA')
+            ->where('CODIGO',$currency)
+            ->first()->ID_MONEDA;
      }
      public function update(Reserva $reserva){
  	    $data = request()->all();

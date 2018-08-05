@@ -14,4 +14,10 @@ class nuevaHabitacion extends Model
          'ID_ESTADO_HABITACION',
 	    'DETALLES',
     ];
+
+
+   public function type(){
+       return $this->belongsTo('App\Models\tipoHabitacion','ID_TIPO_HABITACION');
+   }
+
 }

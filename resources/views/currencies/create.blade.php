@@ -8,7 +8,7 @@
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <a class="btn btn-sm btn-outline-secondary" href="{{route('reservas')}}">
+            <a class="btn btn-sm btn-outline-secondary" href="{{route('currencies')}}">
                 <span data-feather="arrow-left-circle"></span>
                 Cancelar
             </a>

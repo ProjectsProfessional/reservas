@@ -4,6 +4,7 @@
 @section('css-template')
     @parent
     <link href="{{asset("css/form-validation.css")}}" rel="stylesheet">
+    <link href="{{asset("css/autocomplete.css")}}" rel="stylesheet">
 @endsection
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -72,9 +73,16 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-4 mb-3">
+                <label for="pais">pais</label>
+                <input type="text" id="autocomplete-pais" class="form-control autocomplete" style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
+                <input type="text" id="autocomplete-pais-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
+                <input type="text" class="form-control on-back" id="pais" name="pais" value="" style="color: white; background: white;z-index: 3;"  readonly="true"required>
+            </div>
+        </div>
 	   <div class="row">
-           <div class="col-12 mb-3">
+           <div class="col-8 mb-3">
                <div class="input-group mb-3">
                    <div class="custom-file">
                        <input type="file" class="custom-file-input form-control" id="pathScan" name="pathScan">
@@ -102,4 +110,7 @@
             </div>
         </div>
     </form>
+@endsection
+@section('scripts')
+    @include('clients.filters.country')
 @endsection
