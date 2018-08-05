@@ -36,6 +36,7 @@
                 moneda: row.find("td").eq(3).html(),
                 precio: row.find("td").eq(4).html()
             });
+
             //Agrego los Valores a la tabla
             var new_row = "<tr data-id=\""+id+"\" class=\"room-"+id+"\">";
             for(let i = 0; i<=4; i++){
@@ -106,14 +107,24 @@
             var id = row.find("td").eq(0).html();
             showRow(id);
             priceTotal();
+            removeOnArray(id);
         });
     }
 
+    function removeOnArray(id)
+    {
+
+        for(let i=0; i< rooms.length; i++){
+            if(rooms[i]["habitacion"] ==id){
+                rooms.splice(i,1);
+                return false;
+            }
+        }
+    }
     function showRow(id) {
         /*accediendo a tabla de habitaciones disponibles*/
         $('#rooms-available tbody tr').each(function (index) {
             var room_id = $(this).data('id');
-
             if(room_id ==id){
                 $('[class="room-'+room_id+'"]').remove();
                 $(this).show();
@@ -122,7 +133,7 @@
         });
     }
 
-    function showRow() {
+    function clearRooms() {
         /*accediendo a tabla de habitaciones disponibles*/
         $('#rooms-available tbody tr').each(function (index) {
             var room_id = $(this).data('id');
@@ -130,7 +141,9 @@
             $(this).show();
         });
         restoreFoot();
+        rooms = [];
     }
+
     function saveReservation(){
 
         if($.isEmptyObject(rooms)){

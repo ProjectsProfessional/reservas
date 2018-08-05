@@ -155,8 +155,8 @@ class ReservaController extends Controller
      public function destroy(Reserva $reserva)
      {
         $id=$reserva->ID_RESERVA;
-        dd($id);
-        $deleted = DB::delete('delete from reservas where reserva.id_reserva = ? and habitacion_reserva.id_reserva', [$id]);
+        dd("Página en Mantenimiento, Conctacte con su administrador");
+        $deleted = DB::delete('delete from reserva where reserva.id_reserva = ? and habitacion_reserva.id_reserva', [$id]);
         return redirect()->route('reservas');
      }
 }

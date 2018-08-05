@@ -16,16 +16,16 @@
 @endsection
 @section('content')
     <h2>Resumen</h2>
+    <input type="text" id="myInput" onkeyup="search()" placeholder="Buscar.." class="form-control">
     <div class="table-responsive">
         @if (session('warning'))
             <div class="alert alert-warning">
                 {{ session('warning') }}
             </div>
         @endif
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm" id="myTable">
             <thead>
             <tr>
-                <th>#</th>
                 <th>Código</th>
                 <th>Cliente</th>
                 <th>Fuente</th>
@@ -42,17 +42,22 @@
             <tbody>
 
             @forelse($reservas as $reserva)
-                <tr>
-                    <td> {{$reserva->ID_RESERVA}}</td>
-                    <td> {{$reserva->CODIGO}}</td>
-                    <td> {{$reserva->NOMBRE}}</td>
+                <tr id="tableSearch">
+                    <td>{{$reserva->CODIGO}}</td>
+                    <td>{{$reserva->NOMBRE}}</td>
                     <td>{{$reserva->FUENTE}}</td>
-                    <td> {{$reserva->PERSONAS}}</td>
-                    <td> {{$reserva->ESTADO}}</td>
-                    <td> {{$reserva->FECHA_INGRESO}}</td>
-                    <td> {{$reserva->FECHA_RETIRO}}</td>
-                    <td> {{$reserva->CODIGO_VUELO}}</td>
-                    <td> ({{$reserva->MONEDA}}) {{$reserva->IMPORTE}}</td>
+                    <td>{{$reserva->PERSONAS}}</td>
+                    <td>{{$reserva->ESTADO}}</td>
+                    <td>{{$reserva->FECHA_INGRESO}}</td>
+                    <td>{{$reserva->FECHA_RETIRO}}</td>
+                    <td>{{$reserva->CODIGO_VUELO}}</td>
+                    <td>
+                        @if($reserva->MONEDA == 'ANULADA')
+                            ({{$reserva->MONEDA}})
+                        @else
+                            ({{$reserva->MONEDA}}){{$reserva->IMPORTE}}
+                        @endif
+                    </td>
                     <td>
                         <a href="{{route('reservas.details',[$reserva->ID_RESERVA])}}">
                             <span data-feather="edit"></span>
@@ -61,7 +66,7 @@
                     </td>
                     <td>
                         {!! Form::open(['route'=>['reservas.destroy', $reserva->ID_RESERVA], 'method'=>'DELETE'])!!}
-                            {!! Form::submit('Eliminar', ['class'=>'btn btn-link']) !!}
+                            {!! Form::submit('Eliminar', ['class'=>'btn btn-danger']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -73,3 +78,28 @@
         </table>
     </div>
 @endsection
+<script type="text/javascript">
+    function search() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            codigo = tr[i].getElementsByTagName("td")[0];
+            nombre = tr[i].getElementsByTagName("td")[2];
+            estado = tr[i].getElementsByTagName("td")[4];
+            if ((codigo) || (nombre) || (estado)) {
+                if (
+                    (codigo.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+                    (nombre.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+                    (estado.innerHTML.toUpperCase().indexOf(filter) > -1)
+                ){
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

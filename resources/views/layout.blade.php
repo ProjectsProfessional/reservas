@@ -36,7 +36,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-3 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-3 container-fluid d-none d-md-block bg-light sidebar">
             @include('main.menu')
         </nav>
 
@@ -45,7 +45,9 @@
                 <h1 class="h2">@yield('content-title')</h1>
                 @yield('content-header-buttons')
             </div>
+            <div class="container-fluid">
             @yield('content')
+            </div>
         </main>
     </div>
 </div>
