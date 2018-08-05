@@ -144,10 +144,14 @@ Route::post('/reservas/create','ReservaController@create')
 Route::post('/reservas','ReservaController@store')
     ->name('reservas.save');
 
-/*
-Route::post('/reservas/rooms','ReservaController@rooms')
-    ->name('reservas.showRooms');
-*/
+Route::post('/reservas/pay','ReservaController@pay')
+    ->name('reserva.pay');
+
+Route::post('/reservas/cancel','ReservaController@cancel')
+    ->name('reserva.cancel');
+
+Route::post('/reservas','ReservaController@store')
+    ->name('reservas.save');
 
 Route::delete('/reservas/{reserva}','ReservaController@destroy')
  	->name('reservas.destroy');
@@ -157,6 +161,7 @@ Route::put('/reservas/{reserva}','ReservaController@update');
 Route::get('/reservas/{reserva}','ReservaController@details')
     ->where('reserva','\d+')
     ->name('reservas.details');
+
 ###########################################################
 //REPORTES
 Route::get('/reports/dailyReport','dailyReportController@index')

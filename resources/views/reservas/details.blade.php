@@ -9,6 +9,14 @@
 @section('content-header-buttons')
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
+            <button id="pay" type="button" class="btn btn-outline-success">
+                <span data-feather="dollar-sign"></span>
+                Pagar
+            </button>
+            <button id="cancel" type="button" class="btn btn-outline-danger">
+                <span data-feather="x"></span>
+                <strong>Anular</strong>
+            </button>
             <a class="btn btn-sm btn-outline-secondary" href="{{route('reservas')}}">
                 <span data-feather="arrow-left-circle"></span>
                 Regresar
@@ -85,4 +93,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+    @include('reservas.js.detailsScript')
 @endsection

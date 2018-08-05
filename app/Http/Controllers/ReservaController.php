@@ -71,7 +71,6 @@ class ReservaController extends Controller
      public function details(Reserva $reserva){
 
         $habitaciones = Reserva::find($reserva->ID_RESERVA)->rooms;
-        //dd($habitaciones);
         return view('reservas.details',compact('reserva', 'habitaciones'));
      }
 
@@ -128,11 +127,36 @@ class ReservaController extends Controller
  	    return redirect()->route('reservas');
      }
 
-	public function destroy(Reserva $reserva)
-	{
-		$id=$reserva->ID_RESERVA;
-		dd($id);
-		$deleted = DB::delete('delete from reservas where reserva.id_reserva = ? and habitacion_reserva.id_reserva', [$id]);
-	     return redirect()->route('reservas');
-	}
+     public function pay(){
+        $data = request()->all();
+        $reserva = Reserva::findOrFail($data['reserva']);
+        $reserva->update([
+            'ID_ESTADO_RESERVA' => 2
+        ]);
+         return response()->json(['message'=>'Reserva : '.$reserva->CODIGO .' Pagada Exitosamente']);
+     }
+
+     public function cancel(){
+         $data = request()->all();
+         $reserva = Reserva::findOrFail($data['reserva']);
+         DB::beginTransaction();
+         DB::table('HABITACION_RESERVA')
+             ->where('ID_RESERVA',$reserva->ID_RESERVA)
+             ->delete();
+         if($reserva->update([
+             'ID_ESTADO_RESERVA' => 3
+         ])){
+             DB::commit();
+             return response()->json(['message'=>'Se ha anulado la reserva : '.$reserva->CODIGO .'. Exitosamente']);
+         }
+         DB::rollBack();
+     }
+
+     public function destroy(Reserva $reserva)
+     {
+        $id=$reserva->ID_RESERVA;
+        dd($id);
+        $deleted = DB::delete('delete from reservas where reserva.id_reserva = ? and habitacion_reserva.id_reserva', [$id]);
+        return redirect()->route('reservas');
+     }
 }
