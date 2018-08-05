@@ -26,8 +26,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">Primer y Segundo nombre</span>
                     </div>
-                    <input type="text" class="form-control" name="nombre" id="nombre" required>
-                    <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" required>
+                    <input type="text" class="form-control" name="nombre" id="nombre"value="{{old('nombre')}}" required>
+                    <input type="text" class="form-control" id="segundoNombre" name="segundoNombre">
                 </div>
             </div>
        </div>
@@ -37,8 +37,8 @@
                    <div class="input-group-prepend">
                        <span class="input-group-text" id="">Primer y Segundo Apellido</span>
                    </div>
-                   <input type="text" class="form-control" id="primerApellido" name="primerApellido"  required>
-                   <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" required>
+                   <input type="text" class="form-control" id="primerApellido" name="primerApellido" value="{{old('primerApellido')}}"  required>
+                   <input type="text" class="form-control" id="segundoApellido" name="segundoApellido">
                </div>
            </div>
             <div class="col-4 mb-3">
@@ -46,7 +46,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">Teléfono</span>
                     </div>
-                    <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                    <input type="tel" class="form-control" id="telefono" name="telefono">
                 </div>
             </div>
        </div>
@@ -57,7 +57,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">Email</span>
                     </div>
-                    <input type="email" class="form-control" id="email" name="email"  required>
+                    <input type="email" class="form-control" id="email" name="email">
                 </div>
             </div>
             <div class="col-4 mb-3">
@@ -75,10 +75,13 @@
         </div>
         <div class="row">
             <div class="col-4 mb-3">
-                <label for="pais">pais</label>
-                <input type="text" id="autocomplete-pais" class="form-control autocomplete" style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
-                <input type="text" id="autocomplete-pais-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
-                <input type="text" class="form-control on-back" id="pais" name="pais" value="" style="color: white; background: white;z-index: 3;"  readonly="true"required>
+                <div class="form-group {{$errors->has('pais')?'has-error':''}}" >
+                    <label for="pais">pais</label>
+                    <input type="text" id="autocomplete-pais" class="form-control autocomplete" style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
+                    <input type="text" id="autocomplete-pais-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
+                    <input type="text" class="form-control on-back" id="pais" name="pais" style="color: white; background: white;z-index: 3;"  readonly="true"required>
+                    {!! $errors->first('pais','<span class="help-block alert alert-danger">:message </span>') !!}
+                </div>
             </div>
         </div>
 	   <div class="row">

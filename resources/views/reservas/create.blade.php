@@ -23,20 +23,20 @@
 
             <div class="col-2 mb-3">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" id="code" name="code" required>
+                <input type="text" class="form-control" id="code" name="code" onchange="validCode();" required>
             </div>
 
             <div class="col-4 mb-3">
                 <label for="description">Cliente</label>
-                <input type="text" id="autocomplete-cliente" class="form-control autocomplete" onchange="clearRooms();" style="width: 301px !important; border:none !important;  z-index: 2; background: transparent;" required/>
-                <input type="text" id="autocomplete-cliente-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 301px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
+                <input type="text" id="autocomplete-cliente" class="form-control autocomplete" onchange="clearRooms();" style="width: 290px !important; border:none !important;  z-index: 2; background: transparent;" required/>
+                <input type="text" id="autocomplete-cliente-x" class="form-control autocomplete on-back" disabled="disabled" style="width: 290px !important; border:none !important; color: #CCC; background: transparent; z-index: 1;"/>
                 <input type="text" class="form-control on-back" id="cliente" name="cliente"  style="color: white; background: white;z-index: 3;"  readonly="true"required>
             </div>
 
             <div class="col-3 mb-3">
              <label for="description">Fuente</label>
-              <input type="text"  id="autocomplete-fuente" class="form-control" style="width: 218px !important; border:none !important; position: absolute; z-index: 2; background: transparent;" required/>
-              <input type="text"  id="autocomplete-fuente-x" class="form-control" disabled="disabled" style="width: 218px !important; border:none !important; color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
+              <input type="text"  id="autocomplete-fuente" class="form-control" onchange="validSource()" style="width: 210px !important; border:none !important; position: absolute; z-index: 2; background: transparent;" required/>
+              <input type="text"  id="autocomplete-fuente-x" class="form-control" disabled="disabled" style="width: 210px !important; border:none !important; color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
               <input type="text" class="form-control" id="fuente" name="fuente" style="color: white; background: white;z-index: 3 "  readonly="true"required>
             </div>
 

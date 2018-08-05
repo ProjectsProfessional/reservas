@@ -9,10 +9,30 @@
     var rooms = [];
 
     $(document).ready(function(){
+
         addRoom();
+        mantaroryControls();
         cancelRoom();
+
+
+
     });
 
+    function validCode(){
+        $('#code').attr("class","form-control is-valid");
+    }
+    function validCustomer(){
+        $('#cliente').attr("class","form-control on-back is-valid");
+    }
+    function validSource(){
+        $('#fuente').attr("class","form-control on-back is-valid");
+    }
+    function mantaroryControls(){
+
+        $('#code').attr("class","form-control is-invalid");
+        $('#cliente').attr("class","form-control on-back is-invalid");
+        $('#fuente').attr("class","form-control  on-back is-invalid");
+    }
     function addPrice(rowId,currency,price) {
         var row = $("[data-id=\""+rowId+"\"]");
         var id = row.data('id');
@@ -142,6 +162,7 @@
         });
         restoreFoot();
         rooms = [];
+        validCustomer();
     }
 
     function saveReservation(){

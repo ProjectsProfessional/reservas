@@ -89,11 +89,13 @@
             codigo = tr[i].getElementsByTagName("td")[0];
             nombre = tr[i].getElementsByTagName("td")[2];
             estado = tr[i].getElementsByTagName("td")[4];
-            if ((codigo) || (nombre) || (estado)) {
+            desde = tr[i].getElementsByTagName("td")[5];
+            if ((codigo) || (nombre) || (estado) ||(desde)) {
                 if (
                     (codigo.innerHTML.toUpperCase().indexOf(filter) > -1) ||
                     (nombre.innerHTML.toUpperCase().indexOf(filter) > -1) ||
-                    (estado.innerHTML.toUpperCase().indexOf(filter) > -1)
+                    (estado.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+                    (desde.innerHTML.toUpperCase().indexOf(filter) > -1)
                 ){
                     tr[i].style.display = "";
                 } else {

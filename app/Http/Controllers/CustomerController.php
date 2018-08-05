@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 class CustomerController extends Controller
 {
@@ -64,7 +65,24 @@ class CustomerController extends Controller
 
         return response()->json(['message'=>false]);
     }
+
      public function store(){
+
+        $validator = Validator::make(request()->all(),[
+            'nombre'=>'required|string',
+            'primerApellido'=>'required|string',
+            'pais'=>'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->route('clients.create')
+                ->withErrors([
+                    'pais'=>'País No Válido',
+                    'nombre'=>'El nombre es obligatorio',
+                    'primerApellido'=>'El apellido es obligatorio'
+                ])
+                ->withInput(request(['pais']));
+        }
 
         $data = request()->all();
         $lastCustomer = DB::table('CLIENTE')->select(DB::raw('COUNT(1) AS Increment'))->first();
