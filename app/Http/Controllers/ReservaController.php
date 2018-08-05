@@ -16,7 +16,7 @@ class ReservaController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-	  	   $reservas=DB::table('DBV_DETALLES_RESERVAS')->paginate(10);
+	  	   $reservas=DB::table('DBV_DETALLES_RESERVAS')->paginate(200);
 	  	   $currencies = Currency::all();
          return view('reservas.index', compact('reservas','currencies'));
      }

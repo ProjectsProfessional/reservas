@@ -66,9 +66,9 @@
                         <span class="input-group-text" id="">Tipo de cliente</span>
                     </div>
                     <select class="form-control" name="tipoCliente" id="tipoCliente">
-                        <option value="">No Aplica</option>
                         <option value="PREF">Preferencial</option>
                         <option value="ESP">Especial</option>
+                        <option value="">No Aplica</option>
                     </select>
                 </div>
             </div>

@@ -17,7 +17,7 @@ class CustomerController extends Controller
         $this->middleware('auth');
     }
 	public function index(){
-    	    $client = Client::paginate(10);
+    	    $client = Client::paginate(200);
     	    $title = 'Listado de Clientes';
     	    return view('clients.index', compact('client','title'));
     	}

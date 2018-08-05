@@ -87,6 +87,7 @@
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
             codigo = tr[i].getElementsByTagName("td")[0];
+            cliente = tr[i].getElementsByTagName("td")[1];
             nombre = tr[i].getElementsByTagName("td")[2];
             estado = tr[i].getElementsByTagName("td")[4];
             desde = tr[i].getElementsByTagName("td")[5];
@@ -95,6 +96,7 @@
                     (codigo.innerHTML.toUpperCase().indexOf(filter) > -1) ||
                     (nombre.innerHTML.toUpperCase().indexOf(filter) > -1) ||
                     (estado.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+                    (cliente.innerHTML.toUpperCase().indexOf(filter) > -1)  ||
                     (desde.innerHTML.toUpperCase().indexOf(filter) > -1)
                 ){
                     tr[i].style.display = "";
