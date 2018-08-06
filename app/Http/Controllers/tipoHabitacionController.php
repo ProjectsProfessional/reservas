@@ -39,9 +39,9 @@ class tipoHabitacionController extends Controller
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
 		->join('IMPUESTO', 'PRECIO.ID_IMPUESTO', '=', 'IMPUESTO.ID_IMPUESTO')
 		->where('TIPO_HABITACION.ID_TIPO_HABITACION', '=', $id)
-		->select('TIPO_HABITACION.ID_TIPO_HABITACION', 'TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS',
+		->select('TIPO_HABITACION.ID_TIPO_HABITACION', 'TIPO_HABITACION.DESCRIPCION',
 		'PRECIO.PRECIO', 'PRECIO.BRUTO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
-		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'PRECIO.PERSONAS')->first();
+		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'TIPO_HABITACION.PERSONAS as PERSONAS')->first();
 
 		$precios = DB::table('PRECIO')
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
@@ -91,9 +91,10 @@ class tipoHabitacionController extends Controller
 	     $data = tipoHabitacion::find( $request->id);
 		$data ->DESCRIPCION=$request->description;
 		$data ->PERSONAS=$request->personas;
+		//dd($data);
 		$data->save();
 		$arr=$request->precios;
-		 $id=$request->id;
+		$id=$request->id;
 		for ($i=0; $i <count($arr) ; $i++) {
 		    $precio[$i]= new Price();
 		    $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];

@@ -54,21 +54,21 @@
         });
 
     }
-    function destroy(row) {
+    function myFunction(row) {
 	    //index de la columna
 	    index=row.rowIndex-1;
 	    //lo saco del arreglo
 	    arrPrices.splice(index, 1);
-	    //elimino la columna
-	    document.getElementById("myTable").deleteRow(index);
-	    //Visual
+	    alert(index);
 	    row.fadeOut();
-    }
+	    //elimino la columna
+	   // document.getElementById("myTable").deleteRow(index);
+	 }
     function cancelRoom(){
         $('.precios').on('click','.btn-outline-link',function () {
             var row = $(this).parents('tr');
-            //var id = row.find("td").eq(0).html(;
-           // row.fadeOut();
+            var id = row.find("td").eq(0).html();
+            row.fadeOut();
         });
     }
 </script>
