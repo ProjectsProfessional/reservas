@@ -114,7 +114,7 @@ class tipoHabitacionController extends Controller
     		         ->join('TIPO_HABITACION', function ($join) use($id) {
     		             $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
 	                  ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
-    		         })->get();
+			   })->delete();
     			DB::table('TIPO_HABITACION')->where('ID_TIPO_HABITACION', '=', $id)->delete();
 	    		return redirect()->route('tiposHabitaciones');
  	    } catch (\Illuminate\Database\QueryException $e)
