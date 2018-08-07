@@ -49,7 +49,6 @@
  	    method: 'put',
  	    data: arrdata,
  	    success: function(result){
- 		   alert(result.success);
  		   document.location.href="{{route('tiposHabitaciones.details',[$habitacion->ID_TIPO_HABITACION])}}";
  	    },
  	    error: function(jqXHR, textStatus, errorThrown) {
@@ -71,7 +70,7 @@
             method: 'put',
             data: arrdata,
 		  success: function(result){
-			 alert(result.success);
+			 alert('Actualizado correctamente');
 			 document.location.href="{{route('tiposHabitaciones')}}";
 		  },
 		  error: function(jqXHR, textStatus, errorThrown) {
@@ -87,7 +86,6 @@
         $('.precios').on('click','.btn-outline-link',function () {
             var row = $(this).parents('tr');
             var id = row.find("td").eq(0).html();
-		  arrPrices.splice(id.val(), 1);
             showRow(id);
             row.fadeOut();
         });

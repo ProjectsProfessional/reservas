@@ -39,9 +39,9 @@ class tipoHabitacionController extends Controller
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
 		->join('IMPUESTO', 'PRECIO.ID_IMPUESTO', '=', 'IMPUESTO.ID_IMPUESTO')
 		->where('TIPO_HABITACION.ID_TIPO_HABITACION', '=', $id)
-		->select('TIPO_HABITACION.ID_TIPO_HABITACION', 'TIPO_HABITACION.DESCRIPCION', 'TIPO_HABITACION.PERSONAS',
+		->select('TIPO_HABITACION.ID_TIPO_HABITACION', 'TIPO_HABITACION.DESCRIPCION',
 		'PRECIO.PRECIO', 'PRECIO.BRUTO', 'TIPO_HABITACION.ID_TIPO_HABITACION',
-		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'PRECIO.PERSONAS')->first();
+		'MONEDA.CODIGO as MONEDA', 'IMPUESTO.ID_IMPUESTO', 'TIPO_HABITACION.PERSONAS as PERSONAS')->first();
 
 		$precios = DB::table('PRECIO')
 		->join('MONEDA', 'PRECIO.ID_MONEDA', '=', 'MONEDA.ID_MONEDA')
@@ -66,43 +66,42 @@ class tipoHabitacionController extends Controller
 			'description' => 'required',
 			'personas' => 'required',
 		]);
-        $tipo = new tipoHabitacion();
-        $tipo->DESCRIPCION = $request->description;
-        $tipo->PERSONAS = $request->personas;
-        $tipo->save();
-
-        $id=$tipo->ID_TIPO_HABITACION;
-        $arr=$request->precios;
-
-        for ($i=0; $i <count($arr) ; $i++) {
-            $precio[$i]= new Price();
-            $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
-            $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
-            $precio[$i]->BRUTO=$request->precios[$i]["gross"];
-            $precio[$i]->PERSONAS=$request->precios[$i]["personas"];
-            $precio[$i]->PRECIO=$request->precios[$i]["price"];
-            $precio[$i]->ID_TIPO_HABITACION=$id;
-            $precio[$i]->save();
-        }
+		$tipo = new tipoHabitacion();
+		$tipo->DESCRIPCION = $request->description;
+		$tipo->PERSONAS = $request->personas;
+		$tipo->save();
+		$id=$tipo->ID_TIPO_HABITACION;
+		$arr=$request->precios;
+		for ($i=0; $i <count($arr) ; $i++) {
+			$precio[$i]= new Price();
+			$precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+			$precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+			$precio[$i]->BRUTO=$request->precios[$i]["gross"];
+			$precio[$i]->PERSONAS=$request->precios[$i]["personas"];
+			$precio[$i]->PRECIO=$request->precios[$i]["price"];
+			$precio[$i]->ID_TIPO_HABITACION=$id;
+			$precio[$i]->save();
+		}
         return response()->json(['success'=>'Tipo de habitación '.$tipo->DESCRIPCION.' Creado Correctamente']);
     }
     public function update(Request $request){
 	    //dd($request);
-	     $data = tipoHabitacion::find( $request->id);
+		$data = tipoHabitacion::find( $request->id);
 		$data ->DESCRIPCION=$request->description;
 		$data ->PERSONAS=$request->personas;
+		//dd($data);
 		$data->save();
 		$arr=$request->precios;
-		 $id=$request->id;
+		$id=$request->id;
 		for ($i=0; $i <count($arr) ; $i++) {
-		    $precio[$i]= new Price();
-		    $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
-		    $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
-		    $precio[$i]->BRUTO=$request->precios[$i]["gross"];
-		    $precio[$i]->PERSONAS=$request->precios[$i]["personas"];
-		    $precio[$i]->PRECIO=$request->precios[$i]["price"];
-		    $precio[$i]->ID_TIPO_HABITACION=$id;
-		    $precio[$i]->save();
+			$precio[$i]= new Price();
+			$precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+			$precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+			$precio[$i]->BRUTO=$request->precios[$i]["gross"];
+			$precio[$i]->PERSONAS=$request->precios[$i]["personas"];
+			$precio[$i]->PRECIO=$request->precios[$i]["price"];
+			$precio[$i]->ID_TIPO_HABITACION=$id;
+			$precio[$i]->save();
 		}
         return response()->json(['success'=>'Actualizado Correctamente']);
     }
@@ -115,7 +114,7 @@ class tipoHabitacionController extends Controller
     		         ->join('TIPO_HABITACION', function ($join) use($id) {
     		             $join->on('TIPO_HABITACION.ID_TIPO_HABITACION', '=', 'PRECIO.ID_TIPO_HABITACION')
 	                  ->where('PRECIO.ID_TIPO_HABITACION', '=',$id);
-    		         })->get();
+			   })->delete();
     			DB::table('TIPO_HABITACION')->where('ID_TIPO_HABITACION', '=', $id)->delete();
 	    		return redirect()->route('tiposHabitaciones');
  	    } catch (\Illuminate\Database\QueryException $e)
