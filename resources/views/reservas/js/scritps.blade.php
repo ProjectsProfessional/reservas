@@ -133,7 +133,6 @@
 
     function removeOnArray(id)
     {
-
         for(let i=0; i< rooms.length; i++){
             if(rooms[i]["habitacion"] ==id){
                 rooms.splice(i,1);

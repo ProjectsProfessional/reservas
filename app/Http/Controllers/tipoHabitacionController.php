@@ -66,29 +66,27 @@ class tipoHabitacionController extends Controller
 			'description' => 'required',
 			'personas' => 'required',
 		]);
-        $tipo = new tipoHabitacion();
-        $tipo->DESCRIPCION = $request->description;
-        $tipo->PERSONAS = $request->personas;
-        $tipo->save();
-
-        $id=$tipo->ID_TIPO_HABITACION;
-        $arr=$request->precios;
-
-        for ($i=0; $i <count($arr) ; $i++) {
-            $precio[$i]= new Price();
-            $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
-            $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
-            $precio[$i]->BRUTO=$request->precios[$i]["gross"];
-            $precio[$i]->PERSONAS=$request->precios[$i]["personas"];
-            $precio[$i]->PRECIO=$request->precios[$i]["price"];
-            $precio[$i]->ID_TIPO_HABITACION=$id;
-            $precio[$i]->save();
-        }
+		$tipo = new tipoHabitacion();
+		$tipo->DESCRIPCION = $request->description;
+		$tipo->PERSONAS = $request->personas;
+		$tipo->save();
+		$id=$tipo->ID_TIPO_HABITACION;
+		$arr=$request->precios;
+		for ($i=0; $i <count($arr) ; $i++) {
+			$precio[$i]= new Price();
+			$precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+			$precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+			$precio[$i]->BRUTO=$request->precios[$i]["gross"];
+			$precio[$i]->PERSONAS=$request->precios[$i]["personas"];
+			$precio[$i]->PRECIO=$request->precios[$i]["price"];
+			$precio[$i]->ID_TIPO_HABITACION=$id;
+			$precio[$i]->save();
+		}
         return response()->json(['success'=>'Tipo de habitación '.$tipo->DESCRIPCION.' Creado Correctamente']);
     }
     public function update(Request $request){
 	    //dd($request);
-	     $data = tipoHabitacion::find( $request->id);
+		$data = tipoHabitacion::find( $request->id);
 		$data ->DESCRIPCION=$request->description;
 		$data ->PERSONAS=$request->personas;
 		//dd($data);
@@ -96,14 +94,14 @@ class tipoHabitacionController extends Controller
 		$arr=$request->precios;
 		$id=$request->id;
 		for ($i=0; $i <count($arr) ; $i++) {
-		    $precio[$i]= new Price();
-		    $precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
-		    $precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
-		    $precio[$i]->BRUTO=$request->precios[$i]["gross"];
-		    $precio[$i]->PERSONAS=$request->precios[$i]["personas"];
-		    $precio[$i]->PRECIO=$request->precios[$i]["price"];
-		    $precio[$i]->ID_TIPO_HABITACION=$id;
-		    $precio[$i]->save();
+			$precio[$i]= new Price();
+			$precio[$i]->ID_MONEDA=$request->precios[$i]["moneda"];
+			$precio[$i]->ID_IMPUESTO=$request->precios[$i]["impuesto"];
+			$precio[$i]->BRUTO=$request->precios[$i]["gross"];
+			$precio[$i]->PERSONAS=$request->precios[$i]["personas"];
+			$precio[$i]->PRECIO=$request->precios[$i]["price"];
+			$precio[$i]->ID_TIPO_HABITACION=$id;
+			$precio[$i]->save();
 		}
         return response()->json(['success'=>'Actualizado Correctamente']);
     }

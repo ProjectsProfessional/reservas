@@ -21,7 +21,7 @@
                 price: row.find('#price').val()
             };
             arrPrices.push(arrPrice);
-            var new_row = "<tr onclick=\"myFunction(this)\">";
+            var new_row = "<tr>";
             for(var i = 0; i<1; i++){
                 new_row +="<td>"+ row.find('#personas').val() +"</td>";
                 new_row +="<td>"+ row.find('#currency:selected').eq(i).html() +"</td>";
@@ -54,21 +54,21 @@
         });
 
     }
-    function myFunction(row) {
-	    //index de la columna
-	    index=row.rowIndex-1;
-	    //lo saco del arreglo
-	    arrPrices.splice(index, 1);
-	    alert(index);
-	    row.fadeOut();
-	    //elimino la columna
-	   // document.getElementById("myTable").deleteRow(index);
-	 }
     function cancelRoom(){
         $('.precios').on('click','.btn-outline-link',function () {
             var row = $(this).parents('tr');
-            var id = row.find("td").eq(0).html();
+           var id = row.find("td").eq(2).html();
             row.fadeOut();
+		  removeOnArray(id);
         });
     }
+    function removeOnArray(id)
+    {
+	   for(let i=0; i< arrPrices.length; i++){
+		  if(arrPrices[i]["price"] ==id){
+			 arrPrices.splice(i,1);
+			 return false;
+		 }
+	   }
+   }
 </script>
