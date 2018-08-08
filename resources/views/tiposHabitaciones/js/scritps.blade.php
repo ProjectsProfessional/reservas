@@ -33,25 +33,29 @@
         });
     }
     function save(){
-        const arrdata = {
-            _token: "{{ csrf_token() }}",
-            description:  $('#description').val(),
-            personas:  $('#personas').val(),
-            precios: arrPrices
-        };
-        jQuery.ajax({
-            url: "{{ route('saveRooms') }}",
-            type: 'POST',
-            data: arrdata,
-            success: function(result){
-                alert(result.success);
-                document.location.href="{{route('tiposHabitaciones')}}";
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('Lo Sentimos, no ha sido posible crear el tipo de habitación.');
-                //alert(jqXHR.responseText);
-            }
-        });
+	    if(arrPrices.length!=0){
+		    const arrdata = {
+			   _token: "{{ csrf_token() }}",
+			   description:  $('#description').val(),
+			   personas:  $('#personas').val(),
+			   precios: arrPrices
+		    };
+		    jQuery.ajax({
+			   url: "{{ route('saveRooms') }}",
+			   type: 'POST',
+			   data: arrdata,
+			   success: function(result){
+				  alert(result.success);
+				  document.location.href="{{route('tiposHabitaciones')}}";
+			   },
+			   error: function(jqXHR, textStatus, errorThrown) {
+				  alert('Lo Sentimos, no ha sido posible crear el tipo de habitación.');
+				  //alert(jqXHR.responseText);
+			   }
+		    });
+	    }else{
+		    alert('Debe asignar por lo menos un precio');
+	    }
 
     }
     function cancelRoom(){

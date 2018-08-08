@@ -1,6 +1,6 @@
-<div class="sidebar-sticky content">
+<div class="sidebar-toggle content" id="sidebar-wrapper">
    <ul class="nav flex-column">
-      <li class="nav-item">
+      <li class="nav-item sidebar-nav">
          <a class="nav-link active"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
          <span data-feather="home"></span>
          Gestión <span class="sr-only">(current)</span>
@@ -203,6 +203,36 @@
          -->
    </ul>
 </div>
+<script type="text/javascript">
+$(window).resize(function() {
+var path = $(this);
+var contW = path.width();
+if(contW >= 751){
+	document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+}else{
+	document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+}
+});
+$(document).ready(function() {
+$('.dropdown').on('show.bs.dropdown', function(e){
+    $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+});
+$('.dropdown').on('hide.bs.dropdown', function(e){
+	$(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+});
+$("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	var elem = document.getElementById("sidebar-wrapper");
+	left = window.getComputedStyle(elem,null).getPropertyValue("left");
+	if(left == "200px"){
+		document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+	}
+	else if(left == "-200px"){
+		document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+	}
+});
+});
+</script>
 <!--
 <script type="text/javascript">
    $('.collapse').collapse();

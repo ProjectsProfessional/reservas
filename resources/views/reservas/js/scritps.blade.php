@@ -130,7 +130,6 @@
             removeOnArray(id);
         });
     }
-
     function removeOnArray(id)
     {
         for(let i=0; i< rooms.length; i++){

@@ -6,7 +6,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
-
     <title>@yield('title')</title>
 
     <!-- Bootstrap core CSS -->
@@ -18,7 +17,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow" >
+<nav class="navbar navbar-dark fixed-top bg-danger flex-md-nowrap p-0 shadow navbar-expand-lg" >
     <a class="navbar-brand col-sm-3 col-md-3 mr-0" href="{{url('/welcome')}}">Euro Hostal</a>
     <input class="form-control form-control-dark w-100 " type="text" placeholder="Buscar..." aria-label="Search">
     <div class="panel-body">
@@ -26,7 +25,7 @@
             {{csrf_field()}}
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
-                    <button class="btn btn-primary btn-block bg-primary">Desconectar</button>
+                    <button class="btn btn-primary btn-block bg-danger" style="border-color:#dc3545;">Desconectar</button>
                     <!--<a class="nav-link " href="{{route('login')}}" style="color: #fff;">Desconectar</a>-->
                 </li>
             </ul>
@@ -36,7 +35,15 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-3 container-fluid d-none d-md-block bg-light sidebar">
+        <nav class="col-md-3 container-fluid d-none d-md-block bg-light sidebar navbar navbar-default" role="navigation">
+		   <div class="navbar-header">
+			   <a id="menu-toggle" href="#" class="navbar-toggle">
+					   <span class="sr-only">Toggle navigation</span>
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+			   </a>
+		   </div>
             @include('main.menu')
         </nav>
 
