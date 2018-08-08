@@ -190,8 +190,28 @@
                 document.location.href="{{route('reservas')}}";
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert('No fue posible crear la reserva, contacte con el administrador del sistema');
-                //alert(jqXHR.responseText);
+                //console.log(jqXHR.responseText +' HTTP: ' + jqXHR.status);
+                if (jqXHR.status == 422) {
+
+
+                    var errors = jQuery.parseJSON(jqXHR.responseText);
+                    var messagge = "";
+
+                    $.each(errors.errors, function (index, value) {
+                        messagge += "*" + value + "<br/>";
+                    });
+                    $(".alert").remove();
+                    $('#errors').append("<div class='alert alert-danger lert-dismissible fade show' role='alert'>\n" +
+                        "                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>\n" +
+                        "                    <span aria-hidden='true'>&times;</span>\n" +
+                        "                </button>\n" +
+                        "                <h4 class='alert-heading'>Error al Crear la reserva!</h4>\n" +
+                        "                <p>Es necesario corregir los siguientes errores previo a la creación de la reserva</p> <hr>\n" +
+                        "                <p class='mb-0'>\n" + messagge + "</p>\n" +
+                        "                </div>");
+                }else{
+                    alert("No fue posible crear la reserva, Por favor contacte a su administrador");
+                }
             }
         });
     }

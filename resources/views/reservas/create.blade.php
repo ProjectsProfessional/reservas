@@ -17,6 +17,9 @@
     </div>
 @endsection
 @section('content')
+    <div id="errors">
+
+    </div>
     <form class="needs-validation" method="POST" action="{{url('/reservas')}}">
         {{csrf_field()}}
         <div class="row">

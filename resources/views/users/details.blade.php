@@ -54,50 +54,5 @@
         $("#changePass").click(function() {
             $('#saveEmail').val("{{$user->email}}");
         });
-        /*
-        $("#submit").click(function() {
-            var newPassword = $('#newPassword').val();
-            var verifyPassword = $('#verifyPassword').val();
-            if(newPassword !=verifyPassword){
-                alert("la Nueva clave no coincide, Por  favor corrija los campos.");
-                password = $('#password').val("");
-                newPassword = $('#newPassword').val("");
-                verifyPassword = $('#verifyPassword').val("");
-            }
-        });
-        /*
-        $("#changePass").click(function() {
-            var password = $('#password').val();
-            var newPassword = $('#newPassword').val();
-            var verifyPassword = $('#verifyPassword').val();
-
-            if(newPassword ==verifyPassword){
-             let data= {
-                 _token: "{{ csrf_token() }}",
-                 user: "{{$user->id}}",
-                 email: "{{$user->email}}",
-                 password: password,
-                 newPassword: newPassword
-             };
-
-             $.ajax({
-                 url: "{{ route('user.password') }}",
-                 method: 'post',
-                 data: data,
-                 success: function(result){
-                     alert(result.message);
-                 },
-                 error: function(jqXHR, textStatus, errorThrown) {
-                     //alert('Lo Sentimos, no ha sido posible crear el tipo de habitación.');
-                     alert(jqXHR.responseText);
-                 }
-             });
-            }else{
-                alert("la Nueva clave no coincide, Por  favor corrija los campos.");
-                password = $('#password').val("");
-                newPassword = $('#newPassword').val("");
-                verifyPassword = $('#verifyPassword').val("");
-            }*/
-
     </script>
 @endsection

@@ -36,7 +36,6 @@
                 <th>Cod de vuelo</th>
                 <th>Importe</th>
                 <th>Detalles</th>
-                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -63,11 +62,6 @@
                             <span data-feather="edit"></span>
                             Ver Detalles
                         </a>
-                    </td>
-                    <td>
-                        {!! Form::open(['route'=>['reservas.destroy', $reserva->ID_RESERVA], 'method'=>'DELETE'])!!}
-                            {!! Form::submit('Eliminar', ['class'=>'btn btn-danger']) !!}
-                        {!! Form::close() !!}
                     </td>
                 </tr>
             @empty

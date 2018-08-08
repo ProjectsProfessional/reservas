@@ -8,6 +8,7 @@ use App\Models\habitaciones;
 use App\Models\habitacion_reserva;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Validator;
 
 class ReservaController extends Controller
 {
@@ -74,35 +75,52 @@ class ReservaController extends Controller
         return view('reservas.details',compact('reserva', 'habitaciones'));
      }
 
-     public function store(request $request)
+     public function store(/*request $request*/)
      {
+         $data = request()->validate([
+             'code'=>'required|unique:Reserva,CODIGO|max:5',
+             'cliente'=>'required|numeric',
+             'fuente'=>'required',
+             'personas'=>'required|numeric',
+             'fechaIngreso'=>'',
+             'fechaSalida'=>'',
+             'codigoVuelo'=>'',
+             'habitaciones' =>'',
+         ],[
+             'code.required'=>'El Código de la reserva es obligatorio',
+             'code.unique'=>'El código de Reserva ya ha sido ingresado al sistema',
+             'code.max'=>'No es posible sobrepasar 5 Caracteres para el código de reserva',
+             'cliente.required'=>'Es obligatorio ingresar el cliente de reserva',
+             'code.digits'=>'El cliente ingresado no es válido',
+             'fuente.required'=>'Es obligatorio ingresar la fuente de reserva',
+             'personas.required'=>'Es obligatorio ingresar Las personas de reserva',
+             'personas.digits'=>'Las personas deben ingresarse unicamente con números',
+         ]);
 
          $reservation = new Reserva();
-         $reservation->CODIGO = $request->code;
-         $reservation->ID_CLIENTE = $request->cliente;
-         $reservation->ID_FUENTE = $request->fuente;
+         $reservation->CODIGO = $data["code"];
+         $reservation->ID_CLIENTE = $data["cliente"];
+         $reservation->ID_FUENTE = $data["fuente"];
          $reservation->ID_ESTADO_RESERVA = '1';
-         $reservation->PERSONAS = $request->personas;
-         $reservation->FECHA_INGRESO = $request->fechaIngreso;
-         $reservation->FECHA_RETIRO = $request->fechaSalida;
-         $reservation->CODIGO_VUELO = $request->codigoVuelo;
-
+         $reservation->PERSONAS = $data["personas"];
+         $reservation->FECHA_INGRESO = $data["fechaIngreso"];
+         $reservation->FECHA_RETIRO = $data["fechaSalida"];
+         $reservation->CODIGO_VUELO = $data["codigoVuelo"];
          DB::beginTransaction();
-
          $reservation->save();
-         for ($i = 0; $i < count($request->habitaciones); $i++) {
+
+         for ($i = 0; $i < count($data["habitaciones"]); $i++) {
              $detail = new habitacion_reserva();
-             $detail->ID_HABITACION = $request->habitaciones[$i]["habitacion"];
+             $detail->ID_HABITACION = $data["habitaciones"][$i]["habitacion"];
              $detail->ID_RESERVA = $reservation->ID_RESERVA;
-             $detail->ID_MONEDA = $this->getCurrency($request->habitaciones[$i]["moneda"]);
-             $detail->PRECIO = $request->habitaciones[$i]["precio"];
+             $detail->ID_MONEDA = $this->getCurrency($data["habitaciones"][$i]["moneda"]);
+             $detail->PRECIO = $data["habitaciones"][$i]["precio"];
              $detail->save();
 
              DB::commit();
-
          }
          DB::rollBack();
-         return response()->json(['message'=>'Se creado la reserva : '.$reservation->ID_RESERVA .' exitosamente']);
+         return response()->json(['message'=>'Se creado la reserva : '. $reservation->CODIGO .' exitosamente']);
      }
 
      private function getCurrency($currency){
@@ -111,17 +129,10 @@ class ReservaController extends Controller
             ->where('CODIGO',$currency)
             ->first()->ID_MONEDA;
      }
+
      public function update(Reserva $reserva){
- 	    $data = request()->all();
-  	   	//dd($data);
+ 	    $data = request()->only('codigoVuelo');
  		$reserva->update([
- 		    'CODIGO' => $data['code'],
-            'DESCRIPCION'   => $data['description'],
-  		   'ID_CLIENTE'   => $data['cliente'],
-  		   'ID_FUENTE'   => $data['fuente'],
-  		   'ID_ESTADO_RESERVA'   => $data['estado'],
-  		   'FECHA_INGRESO'   => $data['fechaIngreso'],
-  		   'FECHA_RETIRO'   => $data['fechaSalida'],
   		   'CODIGO_VUELO'   => $data['codigoVuelo'],
  		]);
  	    return redirect()->route('reservas');
