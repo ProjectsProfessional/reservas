@@ -147,15 +147,23 @@
          <span data-feather="calendar"></span>
          Reservas
          </a>
-         <ul class = "nav-tabs navbar-collapse" >
-            <li id="collapseSocios" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-               <a class="nav-link" href="{{route('reservas')}}">
-               <span data-feather="calendar"></span>
-               Reservas
-               </a>
-            </li>
-         </ul>
       </li>
+         <div id="collapseSocios" class="collapse" data-parent="#accordion">
+            <ul class = "nav-tabs navbar-collapse" >
+               <li>
+                  <a class="nav-link" href="{{route('reservas')}}">
+                     <span data-feather="calendar"></span>
+                     Reservas
+                  </a>
+               </li>
+               <li>
+                  <a class="nav-link" href="{{route('reservas.available')}}">
+                     <span data-feather="check-square"></span>
+                     Disponibilidad
+                  </a>
+               </li>
+            </ul>
+         </div>
 
    <!--
       <li class="nav-item" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="false" aria-controls="collapseReportes">

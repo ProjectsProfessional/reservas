@@ -210,7 +210,8 @@
                         "                <p class='mb-0'>\n" + messagge + "</p>\n" +
                         "                </div>");
                 }else{
-                    alert("No fue posible crear la reserva, Por favor contacte a su administrador");
+                    alert(jqXHR.responseText +' HTTP: ' + jqXHR.status);
+                    //alert("No fue posible crear la reserva, Por favor contacte a su administrador");
                 }
             }
         });

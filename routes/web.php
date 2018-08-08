@@ -162,6 +162,9 @@ Route::get('/reservas/{reserva}','ReservaController@details')
     ->where('reserva','\d+')
     ->name('reservas.details');
 
+Route::get('/reservas/disponibilidad',function(){
+    return view('reservas.available');
+})->name('reservas.available');
 ###########################################################
 //REPORTES
 Route::get('/reports/dailyReport','dailyReportController@index')

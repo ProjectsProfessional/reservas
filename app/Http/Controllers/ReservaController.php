@@ -8,7 +8,6 @@ use App\Models\habitaciones;
 use App\Models\habitacion_reserva;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Validator;
 
 class ReservaController extends Controller
 {
@@ -16,6 +15,7 @@ class ReservaController extends Controller
     {
         $this->middleware('auth');
     }
+
 	public function index(){
 	  	   $reservas=DB::table('DBV_DETALLES_RESERVAS')->paginate(200);
 	  	   $currencies = Currency::all();
@@ -75,7 +75,7 @@ class ReservaController extends Controller
         return view('reservas.details',compact('reserva', 'habitaciones'));
      }
 
-     public function store(/*request $request*/)
+     public function store()
      {
          $data = request()->validate([
              'code'=>'required|unique:Reserva,CODIGO|max:5',
@@ -98,7 +98,7 @@ class ReservaController extends Controller
          ]);
 
          $reservation = new Reserva();
-         $reservation->CODIGO = $data["code"];
+         $reservation->CODIGO = DB::select("SELECT DATE_FORMAT(NOW(),'%Y%m%d%H%i') AS code")[0]->code.'-'.$data["code"];
          $reservation->ID_CLIENTE = $data["cliente"];
          $reservation->ID_FUENTE = $data["fuente"];
          $reservation->ID_ESTADO_RESERVA = '1';
@@ -169,5 +169,9 @@ class ReservaController extends Controller
         dd("Página en Mantenimiento, Conctacte con su administrador");
         $deleted = DB::delete('delete from reserva where reserva.id_reserva = ? and habitacion_reserva.id_reserva', [$id]);
         return redirect()->route('reservas');
+     }
+
+     public function available(){
+
      }
 }
