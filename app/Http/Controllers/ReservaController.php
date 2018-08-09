@@ -177,7 +177,7 @@ class ReservaController extends Controller
         $filter = $data['filter'];
 
         if($data['filter']=='available'){
-            $title="Habitaciones Disponibles";
+            $title="Habitaciones Disponibles Del ".$data['from']." Al ".$data['to'];
             $habitaciones= DB::table('DBV_HABITACIONES_DISP')
                 ->select('HABITACION','DESCRIPCION','TIPO_HAB')
                 ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
@@ -187,7 +187,7 @@ class ReservaController extends Controller
                 ->groupBy('HABITACION','DESCRIPCION','TIPO_HAB')
                 ->get();
         }elseif($data['filter']=='unavailable'){
-            $title="Habitaciones Reservadas";
+            $title="Habitaciones Reservadas Del ".$data['from']." Al ".$data['to'];
             $habitaciones= DB::table('RESERVA')
                 ->join('HABITACION_RESERVA','RESERVA.ID_RESERVA','HABITACION_RESERVA.ID_RESERVA')
                 ->join('HABITACION','HABITACION_RESERVA.ID_HABITACION','HABITACION.ID_HABITACION')
