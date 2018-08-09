@@ -3,48 +3,89 @@
 @section('content-title',"Disponibilidad de habitaciones")
 
 @section('content-header-buttons')
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <form class="needs-validation" method="POST" action="{{route('reservas.rooms.available')}}">
+            {{csrf_field()}}
+            <div class="row">
+                <div class="col-4 mb-3">
+                    <label for="from">Fecha de ingreso</label>
+                    <input type="date" class="form-control" id="from" name="from" required>
+                </div>
 
+                <div class="col-4 mb-3">
+                    <label for="from">Fecha de ingreso</label>
+                    <input type="date" class="form-control" id="to" name="to" required>
+                </div>
+
+                <div class="col-4 mb-3">
+                    <label for="from">Habitaciones</label>
+                    <select class="form-control" name="filter" id="filter" required>
+                        <option value="available">Disponibles</option>
+                        <option value="unavailable">Reservadas</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn-sm btn-outline-secondary">
+                <span data-feather="search"></span>
+                Buscar
+            </button>
+        </form>
+    </div>
 @endsection
 @section('content')
-    <div class="row">
-        <div class="col-4">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">Desde</span>
-                </div>
-                <input type="date" class="form-control" id="from" name="from">
+    @isset($habitaciones)
+        @if($filter == 'available')
+            <h2>{{$title}}</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Habitacion</th>
+                        <th>Tipo Habitacion</th>
+                        <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($habitaciones as $habitacion)
+                            <tr>
+                                <td>{{$habitacion->HABITACION}}</td>
+                                <td>{{$habitacion->TIPO_HAB}}</td>
+                                <td>{{$habitacion->DESCRIPCION}}</td>
+                            </tr>
+                        @empty
+                            <p><strong> No Se encuentran habitaciones disponibles</strong></p>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-        </div>
-
-        <div class="col-4">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">hasta</span>
-                </div>
-                <input type="date" class="form-control" id="to" name="to">
+        @else
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Codigo De Reserva </th>
+                        <th>Personas</th>
+                        <th>HABITACION</th>
+                        <th>Moneda</th>
+                        <th>Precio</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($habitaciones as $habitacion)
+                        <tr>
+                            <td>{{$habitacion->CODIGO}}</td>
+                            <td>{{$habitacion->PERSONAS}}</td>
+                            <td>{{$habitacion->DETALLES}}</td>
+                            <td>{{$habitacion->MONEDA}}</td>
+                            <td>{{$habitacion->PRECIO}}</td>
+                        </tr>
+                    @empty
+                        <p><strong> No Se encuentran habitaciones disponibles</strong></p>
+                    @endforelse
+                    </tbody>
+                </table>
             </div>
-        </div>
-
-        <div class="col-4">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">Tipo de Búsqueda</span>
-                </div>
-                <select class="form-control" name="filter" id="filter" required>
-                    <option value="available">Hab Disponibles</option>
-                    <option value="unavailable">Hab Reservadas</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <br>
-        <div class="col-12"></div>
-        <div class="col-6">
-            <button type="button" class="btn btn-lg btn-outline-primary" onclick="saveReservation();">
-                <span data-feather="save"></span>
-                Buscar...
-            </button>
-        </div>
-    </div>
+        @endif
+    @endisset
 @endsection

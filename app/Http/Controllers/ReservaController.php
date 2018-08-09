@@ -78,7 +78,7 @@ class ReservaController extends Controller
      public function store()
      {
          $data = request()->validate([
-             'code'=>'required|unique:Reserva,CODIGO|max:5',
+             'code'=>'required|unique:RESERVA,CODIGO|max:5',
              'cliente'=>'required|numeric',
              'fuente'=>'required',
              'personas'=>'required|numeric',
@@ -171,7 +171,35 @@ class ReservaController extends Controller
         return redirect()->route('reservas');
      }
 
-     public function available(){
+     public function availability(){
 
+        $data = request()->all();
+        $filter = $data['filter'];
+
+        if($data['filter']=='available'){
+            $title="Habitaciones Disponibles";
+            $habitaciones= DB::table('DBV_HABITACIONES_DISP')
+                ->select('HABITACION','DESCRIPCION','TIPO_HAB')
+                ->whereRaw('HABITACION NOT IN(SELECT T0.HABITACION FROM DBV_HABITACIONES_DISP T0 WHERE 
+                    T0.FECHA_INGRESO = ? OR (T0.FECHA_INGRESO = ? AND T0.FECHA_RETIRO = ?))',
+                    [$data['from'],$data['from'], $data['to']]
+                )
+                ->groupBy('HABITACION','DESCRIPCION','TIPO_HAB')
+                ->get();
+        }elseif($data['filter']=='unavailable'){
+            $title="Habitaciones Reservadas";
+            $habitaciones= DB::table('RESERVA')
+                ->join('HABITACION_RESERVA','RESERVA.ID_RESERVA','HABITACION_RESERVA.ID_RESERVA')
+                ->join('HABITACION','HABITACION_RESERVA.ID_HABITACION','HABITACION.ID_HABITACION')
+                ->join('MONEDA','HABITACION_RESERVA.ID_MONEDA','MONEDA.ID_MONEDA')
+                ->selectRaw('RESERVA.CODIGO AS CODIGO,RESERVA.PERSONAS, HABITACION.DETALLES,MONEDA.CODIGO AS MONEDA,
+                    ROUND(PRECIO,2) AS PRECIO')
+                ->whereRaw('FECHA_INGRESO  >= ? AND FECHA_RETIRO <= ?',
+                    [$data['from'],$data['to']]
+                )
+                ->get();
+        }
+        return view('reservas.available',compact('title','filter','habitaciones'));
      }
+
 }

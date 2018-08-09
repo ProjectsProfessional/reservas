@@ -165,6 +165,10 @@ Route::get('/reservas/{reserva}','ReservaController@details')
 Route::get('/reservas/disponibilidad',function(){
     return view('reservas.available');
 })->name('reservas.available');
+
+Route::post('/reservas/disponibilidad','ReservaController@availability')
+    ->name('reservas.rooms.available');
+
 ###########################################################
 //REPORTES
 Route::get('/reports/dailyReport','dailyReportController@index')
